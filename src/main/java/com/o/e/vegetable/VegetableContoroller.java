@@ -19,4 +19,16 @@ public class VegetableContoroller {
 		
 		return "vegetable/vegetable";
 	}
+	
+	@RequestMapping(value = "regVegetable", method = RequestMethod.GET)
+	public String regVegetable(HttpServletRequest req) {
+		
+		return "vegetable/regVegetable";
+	}
+	
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String vegetableDetail(HttpServletRequest req) {
+		
+		return "vegetable/detail";
+	}
 }

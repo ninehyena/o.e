@@ -1,12 +1,13 @@
 -- 채소 정보
 create table oe_vegetable(
 	v_num number primary key,
-	v_name varchar2(20) not null,
+	v_name varchar2(20 char) not null,
 	v_gram number not null,
 	v_kcal number(5,2),
 	v_carbohydrate number(5,2),
 	v_natrium number(5,2),
-	v_sugar number(5,2)
+	v_sugar number(5,2),
+	v_photo varchar2(200 char)
 );
 
 create sequence oe_vegatable_seq;

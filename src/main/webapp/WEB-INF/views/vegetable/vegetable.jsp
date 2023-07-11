@@ -3,7 +3,7 @@
 
 <%@ include file="../header.jsp"%>
 
-<header id="gtco-header" class="gtco-cover gtco-cover-sm" role="banner"
+<header id="gtco-header" class="gtco-cover gtco-cover-sm-v" role="banner"
 	style="background-image: url(resources/images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
@@ -11,12 +11,10 @@
 		<div class="row">
 			<div class="col-md-12 col-md-offset-0 text-center">
 
-				<div class="row row-mt-15em">
+				<div class="row">
 					<div class="col-md-12 mt-text animate-box"
 						data-animate-effect="fadeInUp">
-						<span class="intro-text-small">Hand-crafted by <a
-							href="http://gettemplates.co" target="_blank">GetTemplates.co</a></span>
-						<h1 class="cursive-font">VEGETABLES-1</h1>
+						<h1 class="cursive-font">VEGETABLES</h1>
 					</div>
 				</div>
 
@@ -27,8 +25,14 @@
 
 
 
-<div class="gtco-section">
+<div class="gtco-section-v">
 	<div class="gtco-container">
+		<div class="row">
+			  <form class="form-inline oe_float_right">
+			    <input class="form-control mr-sm-2" type="search" placeholder="채소 찾기">
+			    <button class="btn btn-primary" type="submit">Search</button>
+			  </form>
+		</div>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 				<h2 class="cursive-font primary-color">Popular Vegetables</h2>
@@ -41,7 +45,7 @@
 		
 			<c:forEach var="l" items="${List }">
 				<div class="col-lg-4 col-md-4 col-sm-6">
-					<a href="images/img_1.jpg" class="fh5co-card-item image-popup">
+					<a href="detail" class="fh5co-card-item ">
 						<figure>
 							<div class="overlay">
 								<i class="ti-plus"></i>

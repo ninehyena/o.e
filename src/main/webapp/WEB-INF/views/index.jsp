@@ -11,8 +11,8 @@
 
 					<div class="row row-mt-15em">
 						<div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
-							<span class="intro-text-small">Hand-crafted by <a href="http://gettemplates.co" target="_blank">GetTemplates.co</a></span>
-							<h1 class="cursive-font">All in good taste!</h1>	
+							<span class="intro-text-small">균형잡힌 채소 섭취를 위한 맞춤 채소 추천, <a href="/e">오늘 이런 채소 어때요?</a></span>
+							<h1 class="cursive-font">How about these vegetables today?</h1>	
 						</div>
 						<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
 							<div class="form-wrap">

@@ -20,3 +20,17 @@
     -o-transition: 0.5s;
     transition: 0.5s;
 }
+
+.gtco-section-v .gtco-container .row .oe_float_right {
+	float: right;
+}
+
+.gtco-cover.gtco-cover-sm-v {
+    height: 300px;
+}
+
+.gtco-section-v {
+    padding: 2em 0;
+    clear: both;
+    position: relative;
+}

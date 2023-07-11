@@ -12,6 +12,19 @@ public class VegetableDAO {
 	@Autowired
 	private SqlSession ss;
 	
+	// 채소 등록
+	public void regVegetable(HttpServletRequest req) {
+		try {
+			String path = req.getRealPath("resources/images");
+			System.out.println(path);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 채소 리스트 가져오기
 	public void getList(HttpServletRequest req) {
 		try {
 			req.setAttribute("List", ss.getMapper(VegetableMapper.class).getList());
