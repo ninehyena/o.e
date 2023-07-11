@@ -16,7 +16,7 @@
 						data-animate-effect="fadeInUp">
 						<span class="intro-text-small">Hand-crafted by <a
 							href="http://gettemplates.co" target="_blank">GetTemplates.co</a></span>
-						<h1 class="cursive-font">VEGETABLES</h1>
+						<h1 class="cursive-font">VEGETABLES-1</h1>
 					</div>
 				</div>
 
