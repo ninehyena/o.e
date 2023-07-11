@@ -16,6 +16,7 @@
 	<context:annotation-config />
 	<tx:annotation-driven />
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/images/**" location="/resources/images/" />
 
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -43,7 +44,7 @@
 		<beans:property name="typeAliasesPackage" value="com.o.e" />
 		<beans:property name="mapperLocations">
 			<beans:list>
-				<!-- <beans:value>classpath:[mapper.xml파일명]</beans:value> -->
+				<beans:value>classpath:vegetableMapper.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>
