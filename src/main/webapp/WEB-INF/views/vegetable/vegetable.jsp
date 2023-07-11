@@ -16,7 +16,7 @@
 						data-animate-effect="fadeInUp">
 						<span class="intro-text-small">Hand-crafted by <a
 							href="http://gettemplates.co" target="_blank">GetTemplates.co</a></span>
-						<h1 class="cursive-font">VEGETABLE</h1>
+						<h1 class="cursive-font">VEGETABLES</h1>
 					</div>
 				</div>
 
@@ -48,14 +48,12 @@
 							</div>
 							<img src="images/img_1.jpg" alt="Image" class="img-responsive">
 						</figure>
-						<div class="fh5co-text">
+						<div class="fh5co-text-v">
 							<h2>${l.v_name }</h2>
 							<p>1회 제공량: ${l.v_gram }g / ${l.v_kcal }kcal</p>
-							<p>탄수화물: ${l.v_carbohydrate}g / 나트륨: ${l.v_natrium }mg / 당류: ${l.v_sugar }g</p>
+							<p>탄수화물: ${l.v_carbohydrate}g / 나트륨: ${l.v_natrium }mg <br> 당류: ${l.v_sugar }g</p>
 							
-							<p>
-								<span class="price cursive-font">$19.15</span>
-							</p>
+							
 						</div>
 					</a>
 				</div>

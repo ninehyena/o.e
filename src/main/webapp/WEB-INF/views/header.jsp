@@ -53,6 +53,7 @@
 
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="resources/css/style.css">
+	<link rel="stylesheet" href="resources/css/oe_style.css">
 
 	<!-- Modernizr JS -->
 	<script src="resources/js/modernizr-2.6.2.min.js"></script>
@@ -79,7 +80,7 @@
 				</div>
 				<div class="col-xs-8 text-right menu-1">
 					<ul>
-						<li><a href="vegetable">Menu</a></li>
+						<li><a href="vegetable">Vegetables</a></li>
 						<li class="has-dropdown">
 							<a href="services.html">Services</a>
 							<ul class="dropdown">
