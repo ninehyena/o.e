@@ -62,6 +62,13 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
+	<!-- 회원가입 JS 시작 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript" src="resources/oejs/signup/jQuery.js"></script>
+	<script type="text/javascript" src="resources/oejs/signup/signup.js"></script>
+	<script type="text/javascript" src="resources/oejs/signup/addressCheck.js"></script>
+	<!-- 회원가입 JS 끝 -->
+
 	</head>
 	<body>
 		
