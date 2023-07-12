@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.fh5co-card-item .fh5co-text-v {
+    padding: 0px 10px 10px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 22;
+}
+
+.fh5co-card-item .fh5co-text-v h2 {
+	font-size: 30px;
+	font-weight: bold;
+	margin: 0 0 10px 0;
+	color: #FBB448;
+}
+
+.fh5co-card-item .fh5co-text-v p {
+    color: #000;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.gtco-section-v .gtco-container .row .oe_float_right {
+	float: right;
+}
+
+.gtco-cover.gtco-cover-sm-v {
+    height: 300px;
+}
+
+.gtco-section-v {
+    padding: 2em 0;
+    clear: both;
+    position: relative;
+}
