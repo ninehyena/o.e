@@ -19,4 +19,8 @@
 	<select id="userIdCheck" resultType="int">
 		SELECT COUNT(*) FROM oe_member WHERE m_id = #{m_id}
 	</select>
+	<!-- 이름 중복 확인 -->
+	<select id="userNameCheck" resultType="int">
+		SELECT COUNT(*) FROM oe_member WHERE m_nickname = #{m_nickname}
+	</select>
 </mapper>

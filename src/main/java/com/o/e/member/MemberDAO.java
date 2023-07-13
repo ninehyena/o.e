@@ -33,4 +33,10 @@ public class MemberDAO {
 		MemberMapper mm = ss.getMapper(MemberMapper.class);
 	    return mm.userIdCheck(m_id);
 	   }
+	//이름 중복 검사
+	public int userNameCheck(String m_nickname) throws Exception {
+		MemberMapper mm = ss.getMapper(MemberMapper.class);
+		return mm.userNameCheck(m_nickname);
+	}
+
 }
