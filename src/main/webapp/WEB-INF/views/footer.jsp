@@ -72,6 +72,9 @@
 
 	<!-- Main -->
 	<script src="resources/js/main.js"></script>
+	
+	<!-- oe -->
+	<script src="resources/js/oe_lesson.js"></script>
 
 	</body>
 </html>
