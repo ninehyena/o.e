@@ -44,7 +44,7 @@
 		<beans:property name="typeAliasesPackage" value="com.o.e" />
 		<beans:property name="mapperLocations">
 			<beans:list>
-				<beans:value>classpath:vegetableMapper.xml</beans:value>
+				<beans:value>classpath:lessonMapper.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>

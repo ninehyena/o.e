@@ -14,7 +14,7 @@
 				<div class="row">
 					<div class="col-md-12 mt-text animate-box"
 						data-animate-effect="fadeInUp">
-						<h1 class="cursive-font">VEGETABLES</h1>
+						<h1 class="cursive-font">LESSONS</h1>
 					</div>
 				</div>
 
@@ -28,35 +28,38 @@
 <div class="gtco-section-v">
 	<div class="gtco-container">
 		<div class="row">
+		<button class="btn btn-primary" onclick="regLesson();">레슨 등록</button>
 			  <form class="form-inline oe_float_right">
-			    <input class="form-control mr-sm-2" type="search" placeholder="채소 찾기">
+			  	<select class="form-control mr-sm-2" name="category">
+			  		<option>레슨 종류</option>
+			  		<option>레슨 지역</option>
+			  		<option>레슨 타입</option>
+			  	</select>
+			    <input class="form-control mr-sm-2" type="search" name="search" placeholder="find lesson">
 			    <button class="btn btn-primary" type="submit">Search</button>
 			  </form>
 		</div>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-				<h2 class="cursive-font primary-color">Popular Vegetables</h2>
-				<p>Dignissimos asperiores vitae velit veniam totam fuga
-					molestias accusamus alias autem provident. Odit ab aliquam dolor
-					eius.</p>
+				<h2 class="cursive-font primary-color">Find the lesson you want!</h2>
 			</div>
 		</div>
 		<div class="row">
 		
 			<c:forEach var="l" items="${List }">
 				<div class="col-lg-4 col-md-4 col-sm-6">
-					<a href="detail" class="fh5co-card-item ">
+					<a href="lessonDetail" class="fh5co-card-item ">
 						<figure>
 							<div class="overlay">
 								<i class="ti-plus"></i>
 							</div>
-							<img src="images/img_1.jpg" alt="Image" class="img-responsive">
+							<!-- <img src="images/img_1.jpg" alt="Image" class="img-responsive"> -->
+							<img src="images/${l.l_category }.png" alt="Image" class="img-responsive">
+							
 						</figure>
 						<div class="fh5co-text-v">
-							<h2>${l.v_name }</h2>
-							<p>1회 제공량: ${l.v_gram }g / ${l.v_kcal }kcal</p>
-							<p>탄수화물: ${l.v_carbohydrate}g / 나트륨: ${l.v_natrium }mg <br> 당류: ${l.v_sugar }g</p>
-							
+							<h2>${l.l_category }</h2>
+							<p>레슨 타입: ${l.l_type } / 레슨 레벨: ${l.l_level }</p>
 							
 						</div>
 					</a>
