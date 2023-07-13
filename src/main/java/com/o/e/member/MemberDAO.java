@@ -24,6 +24,13 @@ public class MemberDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("회원가입 실패");
+			
 		}
 	}
+	
+	//아이디 중복 검사
+	public int userIdCheck(String m_id) throws Exception {
+		MemberMapper mm = ss.getMapper(MemberMapper.class);
+	    return mm.userIdCheck(m_id);
+	   }
 }

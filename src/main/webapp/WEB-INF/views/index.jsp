@@ -20,37 +20,37 @@
 									
 									<div class="tab-content">
 										<div class="tab-content-inner active" data-content="signup">
-											<h3 class="cursive-font">Table Reservation</h3>
-											<form action="#">
+											<h3 class="cursive-font">로그인</h3>
+											<form action="#" method="POST">
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label for="activities">Persons</label>
+														<label for="activities">User</label>
 														<select name="#" id="activities" class="form-control">
-															<option value="">Persons</option>
-															<option value="">1</option>
-															<option value="">2</option>
-															<option value="">3</option>
-															<option value="">4</option>
-															<option value="">5+</option>
+															<option value="">User</option>
+															<option value="">guest</option>
+															<option value="">admin</option>
 														</select>
 													</div>
 												</div>
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label for="date-start">Date</label>
-														<input type="text" id="date" class="form-control">
+														<!-- <label for="date-start">Date</label> -->
+														<!-- <input type="text" id="date" class="form-control"> -->
+														<label for="date-start">ID</label>
+														<input type="text" id="m_id" class="form-control">
 													</div>
 												</div>
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label for="date-start">Time</label>
-														<input type="text" id="time" class="form-control">
+														<label for="date-start">Password</label>
+														<input type="text" id="m_pw" class="form-control">
 													</div>
 												</div>
 
 												<div class="row form-group">
 													<div class="col-md-12">
-														<input type="submit" class="btn btn-primary btn-block" value="Reserve Now">
+														<input type="submit" class="btn btn-primary btn-block" value="로그인">
+														<input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입">
 													</div>
 												</div>
 											</form>	

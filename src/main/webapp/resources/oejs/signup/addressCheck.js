@@ -7,7 +7,7 @@ $(function(){
 });
 
 function searchAddress(){
-	$("#addr1, #addr2").click(function(){
+	$("#addr1, #addr2, #addrBtn").click(function(){
 	    new daum.Postcode({
 	        oncomplete: function(data) {
 	            $("#addr1").val(data.zonecode);

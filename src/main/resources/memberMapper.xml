@@ -15,5 +15,8 @@
 		delete from apr25_cc_member 
 			where m_id = #{m_id}
 	</delete> -->
-
+	<!-- 아이디 중복 확인 -->
+	<select id="userIdCheck" resultType="int">
+		SELECT COUNT(*) FROM oe_member WHERE m_id = #{m_id}
+	</select>
 </mapper>
