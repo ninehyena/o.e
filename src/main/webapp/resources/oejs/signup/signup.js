@@ -4,16 +4,21 @@ $(function gosignup() {
 		location.href="signup";
 	});
 });
+$(function logout() {
+	$("#logoutBtn").click(function(){
+		location.href="logout";
+	});
+});
 //페이지 로딩과 동시에 실행되는 함수
 $(document).ready(function(){
 	$('#signupEmailChkBtn').attr('disabled',true); //인증번호 발송 버튼 비활성화
 });
 	
+var isIdChecked = false; // id중복체크 확인
 // 아이디 중복확인
 $(function(){
 
 	var regIdPw = /^[a-zA-Z0-9!@#$%^*+=-]{4,12}$/;
-	var isIdChecked = false; // id중복체크 확인
 	
 	$("#signupId").change(function(){
 		isIdChecked = false; // 변경되면 확인 풀리게

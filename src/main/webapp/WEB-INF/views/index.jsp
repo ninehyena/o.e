@@ -19,45 +19,74 @@
 								<div class="tab">
 									
 									<div class="tab-content">
-										<div class="tab-content-inner active" data-content="signup">
-											<h3 class="cursive-font">로그인</h3>
-											<form action="#" method="POST">
-												<div class="row form-group">
-													<div class="col-md-12">
-														<label for="activities">User</label>
-														<select name="#" id="activities" class="form-control">
-															<option value="">User</option>
-															<option value="">guest</option>
-															<option value="">admin</option>
-														</select>
+										<!-- 비로그인 상태 -->
+										<c:if test="${sessionScope.loginMember.m_id == null}">
+											<div class="tab-content-inner active" data-content="signup">
+												<h3 class="cursive-font">로그인</h3>
+												<form action="login" method="POST">
+													<div class="row form-group">
+														<div class="col-md-12">
+															<label for="activities">User</label>
+															<select name="#" id="activities" class="form-control">
+																<option value="">User</option>
+																<option value="">guest</option>
+																<option value="">admin</option>
+															</select>
+														</div>
 													</div>
-												</div>
-												<div class="row form-group">
-													<div class="col-md-12">
-														<!-- <label for="date-start">Date</label> -->
-														<!-- <input type="text" id="date" class="form-control"> -->
-														<label for="date-start">ID</label>
-														<input type="text" id="m_id" class="form-control">
+													<div class="row form-group">
+														<div class="col-md-12">
+															<!-- <label for="date-start">Date</label> -->
+															<!-- <input type="text" id="date" class="form-control"> -->
+															<label for="date-start">ID</label>
+															<input type="text" id="m_id" name="m_id" class="form-control">
+														</div>
 													</div>
-												</div>
-												<div class="row form-group">
-													<div class="col-md-12">
-														<label for="date-start">Password</label>
-														<input type="text" id="m_pw" class="form-control">
+													<div class="row form-group">
+														<div class="col-md-12">
+															<label for="date-start">Password</label>
+															<input type="text" id="m_pw" name="m_pw" class="form-control">
+														</div>
 													</div>
-												</div>
-
-												<div class="row form-group">
-													<div class="col-md-12">
-														<input type="submit" class="btn btn-primary btn-block" value="로그인">
-														<input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입">
+	
+													<div class="row form-group">
+														<div class="col-md-12">
+															<input type="submit" class="btn btn-primary btn-block" value="로그인">
+															<input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입">
+														</div>
 													</div>
+												</form>	
+											</div>
+											</c:if>
+											<!-- 로그인 상태 -->
+											<c:if test="${sessionScope.loginMember.m_id != null}">
+												<div class="tab-content-inner active" data-content="memberInfo">
+												<h3 class="cursive-font">내정보</h3>
+												<form action="mypage" method="POST">
+												
+													<div class="row form-group">
+														<div class="col-md-12">
+															<label for="date-start">${sessionScope.loginMember.m_nickname } 님</label>
+															<label for="date-start">어서오세요.</label>
+														</div>
+													</div>
+													<div class="row form-group">
+														<div class="col-md-12">
+															<span for="date-start">${sessionScope.loginMember.m_id }</span>
+														</div>
+													</div>
+	
+													<div class="row form-group">
+														<div class="col-md-12">
+															<input type="submit" class="btn btn-primary btn-block" value="마이페이지">
+															<input type="button" class="btn btn-primary btn-block" id="logoutBtn" value="로그아웃">
+														</div>
+													</div>
+												</form>	
 												</div>
-											</form>	
+											</c:if>
 										</div>
-
-										
-									</div>
+									
 								</div>
 							</div>
 						</div>

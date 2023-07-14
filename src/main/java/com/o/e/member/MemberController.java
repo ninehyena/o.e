@@ -75,14 +75,37 @@ public class MemberController {
 	}
 	
 	//이메일 인증하기
-		@ResponseBody
-		@RequestMapping(value = "/signup/mailCheck", method = RequestMethod.GET)
-		public String mailCheck(String email) {
-			System.out.println("이메일 인증 요청이 들어옴!");
-			System.out.println("이메일 인증 이메일 : " + email);
-			return mailService.joinEmail(email);
-		}
+	@ResponseBody
+	@RequestMapping(value = "/signup/mailCheck", method = RequestMethod.GET)
+	public String mailCheck(String email) {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		return mailService.joinEmail(email);
+	}
 	
-	
+	//로그인
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(Member m, HttpServletRequest req) {
+		mDAO.login(m, req);
+		return "redirect:/";
+	}
+	//로그아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest req) {
+		mDAO.logout(req);
+		return "redirect:/";
+	}
 
+	//내정보 페이지
+	@RequestMapping(value = "/mypage", method = RequestMethod.POST)
+	public String mypage(String m_id, HttpServletRequest req) {
+		return "user/mypage";
+	}
+	
+	//내정보 수정
+	@RequestMapping(value = "/mypageUpdate", method = RequestMethod.POST)
+	public String mypageUpdate(Member m, HttpServletRequest req) {
+		mDAO.mypageUpdate(m, req); 
+		return "user/mypage";
+	}
 }
