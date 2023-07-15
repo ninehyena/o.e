@@ -12,13 +12,14 @@
 							<span class="intro-text-small">Hand-crafted by <a href="http://gettemplates.co" target="_blank">GetTemplates.co</a></span>
 							<h1 class="cursive-font">회원가입</h1>
 						</div>
-							<form action="signup.reg" method="post" onsubmit="return Validation()">
+							<form action="signup.reg" method="post" onsubmit="return Validation();">
+							<!-- <form action="signup.reg" method="post" onsubmit="return Validation()"> -->
 								<table>
 									<tr>
 										<td>아이디</td>
 										<td><input name="m_id" id="signupId" class="id_confirm" autofocus="autofocus"
 								 				autocomplete="off" placeholder="아이디를 입력하세요" 
-								 				onKeyup="this.value=this.value.replace(/[^a-zA-Z0-9!@#$%^*+=-]/g,'');" required /><br>
+								 				onKeyup="this.value=this.value.replace(/[^a-zA-Z0-9!@#$%^*+=-]/g,'');" /><br>
 								 				<!-- 한글 입력 방지, [] 안에 있는 정규식 외에는 입력 막기 -->
 								 			<span id="idImpo" style="display: none;">아이디는 4글자 이상 12글자 이하</span>
 								 			<span id="idAva" style="display: none;">사용 가능한 아이디</span>
@@ -28,7 +29,7 @@
 									</tr>
 									<tr>
 										<td>비밀번호</td>
-										<td><input type="password" id="signupPw" name="m_pw" placeholder="비밀번호를 입력하세요" required /><br>
+										<td><input type="password" id="signupPw" name="m_pw" placeholder="비밀번호를 입력하세요" /><br>
 											<span id="pwImpo" style="display: none;">비밀번호는 4글자 이상 12글자 이하</span>
 								 			<span id="pwAva" style="display: none;">사용 가능</span>
 								 			<span id="pwOver" style="display: none;">아이디와 동일한 비밀번호는 사용할 수 없습니다.</span>
@@ -82,7 +83,7 @@
 										<input type="button" id="addrBtn" value="우편번호"><br>
 										<input name="m_addr2" id="addr2" readonly="readonly">
 										<input name="m_addr3" id="addr3" autofocus="autofocus"
-								 				autocomplete="off" placeholder="나머지 주소를 입력하세요" required></td>
+								 				autocomplete="off" placeholder="나머지 주소를 입력하세요"></td>
 									</tr>
 									<tr>
 										<td colspan="2" align="center">
