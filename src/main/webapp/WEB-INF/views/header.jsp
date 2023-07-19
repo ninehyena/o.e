@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE HTML>
 <!--
 	Aesthetic by gettemplates.co
@@ -12,7 +13,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>O.E &mdash; 오늘 이런 채소 어때요?</title>
+	<title>O.E &mdash; 오늘 이런 수업 어때요?</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by GetTemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -31,6 +32,10 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+	<!-- 구글 폰트 추가 2023-07-13 LJ -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 	
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="resources/css/animate.css">
@@ -57,10 +62,29 @@
 
 	<!-- Modernizr JS -->
 	<script src="resources/js/modernizr-2.6.2.min.js"></script>
+	
+	<!-- jQuery, sweetalert 추가 2023-07-13 LJ -->
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script> 
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css">
+	
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	
+	<!-- oe_js 시작 -->
+	<!-- 레슨 JS -->
+	<script type="text/javascript" src="resources/oe_js/lesson/oe_lesson.js"></script>
+	
+	<!-- 회원가입 JS 시작 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript" src="resources/oe_js/signup/jQuery.js"></script>
+	<script type="text/javascript" src="resources/oe_js/signup/signup.js"></script>
+	<script type="text/javascript" src="resources/oe_js/signup/addressCheck.js"></script>
+	<!-- 회원가입 JS 끝 -->
+	
+	<!-- oe_js 끝 -->
 
 	</head>
 	<body>
@@ -80,8 +104,7 @@
 				</div>
 				<div class="col-xs-8 text-right menu-1">
 					<ul>
-						<li><a href="vegetable">Vegetables</a></li>
-						<li><a href="recipe">Recipes</a></li>
+						<li><a href="lesson">Lessons</a></li>
 						<li class="has-dropdown">
 							<a href="services.html">Services</a>
 							<ul class="dropdown">
@@ -90,8 +113,17 @@
 								<li><a href="#">Birthday's Celebration</a></li>
 							</ul>
 						</li>
-						<li><a href="contact.html">Contact</a></li>
-						<li class="btn-cta"><a href="#"><span>Reservation</span></a></li>
+						<li><a href="contact.html">Notice</a></li>
+						<li class="btn-cta">
+							<!-- 비로그인 상태 -->
+							<c:if test="${sessionScope.loginMember.m_id == null}">
+								<a href="signup"><span>Sign Up</span></a>
+							</c:if>
+							<!-- 로그인 상태 -->
+							<c:if test="${sessionScope.loginMember.m_id != null}">
+								<a href="myLesson"><span>My Lesson</span></a>
+							</c:if>
+						</li>
 					</ul>	
 				</div>
 			</div>

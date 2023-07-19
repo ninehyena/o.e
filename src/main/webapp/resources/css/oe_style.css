@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
 .fh5co-card-item .fh5co-text-v {
-    padding: 0px 10px 10px 20px;
-    text-align: center;
-    position: relative;
-    z-index: 22;
+	padding: 0px 10px 10px 20px;
+	text-align: center;
+	position: relative;
+	z-index: 22;
 }
 
 .fh5co-card-item .fh5co-text-v h2 {
@@ -15,22 +15,160 @@
 }
 
 .fh5co-card-item .fh5co-text-v p {
-    color: #000;
-    -webkit-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
+	color: #000;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s;
+	transition: 0.5s;
 }
 
 .gtco-section-v .gtco-container .row .oe_float_right {
 	float: right;
 }
 
+/* nav 하단 메뉴명 보이는 헤더 크기 지정*/
 .gtco-cover.gtco-cover-sm-v {
-    height: 300px;
+	height: 300px;
 }
 
 .gtco-section-v {
-    padding: 2em 0;
-    clear: both;
-    position: relative;
+	padding: 2em 0;
+	clear: both;
+	position: relative;
+}
+
+.gtco-section-v .gtco-container .oe_center {
+	text-align: center;
+}
+
+/* width: 49%로 지정 */
+.gtco-section-v .gtco-container .w49 {
+	width: 49%;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.gtco-section-v .gtco-container .mt10 {
+	margin-top: 10px;
+}
+
+.gtco-section-v .gtco-container .mt30 {
+	margin-top: 30px;
+}
+
+.gtco-section-v .gtco-container .txtarea {
+	resize: none;
+}
+
+.gtco-section-v .gtco-container .l_day {
+	margin-left: 3%;
+	margin-right: 1%;
+}
+
+.gtco-section-v .gtco-container input[type="checkbox"] {
+	width: 20px;
+	height: 20px;
+}
+
+.gtco-section-v .gtco-container input[type="radio"] {
+	width: 20px;
+	height: 20px;
+}
+
+.gtco-section-v .gtco-container .fs18 {
+	font-size: 18px;
+}
+
+.gtco-section-v .gtco-container .notnull {
+	color: red;
+}
+
+.gtco-section-v .gtco-container .pageCount {
+	text-align: center;
+}
+
+.gtco-section-v .gtco-container .oe_font {
+	font-family: 'Nanum Pen Script', cursive;
+}
+
+.gtco-section-v .gtco-container .oe_font2 {
+	font-family: 'Black Han Sans', sans-serif;
+}
+
+.gtco-section-v .gtco-container .oe_font_bold_18 {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.gtco-section-v .gtco-container .oe_font_bold_25 {
+	font-weight: bold;
+	font-size: 25px;
+}
+
+.gtco-section-v .gtco-container .lesson {
+	height: 500px;
+	margin-top: 30px;
+}
+
+.gtco-section-v .gtco-container .checkbox {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.gtco-section-v .gtco-container .checkbox_text {
+	font-weight: bold;
+	font-size: 20px;
+	vertical-align: middle;
+}
+
+.gtco-section-v .gtco-container .text_left {
+	text-align: left;
+}
+
+#map {
+	width: 100%;
+	height: 500px;
+	position: relative;
+}
+
+/* index.js */
+.gtco-cover .gtco-container .oe_center {
+	text-align: center;
+}
+
+.gtco-section-v .gtco-container .oe_vcenter {
+	vertical-align: middle;
+}
+
+/* 리뷰 */
+#myform fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+}
+#myform fieldset legend{
+    text-align: right;
+}
+#myform input[type=radio]{
+    display: none;
+}
+#myform label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+#myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+
+#gtco-features .gtco-container .row .oe_white {
+	color: white;
 }
