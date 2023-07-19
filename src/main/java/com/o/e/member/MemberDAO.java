@@ -55,7 +55,8 @@ public class MemberDAO {
 				if((mm.login(m).getM_pw()).equals(pw)) {
 					req.getSession().setAttribute("loginMember", mm.login(m));
 					req.getSession().setMaxInactiveInterval(600); //10분
-					
+					System.out.println("mm.login(m)값: "+mm.login(m));
+					System.out.println("mm.login(m).getM_phone()값: "+mm.login(m).getM_phone());
 //						Cookie c = new Cookie("lastLoginId", id);
 //						c.setMaxAge(60 * 60 * 24 * 5);
 //						res.addCookie(c);
@@ -84,11 +85,14 @@ public class MemberDAO {
 		try {
 			MemberMapper mm = ss.getMapper(MemberMapper.class);
 			if(mm.mypageUpdate(m)==1) {
-				System.out.println("글 수정 성공");
+				//수정한 값 다시 로그인세션(loginMember)에 담기
+				req.getSession().setAttribute("loginMember", mm.login(m)); 
+				req.getSession().setMaxInactiveInterval(600); //10분
+				System.out.println("회원정보 수정 성공");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("글 수정 실패");
+			System.out.println("회원정보 수정 실패");
 		}
 	}
 }

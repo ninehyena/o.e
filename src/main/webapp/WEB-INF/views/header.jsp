@@ -69,6 +69,9 @@
 	<script type="text/javascript" src="resources/oejs/signup/signup.js"></script>
 	<script type="text/javascript" src="resources/oejs/signup/addressCheck.js"></script>
 	<!-- 회원가입 JS 끝 -->
+	<!-- 마이페이지 수정 JS 시작 -->
+	<script type="text/javascript" src="resources/oejs/signup/mypage.js"></script>
+	<!-- 마이페이지 수정 JS 끝 -->
 
 	</head>
 	<body>
