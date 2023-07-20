@@ -1,7 +1,85 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
-	
+<!-- 카카오 로그인 api -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js" 
+	integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh" crossorigin="anonymous"></script>
+
+<script>
+//인가코드 : Qq66YxzztilB-7Dn0sXFL5J5uA7iybln-s9B_cXVeBo68UbUwZZzl-mcmAWQf0UzKffVLwo9c00AAAGJbBdYeA
+//Kakao.init('a84fac31ff8ac655eb89add0f4e69bc5'); //발급받은 키 중 javascript키를 사용해준다.
+//console.log(Kakao.isInitialized()); // sdk초기화여부판단
+//카카오로그인
+/* function kakaoLogin() {
+    Kakao.Auth.login({
+      scope:'profile_nickname,account_email',
+      success: function(authObj) {
+    	console.log("authObj값"+authObj); //받아온 오브젝트 데이터 콘솔에 찍기
+        Kakao.API.request({
+          url: '/v2/user/me', //로그인한 사용자의 정보
+          success: function(response) {
+        	  const kakao_account = response.kakao_acount;
+        	  console.log("response값2"+response);
+        	  console.log("kakao_account값"+kakao_account);
+          },
+          fail: function(error) {
+            console.log(error)
+          },
+        })
+      },
+      fail: function (error) {
+        console.log(error)
+      },
+    })
+  } */
+/* function loginWithKakao() {
+	Kakao.Auth.authorize({
+		redirectUri: 'http://localhost/e/',
+	});
+} */
+
+// 아래는 데모를 위한 UI 코드입니다.
+/* displayToken()
+function displayToken() {
+	var token = getCookie('authorize-access-token');
+	console.log()
+	if(token) {
+		Kakao.Auth.setAccessToken(token);
+		Kakao.Auth.getStatusInfo()
+		  .then(function(res) {
+		    if (res.status === 'connected') {
+		      document.getElementById('token-result').innerText
+		        = 'login success, token: ' + Kakao.Auth.getAccessToken();
+		      console.log(Kakao.Auth.getAccessToken());
+		    }
+		  })
+		  .catch(function(err) {
+		    Kakao.Auth.setAccessToken(null);
+		  });
+	}
+}
+
+function getCookie(name) {
+  var parts = document.cookie.split(name + '=');
+  if (parts.length === 2) { return parts[1].split(';')[0]; }
+} */
+//카카오로그아웃  
+function kakaoLogout() {
+    if (Kakao.Auth.getAccessToken()) {
+      Kakao.API.request({
+        url: '/v1/user/unlink',
+        success: function (response) {
+        	console.log(response)
+        },
+        fail: function (error) {
+          console.log(error)
+        },
+      })
+      Kakao.Auth.setAccessToken(undefined)
+    }
+  }  
+</script>
 	<header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url(resources/images/img_bg_1.jpg)" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="gtco-container">
@@ -19,10 +97,11 @@
 								<div class="tab">
 									
 									<div class="tab-content">
+									
 										<!-- 비로그인 상태 -->
 										<c:if test="${sessionScope.loginMember.m_id == null}">
 											<div class="tab-content-inner active" data-content="signup">
-												<h3 class="cursive-font">로그인</h3>
+												<h3 class="cursive-font">Login</h3>
 												<form action="login" method="POST">
 													<div class="row form-group">
 														<div class="col-md-12">
@@ -53,6 +132,12 @@
 														<div class="col-md-12">
 															<input type="submit" class="btn btn-primary btn-block" value="로그인">
 															<input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입">
+															<!-- 카카오 로그인 -->
+															<a id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=da627de1500bad51608594d4556e9751
+															&redirect_uri=http://localhost/e/kakaoLogin&response_type=code">
+															  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
+															    alt="카카오 로그인 버튼" />
+															</a>
 														</div>
 													</div>
 												</form>	
