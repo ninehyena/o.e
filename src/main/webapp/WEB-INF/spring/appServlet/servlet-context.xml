@@ -44,14 +44,10 @@
 		<beans:property name="typeAliasesPackage" value="com.o.e" />
 		<beans:property name="mapperLocations">
 			<beans:list>
-<<<<<<< HEAD
 				<beans:value>classpath*:Mapper/lessonMapper.xml</beans:value>
 				<beans:value>classpath*:Mapper/memberMapper.xml</beans:value>
 				<beans:value>classpath*:Mapper/reviewMapper.xml</beans:value>
 				<!-- <beans:value>classpath:lessonMapper.xml</beans:value> -->
-=======
-				<beans:value>classpath:lessonMapper.xml</beans:value>
->>>>>>> refs/remotes/origin/LJ
 			</beans:list>
 		</beans:property>
 	</beans:bean>
