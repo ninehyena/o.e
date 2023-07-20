@@ -1,10 +1,9 @@
 //회원가입버튼
-//$(function gosignup() {
-//	$("#goSignupBtn").click(function(){
-//		location.href="signup";
-//	});
-//});
-
+$(function gosignup() {
+	$("#goSignupBtn").click(function(){
+		location.href="signup";
+	});
+});
 $(function logout() {
 	$("#logoutBtn").click(function(){
 		location.href="logout";
@@ -34,6 +33,7 @@ var isIdChecked = false; // id 중복체크 확인
 var isPwChecked = false; // pw 확인
 var isPwChecked2 = false; // pwChk 확인
 var isNameChecked = false; // 이름 중복체크 확인
+var isPhoneChecked = false; //전화번호 양식 확인
 var isEmailChecked = false; // email 중복체크 확인
 // 아이디 중복확인
 $(function(){
@@ -79,7 +79,6 @@ $(function(){
 	});
 	
 	//비밀번호 체크
-
 	$("#signupPw").change(function(){
 		isPwChecked = false; // 변경되면 확인 풀리게
 		var pw = $("#signupPw").val();
@@ -168,7 +167,7 @@ $(function(){
 			}
 		})
 	});
-	
+
 	//이메일 양식 확인
 	var regEmail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 	$("#signupEmail").change(function(){
@@ -248,7 +247,7 @@ function Validation() {
 	// 이메일
 	//var regEmail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 	// 전화번호
-	var regPhone= /^\d{2,3}-?\d{3,4}-?\d{4}$/;
+	var regPhone = /^[0-9]{9,11}$/;
 	
 	//아이디 확인
 	if(m_id.value == ""){
@@ -298,6 +297,11 @@ function Validation() {
 		phone.focus();
 		return false;
 	}
+	if (!regPhone.test(phone.value)) {
+		alert("전화번호 양식에 맞춰 작성해 주세요. <br> ex) 010 1234 5678")
+		phone.focus();
+		return false;
+    }
 	// 메일주소 확인
 	if(email.value == ""){
 		alert("메일주소를 입력하세요.")
