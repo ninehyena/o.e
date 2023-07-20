@@ -2,6 +2,7 @@ package com.o.e.lesson;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import org.apache.ibatis.annotations.Param;
 
 import com.o.e.member.Member;
@@ -55,4 +56,10 @@ public interface LessonMapper {
 	
 	// 레슨 종료 진행 -> 완료
 	public abstract int finish(@Param("l_num") int l_num, @Param("a_id") String a_id);
+=======
+public interface LessonMapper {
+	public abstract int regLesson(Lesson l);
+	public abstract int regLessonDetail(LessonDetail ld);
+	public abstract List<Lesson> getList();
+>>>>>>> refs/remotes/origin/LJ
 }

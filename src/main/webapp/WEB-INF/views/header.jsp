@@ -73,6 +73,7 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 	
+<<<<<<< HEAD
 	<!-- oe_js 시작 -->
 	<!-- 레슨 JS -->
 	<script type="text/javascript" src="resources/oe_js/lesson/oe_lesson.js"></script>
@@ -85,6 +86,8 @@
 	<!-- 회원가입 JS 끝 -->
 	
 	<!-- oe_js 끝 -->
+=======
+>>>>>>> refs/remotes/origin/LJ
 
 	</head>
 	<body>

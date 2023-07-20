@@ -28,6 +28,7 @@
 <div class="gtco-section-v">
 	<div class="gtco-container">
 		<div class="row">
+<<<<<<< HEAD
 			<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_lesson eq 'lesson'}">
 				<button class="btn btn-primary oe_font_bold_18" onclick="regLesson();">레슨 등록</button>
 			</c:if>
@@ -74,6 +75,46 @@
 			<c:forEach var="p" begin="1" end="${pageCount }">
 				<a href="lesson_paging?p=${p }">${p }</a>
 			</c:forEach>
+=======
+		<button class="btn btn-primary" onclick="regLesson();">레슨 등록</button>
+			  <form class="form-inline oe_float_right">
+			  	<select class="form-control mr-sm-2" name="category">
+			  		<option>레슨 종류</option>
+			  		<option>레슨 지역</option>
+			  		<option>레슨 타입</option>
+			  	</select>
+			    <input class="form-control mr-sm-2" type="search" name="search" placeholder="find lesson">
+			    <button class="btn btn-primary" type="submit">Search</button>
+			  </form>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+				<h2 class="cursive-font primary-color">Find the lesson you want!</h2>
+			</div>
+		</div>
+		<div class="row">
+		
+			<c:forEach var="l" items="${List }">
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<a href="lessonDetail" class="fh5co-card-item ">
+						<figure>
+							<div class="overlay">
+								<i class="ti-plus"></i>
+							</div>
+							<!-- <img src="images/img_1.jpg" alt="Image" class="img-responsive"> -->
+							<img src="images/${l.l_category }.png" alt="Image" class="img-responsive">
+							
+						</figure>
+						<div class="fh5co-text-v">
+							<h2>${l.l_category }</h2>
+							<p>레슨 타입: ${l.l_type } / 레슨 레벨: ${l.l_level }</p>
+							
+						</div>
+					</a>
+				</div>
+			</c:forEach>
+
+>>>>>>> refs/remotes/origin/LJ
 		</div>
 	</div>
 </div>

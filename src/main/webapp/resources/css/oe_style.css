@@ -51,6 +51,7 @@
 	margin-top: 10px;
 }
 
+<<<<<<< HEAD
 .gtco-section-v .gtco-container .mt30 {
 	margin-top: 30px;
 }
@@ -172,3 +173,27 @@
 #gtco-features .gtco-container .row .oe_white {
 	color: white;	
 }
+=======
+.gtco-section-v .gtco-container .txtarea {
+	resize: none;
+}
+
+.gtco-section-v .gtco-container .l_day {
+	margin-left: 3%;
+	margin-right: 1%;
+}
+
+.gtco-section-v .gtco-container input[type="checkbox"] {
+	width: 20px;
+	height: 20px;
+}
+
+.gtco-section-v .gtco-container .fs18 {
+	font-size: 18px;
+}
+
+/* 필수 입력 항목 (*) 컬러 지정 */
+.gtco-section-v .gtco-container .notnull {
+	color: red;
+}
+>>>>>>> refs/remotes/origin/LJ
