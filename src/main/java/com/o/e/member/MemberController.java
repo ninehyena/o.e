@@ -1,6 +1,5 @@
 package com.o.e.member;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +101,7 @@ public class MemberController {
 	@RequestMapping(value = "/mypageUpdate", method = RequestMethod.POST)
 	public String mypageUpdate(Member m, HttpServletRequest req) {
 		mDAO.mypageUpdate(m, req); 
-		return "user/mypage";
+		return "redirect:/";
 	}
+	
 }

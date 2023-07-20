@@ -73,23 +73,22 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 	
-<<<<<<< HEAD
 	<!-- oe_js 시작 -->
 	<!-- 레슨 JS -->
 	<script type="text/javascript" src="resources/oe_js/lesson/oe_lesson.js"></script>
 	
-	<!-- 회원가입 JS 시작 -->
+	<!-- 회원가입 JS -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/jQuery.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/signup.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/addressCheck.js"></script>
-	<!-- 회원가입 JS 끝 -->
+	<!-- 마이페이지 수정 JS -->
+	<script type="text/javascript" src="resources/oe_js/signup/mypage.js"></script>
+	<!-- 마이페이지 수정 JS -->
 	
 	<!-- oe_js 끝 -->
-=======
->>>>>>> refs/remotes/origin/LJ
 
-	</head>
+</head>
 	<body>
 		
 	<div class="gtco-loader"></div>

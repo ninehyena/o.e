@@ -63,7 +63,8 @@
 										<td>연락처</td>
 										<td><input name="m_phone" id="signupPhone" autofocus="autofocus"
 								 				autocomplete="off" placeholder="숫자만 입력해주세요" maxlength="11"
-								 				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/></td>
+								 				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+							 			</td>
 									</tr>
 									<tr>
 										<td>이메일</td>

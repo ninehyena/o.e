@@ -38,6 +38,13 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
+		<!-- 카카오로그인에 사용, JSON string데이터를 map으로 변환 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.2.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>

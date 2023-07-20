@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
 
-<<<<<<< HEAD
 <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner"
 	style="background-image: url(resources/images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
@@ -26,18 +25,6 @@
 								<div class="tab-content">
 									<!-- 비로그인 상태 -->
 									<c:if test="${sessionScope.loginMember.m_id == null}">
-=======
-					<div class="row row-mt-15em">
-						<div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
-							<span class="intro-text-small">음악을 배우고 싶은 당신을 위한 레슨 추천, <a href="/e">오늘 이런 레슨 어때요?</a></span>
-							<h1 class="cursive-font">How about these lessons today?</h1>	
-						</div>
-						<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
-							<div class="form-wrap">
-								<div class="tab">
-									
-									<div class="tab-content">
->>>>>>> refs/remotes/origin/LJ
 										<div class="tab-content-inner active" data-content="signup">
 											<h2 class="primary-color"><b>로그인</b></h2>
 											<form action="login" method="POST">
@@ -67,7 +54,13 @@
 												<div class="row form-group">
 													<div class="col-md-12">
 														<input type="submit" class="btn btn-primary btn-block" value="로그인"> 
-														<!-- <input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입"> -->
+														<input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입">
+														<!-- 카카오 로그인 -->
+														<a id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=da627de1500bad51608594d4556e9751
+														&redirect_uri=http://localhost/e/kakaoLogin&response_type=code">
+														  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
+														    alt="카카오 로그인 버튼" />
+														</a>
 													</div>
 												</div>
 											</form>
