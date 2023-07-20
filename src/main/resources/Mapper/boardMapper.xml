@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o.e.board.BoardMapper">
+
+	<!-- 게시글 총수 파악하기 -->
+	<select id="getCountTotalBaord" resultType="int">
+		<![CDATA[
+			SELECT COUNT(b_no) FROM oe_board WHERE
+		]]>
+	
+		<![CDATA[
+			b_no > 0
+		]]>
+	</select>
+
+	<!-- 게시글 리스트 불러오기 -->
+	<select id="getListBoard" resultType="com.o.e.board.Board">
+		<![CDATA[SELECT * FROM oe_board WHERE b_no > 0 ORDER BY b_no DESC]]>
+	</select>
+
+	<!-- 게시글 리스트 불러오기(페이징) -->
+	<select id="getListBoardWithPaging"
+		resultType="com.o.e.board.Board">
+	<![CDATA[
+		SELECT
+		b_no, b_category, b_title, b_content, b_regdate, b_updatedate
+		FROM
+		(SELECT
+		/*INDEX_DESC(oe_board pk_board) */
+		ROWNUM rn, b_no, b_category, b_title, b_content, b_regdate, b_updatedate
+		FROM
+		oe_board
+		WHERE
+	]]>
+		
+	<![CDATA[
+		ROWNUM <= #{pageNum} * #{amount})
+		WHERE
+		rn > (#{pageNum} - 1) * #{amount}
+	]]>
+	</select>
+
+	<!-- 게시글 쓰기 -->
+	<insert id="regBoard" parameterType="com.o.e.board.Board">
+	<![CDATA[
+		INSERT INTO 
+		oe_board(b_no, b_category, b_title, b_content, b_regdate)
+		VALUES(oe_board_seq.nextval, #{b_category}, #{b_title}, #{b_content}, sysdate)
+	]]>
+	</insert>
+
+	<!-- 게시글 읽기 -->
+	<select id="readBoard" resultType="com.o.e.board.Board">
+	<![CDATA[
+		SELECT * FROM oe_board
+		WHERE b_no = #{b_no}
+	]]>
+	</select>
+
+	<!-- 게시글 수정 -->
+	<update id="updateBoard">
+		UPDATE
+		oe_board
+		SET
+		b_title = #{b_title},
+		b_category =
+		#{b_category},
+		b_content =
+		#{b_content},
+		b_updatedate = sysdate
+		WHERE b_no
+		= #{b_no}
+	</update>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard">
+		DELETE oe_board WHERE b_no = #{b_no}
+	</delete>
+</mapper>

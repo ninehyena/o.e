@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o.e.notice.NoticeMapper">
+
+	<!-- 공지 총수 파악하기 -->
+	<select id="getCountTotalNotice" resultType="int">
+		<![CDATA[
+			SELECT COUNT(n_no) FROM oe_notice WHERE
+		]]>
+	
+		<![CDATA[
+			n_no > 0
+		]]>
+	</select>
+
+	<!-- 공지 리스트 불러오기 -->
+	<select id="getListNotice" resultType="com.o.e.notice.Notice">
+		<![CDATA[SELECT * FROM oe_notice WHERE n_no > 0 ORDER BY n_no DESC]]>
+	</select>
+
+	<!-- 공지 리스트 불러오기(페이징) -->
+	<select id="getListNoticeWithPaging"
+		resultType="com.o.e.notice.Notice">
+	<![CDATA[
+		SELECT
+		n_no, n_title, n_content, n_regdate, n_updatedate
+		FROM
+		(SELECT
+		/*INDEX_DESC(oe_notice pk_notice) */
+		ROWNUM rn, n_no, n_title, n_content, n_regdate, n_updatedate
+		FROM
+		eo_notice
+		WHERE
+	]]>
+		
+	<![CDATA[
+		ROWNUM <= #{pageNum} * #{amount})
+		WHERE
+		rn > (#{pageNum} - 1) * #{amount}
+	]]>
+	</select>
+
+	<!-- 공지 쓰기 -->
+	<insert id="regNotice" parameterType="com.o.e.notice.Notice">
+	<![CDATA[
+		INSERT INTO 
+		oe_notice(n_no, n_title, n_content, n_regdate)
+		VALUES(oe_notice_seq.nextval, #{n_title}, #{n_content}, sysdate)
+	]]>
+	</insert>
+
+	<!-- 공지 읽기 -->
+	<select id="readNotice" resultType="com.o.e.notice.Notice">
+	<![CDATA[
+		SELECT * FROM oe_notice
+		WHERE n_no = #{n_no}
+	]]>
+	</select>
+
+	<!-- 공지 수정 -->
+	<update id="updateNotice">
+		UPDATE
+		oe_notice
+		SET
+		n_title = #{n_title},
+		n_content =
+		#{n_content},
+		n_updatedate = sysdate
+		WHERE n_no = #{n_no}
+	</update>
+
+	<!-- 공지 삭제 -->
+	<delete id="deleteNotice">
+		DELETE oe_notice WHERE n_no = #{n_no}
+	</delete>
+</mapper>
