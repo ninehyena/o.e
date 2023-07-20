@@ -54,7 +54,7 @@
 												<div class="row form-group">
 													<div class="col-md-12">
 														<input type="submit" class="btn btn-primary btn-block" value="로그인"> 
-														<input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입">
+														<input type="button" class="btn btn-primary btn-block" id="goRegisterBtn" value="회원가입">
 														<!-- 카카오 로그인 -->
 														<a id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=da627de1500bad51608594d4556e9751
 														&redirect_uri=http://localhost/e/kakaoLogin&response_type=code">
