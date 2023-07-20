@@ -95,4 +95,7 @@ public class MemberDAO {
 			System.out.println("회원정보 수정 실패");
 		}
 	}
+	
+	//카카오 로그인
+	
 }
