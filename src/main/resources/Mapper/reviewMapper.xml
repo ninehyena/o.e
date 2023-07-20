@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o.e.lesson.ReviewMapper">
+
+	<!-- 리뷰 작성 -->
+	<insert id="writeReview" parameterType="com.o.e.lesson.Review">
+		<![CDATA[insert into oe_review values(oe_review_seq.nextval,
+		#{l_num}, #{a_id}, #{r_star}, #{r_level}, #{r_recommend}, #{r_content}, sysdate)]]>
+	</insert>
+	
+	<!-- 리뷰 작성 확인 -->
+	<select id="check" parameterType="map" resultType="int">
+		select count(*) from oe_review where l_num = #{l_num} and a_id = #{a_id}
+	</select>
+	
+	<!-- 리뷰 갯수 -->
+	<select id="count" parameterType="int" resultType="int">
+		select count(*) from oe_review where l_num = #{l_num}
+	</select>
+	
+	<!-- 리뷰 리스트 가져오기 -->
+	<select id="getReviews" parameterType="int" resultType="com.o.e.lesson.Review">
+		<![CDATA[select * from ( 
+					select rownum as rn, b.*
+					from ( select rownum, a.*
+					from oe_review a
+					where al_num = #{l_num}
+					order by r_regdate desc
+					) b
+				) where rn >= #{start} and rn <= #{end}]]>
+	</select>
+	
+	<!-- 리뷰 평점 가져오기 -->
+	<select id="getAvg" parameterType="int" resultType="double">
+		<![CDATA[select avg(r_star)
+				from oe_review
+				where l_num = #{l_num}
+				group by l_num]]>
+	</select>
+
+</mapper>

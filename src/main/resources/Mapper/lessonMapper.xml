@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o.e.lesson.LessonMapper">
+	
+	<!-- 레슨 등록 -->
+	<insert id="regLesson" parameterType="com.o.e.lesson.Lesson" useGeneratedKeys="true" keyColumn="l_num" keyProperty="l_num">
+		<![CDATA[insert into oe_lesson values(oe_lesson_seq.nextval, 
+		#{l_type}, #{l_category}, #{l_teacher_id}, #{l_level}, sysdate)]]>
+	</insert>
+	
+	<!-- 레슨 상세 등록 -->
+	<insert id="regLessonDetail" parameterType="com.o.e.lesson.LessonDetail" >
+		insert into oe_lesson_detail values(
+		#{l_num}, #{l_location}, #{l_room}, #{l_level_of_education1}, #{l_level_of_education2},
+		#{l_major}, #{l_career1}, #{l_career2}, #{l_career3}, #{l_content}, #{l_pay}, #{l_day}
+		)
+	</insert>
+	
+	<!-- 전체 레슨 갯수 -->
+	<select id="count" resultType="int">
+		select count(*) from oe_lesson a, oe_lesson_detail b where a.l_num = b.l_num
+	</select>
+	
+	<!-- 검색어에 해당하는 레슨 갯수 -->
+	<select id="countSearch" resultType="int" parameterType="String">
+		select count(*)
+		from oe_lesson a, oe_lesson_detail b 
+		where a.l_category like '%' || #{search} || '%'
+		and a.l_num = b.l_num
+	</select>
+	
+	<!-- 전체 레슨 목록 페이징 -->	
+	<!-- join -->
+	<resultMap type="com.o.e.lesson.Lesson" id="LessonMap">
+		<result property="l_num" column="l_num"/>
+		<result property="l_type" column="l_type"/>
+		<result property="l_category" column="l_category"/>
+		<result property="l_teacher_id" column="l_teacher_id"/>
+		<result property="l_level" column="l_level"/>
+		<result property="l_regdate" column="l_regdate"/>
+
+		<association javaType="com.o.e.lesson.LessonDetail" property="lessonDetail">
+			<result property="l_day" column="l_day"/>
+			<result property="l_pay" column="l_pay"/>
+			<result property="l_student" column="l_student"/>
+		</association>	
+		
+		<association javaType="com.o.e.lesson.ApplicationList" property="applicationList">
+			<result property="a_id" column="a_id"/>
+			<result property="a_status" column="a_status"/>
+			<result property="a_date" column="a_date"/>
+			<result property="cnt" column="cnt"/>
+		</association>	
+	</resultMap>
+	
+	<select id="getAllList" parameterType="map" resultMap="LessonMap">
+		<![CDATA[select * from ( 
+				select rownum as rn, c.*
+				from ( select rownum, a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*
+						from oe_lesson a, oe_lesson_detail b 
+						where a.l_category like '%' || #{search} || '%'
+						and a.l_num = b.l_num
+						order by b.l_num desc
+				) c
+			) where rn >= #{start} and rn <= #{end}]]>
+	</select>
+	
+
+	<!-- 레슨 상세보기 -->
+	<select id="getDetail1" parameterType="int" resultType="com.o.e.lesson.Lesson">
+		select * from oe_lesson where l_num = #{l_num}
+	</select>
+	<select id="getDetail2" parameterType="int" resultType="com.o.e.lesson.LessonDetail">
+		select * from oe_lesson_detail where l_num = #{l_num}
+	</select>
+	<select id="getApplicationList" parameterType="map" resultType="com.o.e.lesson.ApplicationList">
+		select * from oe_application_list where l_num = #{l_num} and a_id = #{m_id}
+	</select>
+	
+	<!-- 레슨 신청하기 -->
+	<insert id="apply" parameterType="map">
+		insert into oe_application_list
+		values(#{l_num}, #{m_id}, 0, sysdate)
+	</insert> 
+	
+	<!-- 레슨 취소하기 -->
+	<delete id="cancel" parameterType="map">
+		delete from oe_application_list 
+		where l_num = #{l_num} and a_id = #{m_id}
+	</delete>
+	
+	<!-- 레슨 수정 -->
+	<update id="updateLesson" parameterType="com.o.e.lesson.Lesson">
+		update oe_lesson
+		set l_type = #{l_type},
+		l_category = #{l_category},
+		l_level = #{l_level}
+		where l_num = #{l_num}
+	</update>
+	<update id="updateLessonDetail" parameterType="com.o.e.lesson.LessonDetail">
+		update oe_lesson_detail
+		set l_location = #{l_location},
+		l_room = #{l_room},
+		l_level_of_education1 = #{l_level_of_education1},
+		l_level_of_education2 = #{l_level_of_education2},
+		l_major = #{l_major},
+		l_career1 = #{l_career1},
+		l_career2 = #{l_career2},
+		l_career3 = #{l_career3},
+		l_content = #{l_content},
+		l_pay = #{l_pay},
+		l_day = #{l_day}
+		where l_num = #{l_num}
+	</update>
+	
+	<!-- 레슨 삭제 -->
+	<delete id="deleteLesson" parameterType="int">
+		delete from oe_lesson
+		where l_num = #{l_num}
+	</delete>
+	<delete id="deleteLessonDetail" parameterType="int">
+		delete from oe_lesson_detail
+		where l_num = #{l_num}
+	</delete>
+	
+	<!-- 유저가 등록한 레슨 갯수 -->
+	<select id="countRegLessons" parameterType="com.o.e.member.Member" resultType="int">
+		select count(*) from oe_lesson where l_teacher_id = #{m_id}
+	</select>
+	
+	<!-- 유저가 신청한 레슨 개수 -->
+	<select id="countApplyLessons" parameterType="com.o.e.member.Member" resultType="int">
+		select count(*) from oe_application_list where a_id = #{m_id}
+	</select>
+	
+	<!-- 로그인한 회원의 레슨 신청 목록 가져오기 -->
+	<select id="getMyList" parameterType="map" resultMap="LessonMap">
+		<![CDATA[select * from ( 
+				select rownum as rn, d.*
+				from ( select rownum, a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*, c.a_id, c.a_status, c.a_date
+						from oe_lesson a, oe_lesson_detail b, oe_application_list c
+						where a.l_num = b.l_num
+						and a.l_num = c.l_num
+						and c.a_id = #{m_id}
+						order by b.l_num desc
+				) d
+			) where rn >= #{start} and rn <= #{end}]]>
+	</select>
+	
+	<!-- 로그인한 강사의 레슨 등록 목록 가져오기 -->
+	<select id="getMyList2" parameterType="map" resultMap="LessonMap">
+		<![CDATA[select * from ( 
+					select rownum as rn, e.*
+					from ( select rownum , a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*, subquery1.cnt
+							from oe_lesson a, oe_lesson_detail b, 
+								(select d.l_num as l_num, count(d.l_num) as cnt
+								from oe_lesson c inner join oe_application_list d on c.l_num = d.l_num
+								where c.l_teacher_id = #{m_id} and d.a_status = 0
+								group by d.l_num) subquery1
+							where a.l_teacher_id = #{m_id} 
+							and a.l_num = b.l_num
+							and a.l_num = subquery1.l_num
+							order by a.l_num desc
+					) e
+			) where rn >= #{start} and rn <= #{end}]]>
+	</select>
+	
+	<!-- 레슨 신청 회원의 정보 가져오기 -->
+	<resultMap type="com.o.e.lesson.ApplicationList" id="ApplicationMap">
+		<result property="l_num" column="l_num"/>
+		<result property="a_id" column="a_id"/>
+		<result property="a_status" column="a_status"/>
+		<result property="a_date" column="a_date"/>
+
+		<association javaType="com.o.e.lesson.Lesson" property="lesson">
+			<result property="l_type" column="l_type"/>
+			<result property="l_category" column="l_category"/>
+			<result property="l_level" column="l_level"/>
+			
+		</association>	
+	</resultMap>
+	
+	<select id="getStudent" parameterType="map" resultMap="ApplicationMap">
+		<![CDATA[select * from ( 
+					select rownum as rn, c.*
+					from ( select rownum, a.l_type, a.l_category, a.l_level, b.*
+					from oe_lesson a, oe_application_list b
+					where a.l_num = b.l_num and a.l_num = #{l_num}
+					order by b.a_date desc
+					) c
+				) where rn >= #{start} and rn <= #{end}]]>
+	</select>
+	
+	 <!-- 
+	<select id="getStudent" parameterType="map" resultType="com.o.e.lesson.ApplicationList">
+		select *
+		from oe_application_list
+		where l_num = #{l_num}
+		order by a_date desc
+	</select>
+	 -->
+	
+	<select id="getStudent2" parameterType="int" resultType="int">
+		select count(*)
+		from oe_lesson a, oe_application_list b
+		where a.l_num = b.l_num and a.l_num = #{l_num}
+	</select>
+	
+	
+	<!-- 레슨 신청 확인 / 대기 -> 진행-->
+	<update id="confirm" parameterType="map">
+		update oe_application_list set a_status = 1
+		where l_num = #{l_num} and a_id = #{a_id}
+	</update>
+	<update id="updateStudent" parameterType="int">
+		update oe_lesson_detail set l_student = l_student + 1
+		where l_num = #{l_num}
+	</update>
+	
+	<!-- 레슨 종료 / 진행 -> 완료 -->
+	<update id="finish" parameterType="map">
+		update oe_application_list set a_status = 2
+		where l_num = #{l_num} and a_id = #{a_id}
+	</update>
+</mapper>

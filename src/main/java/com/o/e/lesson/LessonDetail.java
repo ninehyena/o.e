@@ -13,6 +13,7 @@ public class LessonDetail {
 	private String l_content;
 	private int l_pay;
 	private String l_day;
+	private int l_student;
 	
 	public LessonDetail() {
 		// TODO Auto-generated constructor stub
@@ -20,7 +21,7 @@ public class LessonDetail {
 
 	public LessonDetail(int l_num, String l_location, String l_room, String l_level_of_education1,
 			String l_level_of_education2, String l_major, String l_career1, String l_career2, String l_career3,
-			String l_content, int l_pay, String l_day) {
+			String l_content, int l_pay, String l_day, int l_student) {
 		super();
 		this.l_num = l_num;
 		this.l_location = l_location;
@@ -34,6 +35,7 @@ public class LessonDetail {
 		this.l_content = l_content;
 		this.l_pay = l_pay;
 		this.l_day = l_day;
+		this.l_student = l_student;
 	}
 
 	public int getL_num() {
@@ -132,5 +134,12 @@ public class LessonDetail {
 		this.l_day = l_day;
 	}
 
+	public int getL_student() {
+		return l_student;
+	}
+
+	public void setL_student(int l_student) {
+		this.l_student = l_student;
+	}
 	
 }
