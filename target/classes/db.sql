@@ -2,57 +2,25 @@
 create table oe_member(
     m_id varchar2(12) primary key,
     m_pw varchar2(12) not null,
-<<<<<<< HEAD
     m_lesson varchar2(15) not null,		-- 강습: lesson 과 교습: not_lesson
     m_nickname varchar2(15) not null,
     m_phone number(13) not null,
     m_email varchar2(100) not null,
     m_addr1 varchar2(20) not null,
     m_addr2 varchar2(50) not null,
-=======
-    m_lesson varchar2(15) not null,		-- 강습: lesson 과 교습: not_lesso
-    m_nickname varchar2(15) not null,
-    m_phone number(13) not null,
-    m_email varchar2(100) not null,
-    m_addr1 varchar2(20) not null,
-    m_addr2 varchar2(20) not null,
->>>>>>> refs/remotes/origin/LJ
     m_addr3 varchar2(40) not null
 );
 
-<<<<<<< HEAD
 select * from oe_member;
 drop table oe_member;
-=======
--- 레슨 테이블
-create table oe_lesson(
-	l_num number primary key,					-- 레슨 번호
-	l_type varchar2(5 char) not null,			-- 취미 / 준비
-	l_category varchar2(20 char) not null,		-- 음악 카테고리
-	l_teacher_id varchar2(20 char) not null,	-- 회원T에서 FK 받아오기
-	l_content varchar2(100 char) not null,
-	l_location varchar2(100 char) not null
-);
->>>>>>> refs/remotes/origin/LJ
 
-<<<<<<< HEAD
 insert into oe_member values('user1', '1234', 'not_lesson', '유저1', 01011111111, '1@naver.com', '우편번호', '1', '2');
 insert into oe_member values('user2', '1234', 'not_lesson', '유저2', 01011111111, '1@naver.com', '우편번호', '1', '2');
 insert into oe_member values('user3', '1234', 'not_lesson', '유저3', 01011111111, '1@naver.com', '우편번호', '1', '2');
 insert into oe_member values('user4', '1234', 'not_lesson', '유저4', 01011111111, '1@naver.com', '우편번호', '1', '2');
 insert into oe_member values('user5', '1234', 'not_lesson', '유저5', 01011111111, '1@naver.com', '우편번호', '1', '2');
-=======
-create table oe_lesson(
-	l_num number primary key,					-- 레슨 번호
-	l_type varchar2(5 char) not null,			-- 취미 / 준비
-	l_category varchar2(20 char) not null,		-- 음악 카테고리
-	l_teacher_id varchar2(20 char) not null,	-- 회원T에서 FK 받아오기
-	l_level varchar2(5 char) not null,			-- 레슨 레벨 
-	l_regdate date default sysdate not null		-- 등록일
-);
->>>>>>> refs/remotes/origin/LJ
 
-<<<<<<< HEAD
+
 -- 레슨 테이블
 create table oe_lesson(
 	l_num number primary key,					-- 레슨 번호
@@ -62,27 +30,14 @@ create table oe_lesson(
 	l_level varchar2(5 char) not null,			-- 레슨 레벨 
 	l_regdate date default sysdate not null		-- 등록일
 );
-=======
-create sequence oe_lesson_seq;
->>>>>>> refs/remotes/origin/LJ
 
-<<<<<<< HEAD
 create sequence oe_lesson_seq;
-=======
-insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '베이스', 'TEST', '초급');
-select * from OE_LESSON;
-select oe_lesson_seq.CURRVAL from oe_lesson;
-select oe_lesson_seq.nextval from dual;
->>>>>>> refs/remotes/origin/LJ
 
-<<<<<<< HEAD
 insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '통기타', 'TEST', '초급', sysdate);
 select * from OE_LESSON;
 select oe_lesson_seq.CURRVAL from oe_lesson;
 select oe_lesson_seq.nextval from dual;
 
-=======
->>>>>>> refs/remotes/origin/LJ
 drop table oe_lesson;
 drop sequence oe_lesson_seq;
 
@@ -99,14 +54,13 @@ create table oe_lesson_detail(
 	l_career3 varchar2(30 char),				-- 이력 3
 	l_content varchar2(100 char) not null,		-- 레슨 내용
 	l_pay number not null,						-- 레슨 비용
-<<<<<<< HEAD
 	l_day varchar2(50 char) not null,			-- 레슨 요일 (체크박스)
 	l_student number default 0					-- 수강생 수
 );
 
+insert into OE_LESSON_DETAIL values(23, '서울 강남구', '개인 연습실', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '작곡과', 'ㅊㅊ학원 베이스 강사', null, null, '베이스 수업', 100, '토요일');
 alter table oe_lesson_detail add l_student number default 0;
 select * from OE_LESSON_DETAIL;
-insert into OE_LESSON_DETAIL values(23, '서울 강남구', '개인 연습실', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '작곡과', 'ㅊㅊ학원 베이스 강사', null, null, '베이스 수업', 100, '토요일');
 
 -- 신청 목록
 create table oe_application_list(
@@ -181,14 +135,10 @@ select * from (
 			and a.l_teacher_id = 'aaaa'
 			order by b.l_num desc
 	) d
-=======
-	l_day varchar2(50 char) not null			-- 레슨 요일 (체크박스)
->>>>>>> refs/remotes/origin/LJ
 );
 
 select * from OE_LESSON_DETAIL;
 
-<<<<<<< HEAD
 
 select a.l_num, count(a.l_num)
 from oe_lesson a inner join oe_application_list b on a.l_num = b.l_num
@@ -333,10 +283,3 @@ where l_num = 61
 group by l_num;
 
 
-
-=======
-select *
-from oe_lesson a, oe_lesson_detail b
-where a.l_num = b.l_num
-order by l_regdate desc;
->>>>>>> refs/remotes/origin/LJ
