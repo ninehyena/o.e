@@ -12,7 +12,7 @@
 							<span class="intro-text-small">Hand-crafted by <a href="http://gettemplates.co" target="_blank">GetTemplates.co</a></span>
 							<h1 class="cursive-font">마이페이지</h1>
 						</div>
-							<form action="mypageUpdate" method="post" onsubmit="return Validation()">
+							<form action="mypageUpdate" method="post" onsubmit="return Validation2()">
 								<table>
 									<tr>
 										<td>아이디</td>
@@ -61,13 +61,14 @@
 										<td><input name="m_phone" id="signupPhone" autofocus="autofocus"
 								 				autocomplete="off" placeholder="숫자만 입력해주세요" 
 								 				value="${sessionScope.loginMember.m_phone }" maxlength="11"
-								 				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/></td>
+								 				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+								 		</td>
 									</tr>
 									<tr>
 										<td>이메일</td>
 										<td><input name="m_email" id="signupEmail" autofocus="autofocus"
 								 				autocomplete="off" placeholder="이메일을 입력하세요"
-								 				value="${sessionScope.loginMember.m_email }">
+								 				value="${sessionScope.loginMember.m_email }" readonly="readonly">
 								 			<button id="signupEmailChkBtn" type="button">인증번호 발송</button><br>
 							 				<span id="emailImpo" style="display: none;">잘못된 이메일 형식입니다.</span>
 								 			<span id="emailAva" style="display: none;">사용 가능한 이메일</span>

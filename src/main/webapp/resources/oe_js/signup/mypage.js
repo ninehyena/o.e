@@ -1,84 +1,24 @@
 //회원가입버튼
-$(function gosignup() {
-	$("#goSignupBtn").click(function(){
-		location.href="signup";
-	});
-});
-$(function logout() {
-	$("#logoutBtn").click(function(){
-		location.href="logout";
-	});
-});
+//$(function gosignup() {
+//	$("#goSignupBtn").click(function(){
+//		location.href="signup";
+//	});
+//});
+
 //페이지 로딩과 동시에 실행되는 함수
 $(document).ready(function(){
 	$('#signupEmailChkBtn').attr('disabled',true); //인증번호 발송 버튼 비활성화
-	
-//	function Validation() {
-//		// 변수에 저장
-//		var m_id = document.getElementById("signupId")
-//		console.log(m_id);
-//		//아이디 확인
-//		if(m_id.value == "tt"){
-//			alert("아이디를 입력하세요.")
-//			uid.focus();
-//			return false;
-//		}
-//		// 유효성 문제 없을 시 폼에 submit
-//		//return true;
-//		return false;
-//	}
 });
 	
-var isIdChecked = false; // id 중복체크 확인
 var isPwChecked = false; // pw 확인
 var isPwChecked2 = false; // pwChk 확인
-var isNameChecked = false; // 이름 중복체크 확인
+var isNameChecked = true; // 이름 중복체크 확인
 var isPhoneChecked = false; //전화번호 양식 확인
-var isEmailChecked = false; // email 중복체크 확인
-// 아이디 중복확인
 $(function(){
 
 	var regIdPw = /^[a-zA-Z0-9!@#$%^*+=-]{4,12}$/;
-	
-	$("#signupId").change(function(){
-		isIdChecked = false; // 변경되면 확인 풀리게
-		var m_id = $(this).val();
-		// 빈 칸 체크 , 4자 이상 12자 이하 체크
-		if (m_id.length == 0 || m_id != '') {
-			if (!regIdPw.test(m_id)) {
-			   // alert("아이디는 영문자 또는 영문자와 숫자 조합 4~12자여야 해요.22");
-			   $("#idAva").css("display", "none");
-			   $("#idOver").css("display", "none");
-			   $("#idImpo").css("display", "block");
-			       return false;
-			    }
-		}
-		var data = {
-	            m_id : m_id
-        }
-		$.ajax({
-			url : "/e/signup/userIdCheck",
-			type : "POST",
-            data : data,
-            success : function(result) {
-            	if (result != 'find') {
-                    $("#idAva").css("display", "block");
-                    $("#idOver").css("display", "none");
-                    $("#idImpo").css("display", "none");
-                    isIdChecked = true;
-                 } else {
-                    $("#idOver").css("display", "block");
-                    $("#idAva").css("display", "none");
-                    $("#idImpo").css("display", "none");
-                    isIdChecked = false;
-                 }
-            },error : function(req,status,err){
-				console.log(req);
-			}
-		})
-	});
-	
 	//비밀번호 체크
+
 	$("#signupPw").change(function(){
 		isPwChecked = false; // 변경되면 확인 풀리게
 		var pw = $("#signupPw").val();
@@ -167,66 +107,30 @@ $(function(){
 			}
 		})
 	});
-
-	//이메일 양식 확인
-	var regEmail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-	$("#signupEmail").change(function(){
-		var email = $('#signupEmail').val();
-		if (email.length == 0 || email != '') {
-			if (!regEmail.test(email)) {
-				$("#emailAva").css("display", "none");
-				$("#emailImpo").css("display", "block");
-				$('#signupEmailChkBtn').attr('disabled',true); //인증번호 발송 버튼 비활성화
-			} else {
-				$("#emailAva").css("display", "block");
-				$("#emailImpo").css("display", "none");
-				$('#signupEmailChkBtn').attr('disabled',false); //인증번호 발송 버튼 활성화
-			}
-		}
-	});
-	// 이메일 인증
-	$("#signupEmailChkBtn").click(function(){ // 인증번호 발송 버튼 클릭시
-		var email = $('#signupEmail').val(); // 입력한 이메일 저장
-		console.log('완성된 이메일 : ' + email); // 이메일 잘 가져오는지 확인
-		
-   	 	$.ajax({
-			type : "GET",
-			url :  "/e/signup/mailCheck?email="+email,
-			success : function (data) {
-				console.log("data : " +  data);
-				code = data;
-				alert('인증번호가 전송되었습니다.')
-			}			,
-			error: function(data){
-				alert("메일 발송에 실패했습니다.");
-			}
-		}); // end ajax
-	});// end send eamil
 	
-	// 인증번호 비교 
-	// blur -> focus가 벗어나는 경우 발생
-	$('#emailChk').blur(function () {
-		const inputCode = $(this).val();
-		const $resultMsg = $('#mail-check-warn');
-		
-		if(inputCode === code){
-			$resultMsg.html('인증번호가 일치합니다.');
-			$resultMsg.css('color','green');
-			$('#signupEmailChkBtn').attr('disabled',true); //인증번호 발송 버튼 비활성화
-	        isEmailChecked = true;
-		}else{
-			$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
-			$resultMsg.css('color','red');
-			isEmailChecked = false;
-		}
-	});
+	//전화번호 양식 확인
+//	var regPhone = /^[0-9]{9,11}$/;
+//	$("#signupPhone").change(function(){
+//		isPhoneChecked = false; // 변경되면 확인 풀리게
+//		var phone = $("#signupPhone").val();
+//		if (phone.length == 0 || phone != '') {
+//			if (!regPhone.test(phone)) {
+//				alert("전화번호 양식에 맞춰 작성해 주세요. <br> ex) 010-1234-5678");
+//				console.log(phone);
+//			} else {
+//				isPhoneChecked = true;
+//			}
+//		}
+//	});
+	
+
 });
 	
 
 
 
 // 유효성 검사 메서드
-function Validation() {
+function Validation2() {
 //	event.preventDefault();
 	// 변수에 저장
 	var m_id = document.getElementById("signupId")
@@ -248,19 +152,7 @@ function Validation() {
 	//var regEmail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 	// 전화번호
 	var regPhone = /^[0-9]{9,11}$/;
-	
-	//아이디 확인
-	if(m_id.value == ""){
-		alert("아이디를 입력하세요.")
-		m_id.focus();
-		return false;
-	}
-	// id 중복확인 체크(isIdChecked가 true가 아닐 경우)
-	if(isIdChecked == false){
-		alert("이미 등록된 아이디 입니다.")
-		m_id.focus();
-		return false;
-	}
+
 	//비밀번호 확인
 	if(pw.value == ""){
 		alert("비밀번호를 입력하세요.")
@@ -298,22 +190,11 @@ function Validation() {
 		return false;
 	}
 	if (!regPhone.test(phone.value)) {
-		alert("전화번호 양식에 맞춰 작성해 주세요. <br> ex) 010 1234 5678")
+		alert("전화번호 양식에 맞춰 작성해 주세요. ex) 010 1234 5678")
 		phone.focus();
 		return false;
     }
-	// 메일주소 확인
-	if(email.value == ""){
-		alert("메일주소를 입력하세요.")
-		email.focus();
-		return false;
-	}
-	// email 체크
-	if(isEmailChecked == false){
-		alert("이메일 인증을 진행 해주세요.")
-		email.focus();
-		return false;
-	}
+
 	// 주소 확인
 	if(addr1.value == ""){
 		alert("주소를 입력하세요.")
