@@ -96,44 +96,51 @@
 					<!-- id는 고유한 이름으로 설정하고 tab의 href와 연결되어야 한다. -->
 					<!-- 강사 학력 / 이력 탭 -->
 					<div class="tab-pane fade" id="profile">
-					<h2 class="oe_font2 primary-color">학력</h2>
-						<c:if test="${detail.l_level_of_education1 == null || (detail.l_level_of_education2 == null && detail.l_major == null)}">
-							<img src="images/graduation.png" class="checkbox">
-							<span class="checkbox_text">작성된 내용이 없습니다.</span>
-							<br>
-						</c:if>
-						<c:if test="${detail.l_level_of_education1 != null}">
-							<img src="images/graduation.png" class="checkbox">
-							<span class="checkbox_text">${detail.l_level_of_education1} 졸업</span>
-							<br>
-						</c:if>
-						<c:if test="${detail.l_level_of_education2 != null && detail.l_major != null}">
-							<img src="images/graduation.png" class="checkbox">
-							<span class="checkbox_text">${detail.l_level_of_education2} ${detail.l_major } 전공</span>
-							<br>
-						</c:if>
-						<br><br>
-						
-						<h2 class="oe_font2 primary-color">이력</h2>
-						<c:if test="${detail.l_career1 == null && detail.l_career2 == null && detail.l_career3 == null}">
-							<img src="images/paper.png" class="checkbox">
-							<span class="checkbox_text">작성된 내용이 없습니다.</span>
-							<br>
-						</c:if>
-						<c:if test="${detail.l_career1 != null}">
-							<img src="images/paper.png" class="checkbox">
-							<span class="checkbox_text">${detail.l_career1}</span>
-							<br>
-						</c:if><c:if test="${detail.l_career2 != null}">
-							<img src="images/paper.png" class="checkbox">
-							<span class="checkbox_text">${detail.l_career2}</span>
-							<br>
-						</c:if>
-						<c:if test="${detail.l_career3 != null}">
-							<img src="images/paper.png" class="checkbox">
-							<span class="checkbox_text">${detail.l_career3}</span>
-							<br>
-						</c:if>
+						<div class="w49 oe_float_left oe_center">
+							<img src="storage/${detail.l_photo }" class="photo">
+						</div>
+						<div class="oe_float_right w49">
+							<div class="ml100">
+								<h2 class="oe_font2 primary-color">학력</h2>
+								<c:if test="${detail.l_level_of_education1 == null || (detail.l_level_of_education2 == null && detail.l_major == null)}">
+									<img src="images/graduation.png" class="checkbox">
+									<span class="checkbox_text">작성된 내용이 없습니다.</span>
+									<br>
+								</c:if>
+								<c:if test="${detail.l_level_of_education1 != null}">
+									<img src="images/graduation.png" class="checkbox">
+									<span class="checkbox_text">${detail.l_level_of_education1} 졸업</span>
+									<br>
+								</c:if>
+								<c:if test="${detail.l_level_of_education2 != null && detail.l_major != null}">
+									<img src="images/graduation.png" class="checkbox">
+									<span class="checkbox_text">${detail.l_level_of_education2} ${detail.l_major } 전공</span>
+									<br>
+								</c:if>
+								<br><br>
+								
+								<h2 class="oe_font2 primary-color">이력</h2>
+								<c:if test="${detail.l_career1 == null && detail.l_career2 == null && detail.l_career3 == null}">
+									<img src="images/paper.png" class="checkbox">
+									<span class="checkbox_text">작성된 내용이 없습니다.</span>
+									<br>
+								</c:if>
+								<c:if test="${detail.l_career1 != null}">
+									<img src="images/paper.png" class="checkbox">
+									<span class="checkbox_text">${detail.l_career1}</span>
+									<br>
+								</c:if><c:if test="${detail.l_career2 != null}">
+									<img src="images/paper.png" class="checkbox">
+									<span class="checkbox_text">${detail.l_career2}</span>
+									<br>
+								</c:if>
+								<c:if test="${detail.l_career3 != null}">
+									<img src="images/paper.png" class="checkbox">
+									<span class="checkbox_text">${detail.l_career3}</span>
+									<br>
+								</c:if>
+							</div>
+						</div>
 					</div>
 					<div class="tab-pane fade" id="review">
 						<h2 class="oe_font2 primary-color">수강평</h2>

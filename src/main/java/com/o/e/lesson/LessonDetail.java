@@ -4,6 +4,7 @@ public class LessonDetail {
 	private int l_num;
 	private String l_location;
 	private String l_room;
+	private String l_photo;
 	private String l_level_of_education1;
 	private String l_level_of_education2;
 	private String l_major;
@@ -140,6 +141,14 @@ public class LessonDetail {
 
 	public void setL_student(int l_student) {
 		this.l_student = l_student;
+	}
+
+	public String getL_photo() {
+		return l_photo;
+	}
+
+	public void setL_photo(String l_photo) {
+		this.l_photo = l_photo;
 	}
 	
 }

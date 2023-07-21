@@ -66,6 +66,7 @@
 	<!-- jQuery, sweetalert 추가 2023-07-13 LJ -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script> 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>	
+	<script src="https://unpkg.com/sweetalert2@7.1.2/dist/sweetalert2.all.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css">
 	
 	<!-- FOR IE9 below -->
@@ -106,7 +107,7 @@
 					<ul>
 						<li><a href="lesson">Lessons</a></li>
 						<li class="has-dropdown">
-							<a href="services.html">Services</a>
+							<a href="services.html">Information</a>
 							<ul class="dropdown">
 								<li><a href="#">Food Catering</a></li>
 								<li><a href="#">Wedding Celebration</a></li>
