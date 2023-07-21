@@ -66,29 +66,28 @@
 	<!-- jQuery, sweetalert 추가 2023-07-13 LJ -->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script> 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>	
+	<script src="https://unpkg.com/sweetalert2@7.1.2/dist/sweetalert2.all.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css">
 	
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-	
+
 	<!-- oe_js 시작 -->
 	<!-- 레슨 JS -->
 	<script type="text/javascript" src="resources/oe_js/lesson/oe_lesson.js"></script>
 	
-	<!-- 회원가입 JS -->
+	<!-- 회원가입 JS 시작 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/jQuery.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/signup.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/addressCheck.js"></script>
-	<!-- 마이페이지 수정 JS -->
-	<script type="text/javascript" src="resources/oe_js/signup/mypage.js"></script>
-	<!-- 마이페이지 수정 JS -->
+	<!-- 회원가입 JS 끝 -->
 	
 	<!-- oe_js 끝 -->
 
-</head>
+	</head>
 	<body>
 		
 	<div class="gtco-loader"></div>
@@ -108,7 +107,7 @@
 					<ul>
 						<li><a href="lesson">Lessons</a></li>
 						<li class="has-dropdown">
-							<a href="services.html">Services</a>
+							<a href="services.html">Information</a>
 							<ul class="dropdown">
 								<li><a href="#">Food Catering</a></li>
 								<li><a href="#">Wedding Celebration</a></li>

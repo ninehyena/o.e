@@ -10,21 +10,19 @@
 		<div class="row">
 			<div class="col-md-12 col-md-offset-0 text-left">
 
-
 				<div class="row row-mt-15em">
 					<div class="col-md-7 mt-text animate-box"
 						data-animate-effect="fadeInUp">
 						<span class="intro-text-small">음악을 배우고 싶은 당신을 위한 레슨 추천, <a href="/e">오늘 이런 레슨 어때요?</a></span>
-						<h1 class="cursive-font oe_center">How about these lessons today?</h1>
+						<h1 class="cursive-font">How about these lessons today?</h1>
 					</div>
-					<div class="col-md-4 col-md-push-1 animate-box"
-						data-animate-effect="fadeInRight">
-						<div class="form-wrap">
-							<div class="tab">
-
-								<div class="tab-content">
-									<!-- 비로그인 상태 -->
-									<c:if test="${sessionScope.loginMember.m_id == null}">
+					
+					<!-- 비로그인 상태 -->
+					<c:if test="${sessionScope.loginMember.m_id == null}">
+						<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
+							<div class="form-wrap">
+								<div class="tab">
+									<div class="tab-content">
 										<div class="tab-content-inner active" data-content="signup">
 											<h2 class="primary-color"><b>로그인</b></h2>
 											<form action="login" method="POST">
@@ -54,8 +52,8 @@
 												<div class="row form-group">
 													<div class="col-md-12">
 														<input type="submit" class="btn btn-primary btn-block" value="로그인"> 
-														<input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입">
-														<!-- 카카오 로그인 -->
+														<!-- <input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입"> -->
+                            <!-- 카카오 로그인 -->
 														<a id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=da627de1500bad51608594d4556e9751
 														&redirect_uri=http://localhost/e/kakaoLogin&response_type=code">
 														  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
@@ -65,10 +63,18 @@
 												</div>
 											</form>
 										</div>
-									</c:if>
-									
-									<!-- 로그인 상태 -->
-									<c:if test="${sessionScope.loginMember.m_id != null}">
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:if>
+				
+					<!-- 로그인 상태 -->
+					<c:if test="${sessionScope.loginMember.m_id != null}">
+						<div class="col-md-4 mt-text col-md-push-1 animate-box" data-animate-effect="fadeInRight">
+							<div class="form-wrap">
+								<div class="tab">
+									<div class="tab-content">
 										<div class="tab-content-inner active" data-content="memberInfo">
 											<h2 class="primary-color">내정보</h2>
 											
@@ -84,7 +90,7 @@
 														<span>${sessionScope.loginMember.m_id }</span>
 													</div>
 												</div>
-
+	
 												<div class="row form-group">
 													<div class="col-md-12">
 														<input type="submit" class="btn btn-primary btn-block" value="마이페이지"> 
@@ -93,15 +99,12 @@
 												</div>
 											</form>
 										</div>
-									</c:if>
+									</div>
 								</div>
-
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</div>
-
-
 			</div>
 		</div>
 	</div>

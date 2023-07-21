@@ -43,6 +43,20 @@ function detailCheck() {
         return false;
     }
     
+    if($.trim($('#l_photo').val()) == '') {
+    	Swal.fire({
+            icon: 'warning',                         
+            title: '프로필 사진을 선택해 주세요.',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            didClose: () => {
+            	$('#l_photo').focus();
+            }
+        });
+    	
+        return false;
+    }
+    
     
     if($.trim($('#l_content').val()) == '') {
     	Swal.fire({
@@ -371,3 +385,154 @@ function writeReview(l_num) {
 	location.href = "writeReview?l_num=" + l_num;
 }
 
+function reviewDetail(r_num) {	
+	$.ajax({
+		url: "reviewDetail",
+		type: "GET",
+		data: {r_num:r_num},
+		dataType: "json",
+		success: function(data) {
+			Swal.fire({
+                title: '<b>' + data.r_content + '</b>',
+                showConfirmButton: true,
+                confirmButtonText: '닫기',
+                confirmButtonColor: '#FBB448',
+                width: 600,
+                customClass: 'swal-height'
+            });
+		},
+		error : function(e) {
+			Swal.fire({
+                icon: 'error',                         
+                title: '리뷰를 읽어오는데 실패하였습니다.',
+                showConfirmButton: true
+            });
+		}
+	});
+}
+
+// 댓글
+$(function() {
+	 $('tr[id^=cmtCmt]').each(function(){
+	        $(this).hide();
+	    });
+	
+	
+	$("[id='regC']").click(function() {
+		$(this).closest("tr").next().slideToggle();
+		let text = $(this).text();
+		let text2 = "답글 작성";
+		if (text == text2) {
+			$(this).text("작성 취소");
+		} else {
+			$(this).text("답글 작성");
+		}
+		
+	});
+	
+	$("[id='update']").click(function() {
+		let con = $(this).closest("tr").next().children("#content");
+		let text = con.text();
+		//alert(text);
+		
+		let c_num = $(this).prev().val();
+		
+		let cc_num = $("input[name='c_num']").val();
+		let l_num = $("input[name='l_num']").val();
+		
+		let parent = $(this).closest("tr").next();
+		parent.empty();
+		parent.append('<td><textarea autofocus="autofocus" name="c_content" autocomplete="off" maxlength="200" class="updateArea">'
+						+ text + '</textarea></td>');
+		let textarea = $(".updateArea").text();
+		parent.append('<td align="right" valign="middle"><c:if test="${sessionScope.loginMember != null }"><button type="button" class="updateBtn">수정</button></c:if></td>');
+		
+		$("[class='updateBtn']").click(function() {
+			let c_content = $(this).closest("td").prev().children(".updateArea").val();
+			// alert(c_content);
+			updateCmt(l_num, c_num, c_content);
+		});
+	}); 
+});
+
+function updateCmt(l_num, c_num, c_content) {
+	
+	Swal.fire({
+        title: '댓글을 수정하시겠습니까?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '수정하기',
+        cancelButtonText: '돌아가기'
+    }).then((result) => {
+        if (result.isConfirmed) {
+        	$.ajax({
+    			url : "updateCmt",
+    			type : 'POST',
+    			data : {
+    				l_num : l_num,
+    				c_num : c_num,
+    				c_content : c_content
+    			},
+        		success: function(cnt) {
+        			if (cnt == 1) {
+        				Swal.fire({
+        	                icon: 'success',                         
+        	                title: '댓글이 수정되었습니다.',
+        	                showConfirmButton: false
+        	            });
+					} else {
+						Swal.fire({
+        	                icon: 'error',                         
+        	                title: '수정에 실패하였습니다.',
+        	                showConfirmButton: false
+        	            });
+					}
+    				setTimeout(function() {
+    					location.href = "lessonDetail?l_num=" + l_num;
+    				}, 2000);
+        		},
+        		error : function(e) {
+    				Swal.fire({
+    	                icon: 'error',                         
+    	                title: '수정에 실패하였습니다.',
+    	                showConfirmButton: false
+    	            });
+    				setTimeout(function() {
+    					location.href = "lessonDetail?l_num=" + l_num;
+    				}, 2000);
+        		}
+        	});
+        	
+        } else {
+        	return false;
+        }
+    });
+}
+
+function deleteC(l_num, c_num) {
+
+	Swal.fire({
+        title: '댓글을 삭제하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '삭제하기',
+        cancelButtonText: '돌아가기'
+    }).then((result) => {
+    	if (result.isConfirmed) {
+        	Swal.fire({
+                icon: 'success',                         
+                title: '삭제가 완료되었습니다.',
+                showConfirmButton: false
+            });
+            setTimeout(function() {
+            	location.href = "deleteCmt?l_num=" + l_num + "&c_num=" + c_num;
+			}, 2000);
+        } else {
+        	return false;
+        }
+    });
+}

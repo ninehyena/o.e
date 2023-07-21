@@ -31,11 +31,7 @@
 		</div>
 		<div class="row">
 
-<<<<<<< HEAD
 			<form action="regLesson" method="post" onsubmit="return lessonCheck();">
-=======
-			<form action="regLesson" method="post">
->>>>>>> refs/remotes/origin/LJ
 				<div class="form-group">
 					<label for="l_type">레슨 타입</label> 
 					<select class="form-control" id="l_type" name="l_type">

@@ -33,7 +33,7 @@
 		</div>
 		<div class="row">
 
-			<form action="regLessonDetail" method="post" onsubmit="return detailCheck();">
+			<form action="regLessonDetail" method="post" onsubmit="return detailCheck();"  enctype="multipart/form-data">
 				<input type="hidden" name="l_num" value="${l_num }">
 				<div class="form-group">
 					<span class="notnull">*</span><label for="l_location">레슨 지역</label> 
@@ -46,6 +46,10 @@
 						<option>연습실 대관</option>
 						<option>협의</option>
 				 	</select>
+				</div>
+				<div class="form-group">
+					<span class="notnull">*</span><label for="l_photo">프로필 사진</label> 
+					<input type="file" class="form-control" id="l_photo" name="l_photo">
 				</div>
 				<div class="form-group">
 					<label for="l_level_of_education1">학력</label> 

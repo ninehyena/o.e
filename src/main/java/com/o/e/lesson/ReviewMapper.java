@@ -17,4 +17,13 @@ public interface ReviewMapper {
 
 	// 리뷰 평점 가져오기
 	public abstract double getAvg(@Param("l_num") int l_num);
+	
+	// 레슨을 추천한 수강생 카운트
+	public abstract int getStuCnt(@Param("l_num") int l_num);
+	public abstract int getRecCnt(@Param("l_num") int l_num);
+	public abstract int getLevCnt(@Param("l_num") int l_num);
+	
+	// 리뷰 상세보기
+	public abstract Review reviewDetail(@Param("r_num") int r_num);
+	
 }

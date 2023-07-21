@@ -1,5 +1,6 @@
 package com.o.e.lesson;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.o.e.member.Member;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @Service
 public class LessonDAO {
@@ -43,20 +46,52 @@ public class LessonDAO {
 
 	// 레슨 상세 정보 등록
 	public void regLessonDetail(LessonDetail ld, HttpServletRequest req) {
+		String path = null;
+		MultipartRequest mr = null;
+		try { // 프로필 사진 업로드
+			path = req.getRealPath("storage");
+			System.out.println(path);
+			mr = new MultipartRequest(req, path, 20 * 1024 * 1024, "UTF-8", new DefaultFileRenamePolicy());
+		} catch (Exception e) { 
+			e.printStackTrace();
+			System.out.println("프로필 업로드 실패");
+			return; 
+		}
+		
 		try {
-			String[] l_dayArr = req.getParameterValues("l_day");
+			// ld에 값 셋팅
+			ld.setL_num(Integer.parseInt(mr.getParameter("l_num")));
+			ld.setL_location(mr.getParameter("l_location"));
+			ld.setL_room(mr.getParameter("l_room"));
+			
+			String photo = mr.getFilesystemName("l_photo");
+        	photo = URLEncoder.encode(photo, "UTF-8").replace("+", " ");
+            System.out.println(photo);
+            ld.setL_photo(photo);
+            
+            ld.setL_level_of_education1(mr.getParameter("l_level_of_education1"));
+            ld.setL_level_of_education2(mr.getParameter("l_level_of_education2"));
+            ld.setL_major(mr.getParameter("l_major"));
+            ld.setL_career1(mr.getParameter("l_career1"));
+            ld.setL_career2(mr.getParameter("l_career2"));
+            ld.setL_career3(mr.getParameter("l_career3"));
+            
+			// textarea 줄바꿈 처리
+			ld.setL_content(mr.getParameter("l_content"));
+			ld.getL_content().replace("\r\n", "<br>");
+			 
+			ld.setL_pay(Integer.parseInt(mr.getParameter("l_pay")));
+			
+			String[] l_dayArr = mr.getParameterValues("l_day");
 			String l_day = "";
 
 			l_day = String.join(",", l_dayArr);
 			// System.out.println(l_day);
 			ld.setL_day(l_day);
 
-			// textarea 줄바꿈 처리
-			ld.getL_content().replace("\r\n", "<br>");
-
 			LessonMapper lm = ss.getMapper(LessonMapper.class);
 
-			if (lm.regLessonDetail(ld) == 1) {
+			if (lm.regLessonDetail(ld) == 1 ) {
 				System.out.println("레슨 상세 정보 등록 성공");
 			}
 
@@ -101,6 +136,9 @@ public class LessonDAO {
 	// 레슨 리스트 가져오기
 	public void getAllList(int pageNo, HttpServletRequest req) {
 		try {
+			// 리스트 가져오기 전에 레슨 상세 내역이 없는 레슨 삭제하기
+			ss.getMapper(LessonMapper.class).deleteRegLesson();
+			
 			int lessonCount = allLessonCount; // 레슨 전체 갯수
 			String search = (String) req.getSession().getAttribute("search"); // 세션에 있는 검색어
 			if (search == null) {

@@ -9,6 +9,7 @@ import com.o.e.member.Member;
 public interface LessonMapper {
 	public abstract int regLesson(Lesson l);
 	public abstract int regLessonDetail(LessonDetail ld);
+	public abstract int deleteRegLesson();
 	
 	public abstract int count();
 	public abstract int countSearch(@Param("search") String search);
