@@ -12,7 +12,7 @@
 	</update>
 	<insert id="regCmt"
 		parameterType="com.o.e.comment.Comment">
-		insert into oe_cmt values(cmt_seq.nextval, #{l_num},
+		insert into oe_cmt values(oe_cmt_seq.nextval, #{l_num},
 		#{c_id}, #{c_content}, sysdate, #{c_indent}, #{c_ansnum})
 	</insert>
 	

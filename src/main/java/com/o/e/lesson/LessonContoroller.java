@@ -166,7 +166,10 @@ public class LessonContoroller {
 			return "redirect:/lessonDetail?l_num=" + l_num;
 		}
 
-		lDAO.update(l, ld);
+		l_num = lDAO.update(l, ld, req);
+		if (l_num == 0) {
+			return "redirect:/lesson";
+		}
 
 		return "redirect:/lessonDetail?l_num=" + l_num;
 	}
@@ -177,8 +180,8 @@ public class LessonContoroller {
 		if (!mDAO.loginCheck(req)) {
 			return "redirect:/lessonDetail?l_num=" + l_num;
 		}
-
-		lDAO.delete(l_num);
+		
+		lDAO.delete(l_num, req);
 
 		return "redirect:/lesson";
 	}
