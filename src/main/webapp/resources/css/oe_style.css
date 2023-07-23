@@ -11,7 +11,7 @@
 	font-size: 30px;
 	font-weight: bold;
 	margin: 0 0 10px 0;
-	color: #FBB448;
+	color: #007D65;
 }
 
 .fh5co-card-item .fh5co-text-v p {
@@ -19,6 +19,12 @@
 	-webkit-transition: 0.5s;
 	-o-transition: 0.5s;
 	transition: 0.5s;
+}
+
+.txt {
+	font-size: 18px;
+	font-weight: bold;
+	color: #007D65;
 }
 
 .gtco-section-v .gtco-container .row .oe_float_right {
@@ -53,21 +59,40 @@
 	position: relative;
 }
 
-.gtco-section-v .gtco-container .oe_center {
+.oe_center {
 	text-align: center;
 }
 
 /* width: 49%로 지정 */
-.gtco-section-v .gtco-container .w49 {
+.w49 {
 	width: 49%;
 	display: inline-block;
 	margin-top: 10px;
+}
+
+.w49_2 {
+	width: 49%;
+	display: inline-block;
+}
+
+/* 가로 80% 가운데 정렬 */
+.w80 {
+	width: 80%;
+	margin: 0 auto;
 }
 
 @media (max-width: 800px) {
   .gtco-section-v .gtco-container .w49 {
     width: 100%;
   }
+}
+
+.gtco-section-v .gtco-container .mt4 {
+	margin-top: 4px;
+}
+
+.gtco-section-v .gtco-container .mb4 {
+	margin-bottom: 4px;
 }
 
 .gtco-section-v .gtco-container .mt10 {
@@ -80,6 +105,10 @@
 
 .gtco-section-v .gtco-container .ml100 {
 	margin-left: 100px;
+}
+
+.gtco-section-v .gtco-container .mr3 {
+	margin-right: 3%;
 }
 
 @media (max-width: 800px) {
@@ -107,6 +136,21 @@
 	height: 20px;
 }
 
+.w65 {
+	width: 65%;
+	margin-right: 2%;
+	display: inline-block;
+}
+
+.w32 {
+	width: 32%;
+	display: inline-block;
+}
+
+.btn-primary[disabled] {
+	background-color: gray;
+	border: gray;
+}
 .gtco-section-v .gtco-container .fs18 {
 	font-size: 18px;
 }
@@ -176,10 +220,6 @@
 }
 
 /* index.js */
-.gtco-cover .gtco-container .oe_center {
-	text-align: center;
-}
-
 .gtco-section-v .gtco-container .oe_vcenter {
 	vertical-align: middle;
 }
@@ -341,7 +381,7 @@
   font-size: 35px;
   font-weight: 400;
   margin: 0 0 10px 0;
-  color: #FBB448;
+  color: #007D65;
 }
 .fh5co-card-item-r .fh5co-text-v span {
   color: #b3b3b3;

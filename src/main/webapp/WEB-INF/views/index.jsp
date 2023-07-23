@@ -3,7 +3,6 @@
 <%@ include file="header.jsp"%>
 
 <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner"
-	style="background-image: url(resources/images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="gtco-container">
@@ -50,10 +49,12 @@
 												</div>
 
 												<div class="row form-group">
-													<div class="col-md-12">
+													<div class="col-md-12 oe_center">
 														<input type="submit" class="btn btn-primary btn-block" value="로그인"> 
 														<!-- <input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입"> -->
-                            <!-- 카카오 로그인 -->
+                            							
+                            							<hr>
+                            							<!-- 카카오 로그인 -->
 														<a id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=da627de1500bad51608594d4556e9751
 														&redirect_uri=http://localhost/e/kakaoLogin&response_type=code">
 														  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
@@ -76,7 +77,7 @@
 								<div class="tab">
 									<div class="tab-content">
 										<div class="tab-content-inner active" data-content="memberInfo">
-											<h2 class="primary-color">내정보</h2>
+											<h2 class="primary-color"><b>${sessionScope.loginMember.m_nickname }님!</b></h2>
 											
 											<form action="mypage" method="POST">
 												<div class="row form-group">
@@ -292,7 +293,6 @@
 
 
 <div class="gtco-cover gtco-cover-sm"
-	style="background-image: url(images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="gtco-container text-center">

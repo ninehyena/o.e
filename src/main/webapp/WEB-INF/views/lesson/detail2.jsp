@@ -193,7 +193,7 @@
 					<!-- in 클래스는 fade 클래스를 선언하여 트랜지션효과를 사용할 때 in은 active와 선택되어 있는 탭 영역의 설정이다. -->
 			    </div>
 			</div>
-			<form>
+			<form class="mt30">
 				<input type="hidden" name="l_num" value="${lesson.l_num }">
 				<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_id eq lesson.l_teacher_id}">
 					<div class="row">

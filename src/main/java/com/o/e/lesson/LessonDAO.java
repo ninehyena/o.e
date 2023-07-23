@@ -1,5 +1,8 @@
 package com.o.e.lesson;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -52,36 +55,36 @@ public class LessonDAO {
 			path = req.getRealPath("storage");
 			System.out.println(path);
 			mr = new MultipartRequest(req, path, 20 * 1024 * 1024, "UTF-8", new DefaultFileRenamePolicy());
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("프로필 업로드 실패");
-			return; 
+			return;
 		}
-		
+
 		try {
 			// ld에 값 셋팅
 			ld.setL_num(Integer.parseInt(mr.getParameter("l_num")));
 			ld.setL_location(mr.getParameter("l_location"));
 			ld.setL_room(mr.getParameter("l_room"));
-			
+
 			String photo = mr.getFilesystemName("l_photo");
-        	photo = URLEncoder.encode(photo, "UTF-8").replace("+", " ");
-            System.out.println(photo);
-            ld.setL_photo(photo);
-            
-            ld.setL_level_of_education1(mr.getParameter("l_level_of_education1"));
-            ld.setL_level_of_education2(mr.getParameter("l_level_of_education2"));
-            ld.setL_major(mr.getParameter("l_major"));
-            ld.setL_career1(mr.getParameter("l_career1"));
-            ld.setL_career2(mr.getParameter("l_career2"));
-            ld.setL_career3(mr.getParameter("l_career3"));
-            
+			photo = URLEncoder.encode(photo, "UTF-8").replace("+", " ");
+			System.out.println(photo);
+			ld.setL_photo(photo);
+
+			ld.setL_level_of_education1(mr.getParameter("l_level_of_education1"));
+			ld.setL_level_of_education2(mr.getParameter("l_level_of_education2"));
+			ld.setL_major(mr.getParameter("l_major"));
+			ld.setL_career1(mr.getParameter("l_career1"));
+			ld.setL_career2(mr.getParameter("l_career2"));
+			ld.setL_career3(mr.getParameter("l_career3"));
+
 			// textarea 줄바꿈 처리
 			ld.setL_content(mr.getParameter("l_content"));
 			ld.getL_content().replace("\r\n", "<br>");
-			 
+
 			ld.setL_pay(Integer.parseInt(mr.getParameter("l_pay")));
-			
+
 			String[] l_dayArr = mr.getParameterValues("l_day");
 			String l_day = "";
 
@@ -91,7 +94,7 @@ public class LessonDAO {
 
 			LessonMapper lm = ss.getMapper(LessonMapper.class);
 
-			if (lm.regLessonDetail(ld) == 1 ) {
+			if (lm.regLessonDetail(ld) == 1) {
 				System.out.println("레슨 상세 정보 등록 성공");
 			}
 
@@ -138,7 +141,7 @@ public class LessonDAO {
 		try {
 			// 리스트 가져오기 전에 레슨 상세 내역이 없는 레슨 삭제하기
 			ss.getMapper(LessonMapper.class).deleteRegLesson();
-			
+
 			int lessonCount = allLessonCount; // 레슨 전체 갯수
 			String search = (String) req.getSession().getAttribute("search"); // 세션에 있는 검색어
 			if (search == null) {
@@ -230,8 +233,65 @@ public class LessonDAO {
 	}
 
 	// 레슨 수정
-	public void update(Lesson l, LessonDetail ld) {
+	public int update(Lesson l, LessonDetail ld, HttpServletRequest req) {
+		String path = null;
+		MultipartRequest mr = null;
+		String old_photo = null;
+		String new_photo = null;
+		
+		// 프로필 사진 업로드
 		try {
+			path = req.getRealPath("storage");
+			System.out.println(path);
+			mr = new MultipartRequest(req, path, 20 * 1024 * 1024, "UTF-8", new DefaultFileRenamePolicy());
+			ld = ss.getMapper(LessonMapper.class).getDetail2(Integer.parseInt(mr.getParameter("l_num")));
+			old_photo = ld.getL_photo();
+			System.out.println(old_photo);
+			
+			new_photo = mr.getFilesystemName("l_photo"); // 선택한 파일명
+			if (new_photo != null) {
+				new_photo = URLEncoder.encode(new_photo, "UTF-8").replace("+", " ");
+			} else { // 새로 선택한 파일이 없으면
+				new_photo = old_photo;
+			}
+		} catch (Exception e) { // 파일 업로드에 실패한 경우
+			e.printStackTrace();
+			System.out.println("프로필 수정 실패");
+			return 0; // 업로드에 실패하면 아래 내용의 DB 작업 실행 X (메소드 강제 종료)
+		}
+
+		try {
+			// 값 셋팅
+			l.setL_num(Integer.parseInt(mr.getParameter("l_num")));
+			l.setL_type(mr.getParameter("l_type"));
+			l.setL_category(mr.getParameter("l_category"));
+			l.setL_level(mr.getParameter("l_level"));
+			
+			ld.setL_num(Integer.parseInt(mr.getParameter("l_num")));
+			ld.setL_location(mr.getParameter("l_location"));
+			ld.setL_room(mr.getParameter("l_room"));
+
+			ld.setL_photo(new_photo);
+
+			ld.setL_level_of_education1(mr.getParameter("l_level_of_education1"));
+			ld.setL_level_of_education2(mr.getParameter("l_level_of_education2"));
+			ld.setL_major(mr.getParameter("l_major"));
+			ld.setL_career1(mr.getParameter("l_career1"));
+			ld.setL_career2(mr.getParameter("l_career2"));
+			ld.setL_career3(mr.getParameter("l_career3"));
+
+			// textarea 줄바꿈 처리
+			ld.setL_content(mr.getParameter("l_content"));
+			ld.getL_content().replace("\r\n", "<br>");
+
+			ld.setL_pay(Integer.parseInt(mr.getParameter("l_pay")));
+
+			String[] l_dayArr = mr.getParameterValues("l_day");
+			String l_day = "";
+
+			l_day = String.join(",", l_dayArr);
+			// System.out.println(l_day);
+			ld.setL_day(l_day);
 			LessonMapper lm = ss.getMapper(LessonMapper.class);
 
 			// textarea 줄바꿈 처리
@@ -239,19 +299,44 @@ public class LessonDAO {
 
 			if (lm.updateLesson(l) == 1 && lm.updateLessonDetail(ld) == 1) {
 				System.out.println("레슨 수정 성공");
+				if (!new_photo.equals(old_photo)) { // 사진을 수정했으면
+					// 기존 사진 파일 지우기
+					new File(path + "/" + URLDecoder.decode(old_photo, "UTF-8")).delete();
+				}
+			} else {
+				System.out.println("레슨 수정 실패");
+				if (!new_photo.equals(old_photo)) { 
+					// 새로운 사진 올라간 거 삭제
+					new File(path + "/" + URLDecoder.decode(new_photo, "EUC-KR")).delete();
+				}
 			}
+			return l.getL_num();
 		} catch (Exception e) {
 			e.printStackTrace();
+			e.printStackTrace();
+			// DB쪽 문제로 수정은 실패지만, 사진 파일은 업로드가 되어있는 상태
+			// 업로드된 사진 파일 삭제(파일명은 한글처리가 안되어있어야 함)
+			try {
+				new File(path + "/" + URLDecoder.decode(new_photo, "UTF-8")).delete();
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
 			System.out.println("레슨 수정 실패");
+			return l.getL_num();
 		}
-	}
+	} 
 
 	// 레슨 삭제
-	public void delete(int l_num) {
+	public void delete(int l_num, HttpServletRequest req) {
 		try {
 			LessonMapper lm = ss.getMapper(LessonMapper.class);
-
-			if (lm.deleteLesson(l_num) == 1 && lm.deleteLessonDetail(l_num) == 1) {
+			
+			String path = req.getRealPath("storage");
+			String l_photo = ss.getMapper(LessonMapper.class).getDetail2(l_num).getL_photo();
+			System.out.println(l_photo);
+			new File(path + "/" + URLDecoder.decode(l_photo, "UTF-8")).delete();
+					
+			if (lm.deleteLesson(l_num) == 1 || lm.deleteLessonDetail(l_num) == 1) {
 				System.out.println("레슨 삭제 성공");
 				allLessonCount--;
 			}

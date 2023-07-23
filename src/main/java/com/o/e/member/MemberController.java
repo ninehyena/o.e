@@ -19,7 +19,7 @@ public class MemberController {
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String Singup(Member m, HttpServletRequest req) {
 		
-		return "user/signup";
+		return "user/signup2";
 	}
 	
 	//회원가입하기
@@ -94,7 +94,7 @@ public class MemberController {
 	//내정보 페이지
 	@RequestMapping(value = "/mypage", method = RequestMethod.POST)
 	public String mypage(String m_id, HttpServletRequest req) {
-		return "user/mypage";
+		return "user/mypage2";
 	}
 	
 	//내정보 수정

@@ -4,7 +4,6 @@
 <%@ include file="../header.jsp"%>
 
 <header id="gtco-header" class="gtco-cover gtco-cover-sm-v" role="banner"
-	style="background-image: url(resources/images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="gtco-container">
@@ -33,7 +32,7 @@
 			</c:if>
 			<form action="lesson_search" class="form-inline oe_float_right">
 			  <input class="form-control mr-sm-2" type="search" name="search" placeholder="find lesson">
-			  <button class="btn btn-primary oe_font_bold_18" type="submit">Search</button>
+			  <button class="btn btn-primary oe_font_bold_18 mt4" type="submit">Search</button>
 			</form>
 		</div>
 		<div class="row">

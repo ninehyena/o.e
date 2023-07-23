@@ -119,6 +119,7 @@
 		update oe_lesson_detail
 		set l_location = #{l_location},
 		l_room = #{l_room},
+		l_photo = #{l_photo},
 		l_level_of_education1 = #{l_level_of_education1},
 		l_level_of_education2 = #{l_level_of_education2},
 		l_major = #{l_major},

@@ -33,7 +33,7 @@
 		</div>
 		<div class="row">
 
-			<form action="updateLesson" method="post" onsubmit="return updateCheck();">
+			<form action="updateLesson" method="post" onsubmit="return updateCheck();" enctype="multipart/form-data">
 				<input type="hidden" name="l_num" value="${lesson.l_num }">
 				<div class="form-group">
 					<span class="notnull">*</span><label for="l_type">레슨 타입</label> 
@@ -66,6 +66,10 @@
 						<option <c:if test="${detail.l_room eq '연습실 대관' }">selected</c:if>>연습실 대관</option>
 						<option <c:if test="${detail.l_room eq '협의' }">selected</c:if>>협의</option>
 				 	</select>
+				</div>
+				<div class="form-group">
+					<label for="l_photo">프로필 사진</label> 
+					<input type="file" class="form-control" id="l_photo" name="l_photo">
 				</div>
 				<div class="form-group">
 					<label for="l_level_of_education1">학력</label> 
