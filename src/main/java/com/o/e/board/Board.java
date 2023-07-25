@@ -11,13 +11,14 @@ public class Board {
 	String b_content;
 	Date b_regdate;
 	Date b_updatedate;
-	
+	private String b_poster;
+
 	public Board() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Board(BigDecimal b_no, String b_category, String b_title, String b_content, Date b_regdate,
-			Date b_updatedate) {
+			Date b_updatedate, String b_poster) {
 		super();
 		this.b_no = b_no;
 		this.b_category = b_category;
@@ -25,6 +26,7 @@ public class Board {
 		this.b_content = b_content;
 		this.b_regdate = b_regdate;
 		this.b_updatedate = b_updatedate;
+		this.b_poster = b_poster;
 	}
 
 	public BigDecimal getB_no() {
@@ -73,5 +75,13 @@ public class Board {
 
 	public void setB_updatedate(Date b_updatedate) {
 		this.b_updatedate = b_updatedate;
+	}
+
+	public String getB_poster() {
+		return b_poster;
+	}
+
+	public void setB_poster(String b_poster) {
+		this.b_poster = b_poster;
 	}
 }

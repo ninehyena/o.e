@@ -3,15 +3,16 @@ package com.o.e.notice;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.o.e.Criteria;
+import org.apache.ibatis.annotations.Param;
 
 public interface NoticeMapper {
-	
-	public abstract int getCountTotalNotice(Criteria cri);
 
-	public abstract List<Notice> getListNotice();
+	public abstract int countListNotice();
 
-	public abstract List<Notice> getListNoticeWithPaging(Criteria cri);
+	public abstract int countSearchNotice(@Param("search") String search);
+
+	public abstract List<Notice> getListNotice(@Param("search") String search, @Param("start") int start,
+			@Param("end") int end);
 
 	public abstract int regNotice(Notice n);
 

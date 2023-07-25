@@ -2,54 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.o.e.board.BoardMapper">
 
-	<!-- 게시글 총수 파악하기 -->
-	<select id="getCountTotalBaord" resultType="int">
-		<![CDATA[
-			SELECT COUNT(b_no) FROM oe_board WHERE
-		]]>
-	
-		<![CDATA[
-			b_no > 0
-		]]>
-	</select>
-
-	<!-- 게시글 리스트 불러오기 -->
-	<select id="getListBoard" resultType="com.o.e.board.Board">
-		<![CDATA[SELECT * FROM oe_board WHERE b_no > 0 ORDER BY b_no DESC]]>
-	</select>
-
-	<!-- 게시글 리스트 불러오기(페이징) -->
-	<select id="getListBoardWithPaging"
-		resultType="com.o.e.board.Board">
-	<![CDATA[
-		SELECT
-		b_no, b_category, b_title, b_content, b_regdate, b_updatedate
-		FROM
-		(SELECT
-		/*INDEX_DESC(oe_board pk_board) */
-		ROWNUM rn, b_no, b_category, b_title, b_content, b_regdate, b_updatedate
+	<!-- 전체 정보글 개수 세기 -->
+	<select id="countListBoard" resultType="int">
+		SELECT COUNT(*)
 		FROM
 		oe_board
-		WHERE
-	]]>
-		
-	<![CDATA[
-		ROWNUM <= #{pageNum} * #{amount})
-		WHERE
-		rn > (#{pageNum} - 1) * #{amount}
-	]]>
 	</select>
 
-	<!-- 게시글 쓰기 -->
+	<!-- 검색된 정보글 개수 세기 -->
+	<select id="countSearchBoard" resultType="int"
+		parameterType="String">
+		SELECT
+		COUNT(*)
+		FROM oe_board where b_content like '%' ||
+		#{search} || '%'
+	</select>
+
+	<!-- 정보글 리스트 불러오기 -->
+	<select id="getListBoard" resultType="com.o.e.board.Board">
+		<![CDATA[SELECT * FROM
+		(
+			SELECT ROWNUM AS rn, c.*
+			FROM (
+				SELECT ROWNUM, b_no, b_category, b_title, b_content, b_regdate, b_updatedate
+				FROM oe_board
+				WHERE b_content like '%' || #{search} || '%'
+				ORDER BY b_no DESC
+			) c
+		)
+		WHERE rn >= #{start} and rn <= #{end}]]>
+	</select>
+
+	<!-- 정보글 쓰기 -->
 	<insert id="regBoard" parameterType="com.o.e.board.Board">
 	<![CDATA[
 		INSERT INTO 
-		oe_board(b_no, b_category, b_title, b_content, b_regdate)
-		VALUES(oe_board_seq.nextval, #{b_category}, #{b_title}, #{b_content}, sysdate)
+		oe_board(b_no, b_category, b_title, b_content, b_poster, b_regdate)
+		VALUES(oe_board_seq.NEXTVAL, #{b_category}, #{b_title}, #{b_content}, #{b_poster}, sysdate)
 	]]>
 	</insert>
 
-	<!-- 게시글 읽기 -->
+	<!-- 정보글 읽기 -->
 	<select id="readBoard" resultType="com.o.e.board.Board">
 	<![CDATA[
 		SELECT * FROM oe_board
@@ -57,7 +50,7 @@
 	]]>
 	</select>
 
-	<!-- 게시글 수정 -->
+	<!-- 정보글 수정 -->
 	<update id="updateBoard">
 		UPDATE
 		oe_board
@@ -67,12 +60,14 @@
 		#{b_category},
 		b_content =
 		#{b_content},
+		b_poster =
+		#{b_poster},
 		b_updatedate = sysdate
 		WHERE b_no
 		= #{b_no}
 	</update>
 
-	<!-- 게시글 삭제 -->
+	<!-- 정보글 삭제 -->
 	<delete id="deleteBoard">
 		DELETE oe_board WHERE b_no = #{b_no}
 	</delete>

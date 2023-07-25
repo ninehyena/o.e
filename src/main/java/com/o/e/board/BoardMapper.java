@@ -3,15 +3,16 @@ package com.o.e.board;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.o.e.Criteria;
+import org.apache.ibatis.annotations.Param;
 
 public interface BoardMapper {
 
-	public abstract int getCountTotalBoard(Criteria cri);
+	public abstract int countListBoard();
 
-	public abstract List<Board> getListBoard();
+	public abstract int countSearchBoard(@Param("search") String search);
 
-	public abstract List<Board> getListBoardWithPaging(Criteria cri);
+	public abstract List<Board> getListBoard(@Param("search") String search, @Param("start") int start,
+			@Param("end") int end);
 
 	public abstract int regBoard(Board b);
 

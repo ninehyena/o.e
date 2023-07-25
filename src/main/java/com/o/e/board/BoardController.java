@@ -17,24 +17,48 @@ public class BoardController {
 	private BoardDAO bDAO;
 
 	@RequestMapping(value = "boardList", method = RequestMethod.GET)
-	public String getAllBoard(HttpServletRequest request, HttpServletRequest response) {
-		System.out.println("게시글 게시판으로 이동합니다.");
+	public String getAllBoard(HttpServletRequest request) {
+		System.out.println("정보글 게시판으로 이동합니다.");
+		bDAO.clearSearch(request);
+		bDAO.getCountListBoard();
+		if (request.getParameter("p") != null) {
+			int p = Integer.parseInt(request.getParameter("p"));
+			bDAO.getListBoard(p, request);
+		} else {
+			bDAO.getListBoard(1, request);
+		}
+		return "board/boardList";
+	}
 
-		bDAO.getListBoard(request);
+	@RequestMapping(value = "boardListWithPaging", method = RequestMethod.GET)
+	public String pagingBoard(HttpServletRequest request) {
+		if (request.getParameter("p") != null) {
+			int p = Integer.parseInt(request.getParameter("p"));
+			bDAO.getListBoard(p, request);
+		} else {
+			bDAO.getListBoard(1, request);
+		}
+		return "board/boardList";
+	}
+
+	@RequestMapping(value = "/boardSearch", method = RequestMethod.GET)
+	public String boardSearch(HttpServletRequest req) {
+		bDAO.searchListBoard(req);
+		bDAO.getListBoard(1, req);
 
 		return "board/boardList";
 	}
 
 	@RequestMapping(value = "regBoard", method = RequestMethod.GET)
 	public String regBoardGET(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("게시글 등록 페이지로 이동합니다.");
+		System.out.println("정보글 등록 페이지로 이동합니다.");
 
 		return "board/regBoard";
 	}
 
 	@RequestMapping(value = "regBoard.do", method = RequestMethod.POST)
 	public String regBoardPOST(Board n, HttpServletRequest request) {
-		System.out.println("게시글을 등록합니다: " + n);
+		System.out.println("정보글을 등록합니다: " + n);
 
 		bDAO.regBoard(request, n);
 
@@ -43,7 +67,7 @@ public class BoardController {
 
 	@RequestMapping(value = "readBoard", method = RequestMethod.GET)
 	public String readBoardGET(HttpServletRequest request, BigDecimal b_no) {
-		System.out.println("게시글을 읽어옵니다: " + b_no);
+		System.out.println("정보글을 읽어옵니다: " + b_no);
 
 		bDAO.readBoard(request, b_no);
 
@@ -52,25 +76,25 @@ public class BoardController {
 
 	@RequestMapping(value = "updateBoard", method = RequestMethod.GET)
 	public String updateBoardGET(HttpServletRequest request, BigDecimal b_no) {
-		System.out.println("게시글 수정 페이지로 이동합니다.");
+		System.out.println("정보글 수정 페이지로 이동합니다.");
 		bDAO.readBoard(request, b_no);
 		return "board/updateBoard";
 	}
 
 	@RequestMapping(value = "updateBoard.do", method = RequestMethod.POST)
 	public String updateBoardPOST(HttpServletRequest request, Board b) {
-		System.out.println("게시글을 수정합니다: " + b);
+		System.out.println("정보글을 수정합니다: " + b);
 
 		BigDecimal b_no = b.getB_no();
 
 		bDAO.updateBoard(request, b);
 
-		return "redirect:/readBoard?b_no=" + b_no;
+		return readBoardGET(request, b_no);
 	}
 
 	@RequestMapping(value = "deleteBoard", method = RequestMethod.GET)
 	public String deleteBoardPOST(BigDecimal b_no, HttpServletRequest request) {
-		System.out.println("게시글을 삭제합니다: " + b_no);
+		System.out.println("정보글을 삭제합니다: " + b_no);
 
 		bDAO.deleteBoard(b_no, request);
 
