@@ -36,12 +36,33 @@
 	</select>
 	
 	<!-- 검색어에 해당하는 레슨 갯수 -->
+	<sql id="type">
+		<if test="type != ''">
+			<trim prefixOverrides="or" prefix="(" suffix=") and">
+				<trim prefix="or">
+					<choose>
+						<when test="type == '지역'">
+							(b.l_location like ('%${search}%'))
+						</when>
+						<when test="type == '음악 카테고리'">
+							(a.l_category like ('%${search}%'))
+						</when>
+						<when test="type == '레슨 타입'">
+							(a.l_type like ('%${search}%'))
+						</when>
+					</choose>
+				</trim>
+			</trim>
+		</if>
+	</sql>
 	<select id="countSearch" resultType="int" parameterType="String">
 		select count(*)
 		from oe_lesson a, oe_lesson_detail b 
-		where a.l_category like '%' || #{search} || '%'
-		and a.l_num = b.l_num
+		where 
+		<include refid="type"></include>
+		a.l_num = b.l_num
 	</select>
+	
 	
 	<!-- 전체 레슨 목록 페이징 -->	
 	<!-- join -->
@@ -76,8 +97,10 @@
 				select rownum as rn, c.*
 				from ( select rownum, a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*
 						from oe_lesson a, oe_lesson_detail b 
-						where a.l_category like '%' || #{search} || '%'
-						and a.l_num = b.l_num
+						where ]]>
+						<include refid="type"></include>
+			<![CDATA[
+						a.l_num = b.l_num
 						order by b.l_num desc
 				) c
 			) where rn >= #{start} and rn <= #{end}]]>
@@ -274,4 +297,16 @@
 		update oe_application_list set a_status = 2
 		where l_num = #{l_num} and a_id = #{a_id}
 	</update>
+	
+	<!-- 수강 중인 수업이 없는 회원 -->
+	<select id="noLesson" parameterType="String"  resultType="int">
+		select count(*)
+		from oe_member
+		where m_id not in (select a.m_id
+		from oe_member a, oe_application_list b
+		where a.m_id = b.a_id
+		and (b.a_status = 1 or b.a_status = 0))
+		and m_lesson = 'not_lesson'
+		and m_id = #{m_id}
+	</select>
 </mapper>

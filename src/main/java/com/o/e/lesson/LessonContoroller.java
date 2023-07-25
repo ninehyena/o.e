@@ -53,8 +53,9 @@ public class LessonContoroller {
 		} else {
 			lDAO.getAllList(1, req);
 		}
-		// System.out.println("세션에 있는 검색어 : " +
-		// req.getSession().getAttribute("search"));
+		 System.out.println("세션에 있는 검색어 : " +
+		 req.getSession().getAttribute("type") +
+		 req.getSession().getAttribute("search"));
 
 		return "lesson/lesson";
 	}
@@ -346,4 +347,13 @@ public class LessonContoroller {
 		return lessonDetail(l_num, req);
 	}
 
+	// 레슨 추천
+	@RequestMapping(value = "/recommend", method = RequestMethod.GET)
+	public String recommend(HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return "redirect:/";
+		}
+
+		return "lesson/recommendLesson";
+	}
 }

@@ -27,19 +27,25 @@
 <div class="gtco-section-v">
 	<div class="gtco-container">
 		<div class="row">
-			<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_lesson eq 'lesson'}">
-				<button class="btn btn-primary oe_font_bold_18" onclick="regLesson();">레슨 등록</button>
-			</c:if>
-			<form action="lesson_search" class="form-inline oe_float_right">
-			  <input class="form-control mr-sm-2" type="search" name="search" placeholder="find lesson">
-			  <button class="btn btn-primary oe_font_bold_18 mt4" type="submit">Search</button>
-			</form>
-		</div>
-		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 				<h2 class="cursive-font primary-color">Find the lesson you want!</h2>
 			</div>
 		</div>
+		<div class="row mb40">
+			<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_lesson eq 'lesson'}">
+				<button class="btn btn-primary oe_font_bold_18" onclick="regLesson();">레슨 등록</button>
+			</c:if>
+			<form action="lesson_search" class="form-inline oe_float_right">
+				<select class="form-control" id="type" name="type">
+						<option selected>지역</option>
+						<option>음악 카테고리</option>
+						<option>레슨 타입</option>
+				</select>
+		  		<input class="form-control" type="search" name="search" placeholder="find lesson">
+		  		<button class="btn btn-primary oe_font_bold_18 mt4" type="submit">Search</button>
+			</form>
+		</div>
+		
 		<div class="row">
 			<c:if test="${empty List}">
 				<h2 class="oe_font primary-color">등록된 레슨이 없습니다.</h2>

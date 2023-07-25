@@ -116,20 +116,29 @@ public class LessonDAO {
 
 	// 게시판에 처음 접근 or 타입선택 X
 	public void clearSearch(HttpServletRequest req) {
+		req.getSession().setAttribute("type", null);
 		req.getSession().setAttribute("search", null);
 	}
 
 	// 검색어 값 가져오기
 	public void searchMsg(HttpServletRequest req) {
 		// 새로운 요청이 일어났을 때(페이지 전환)에도 검색어는 살아있어야 해서 세션 사용
+		String type = req.getParameter("type");
 		String search = req.getParameter("search");
+		req.getSession().setAttribute("type", type);
 		req.getSession().setAttribute("search", search);
+		
+		System.out.println("현재 검색어 : " + type + ", " + search);
 	}
 
 	// 검색어에 해당하는 글 갯수
-	private int countSearchMsg(String search) { // Controller에서 사용할 것이 아니라서 private으로 작성
+	private int countSearchMsg(String type, String search) { // Controller에서 사용할 것이 아니라서 private으로 작성
 		try {
-			return ss.getMapper(LessonMapper.class).countSearch(search);
+			int cnt = 0;
+			cnt = ss.getMapper(LessonMapper.class).countSearch(type, search);
+			System.out.println(cnt);
+			return cnt;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0; // 검색어에 해당하는 내용이 없으면 0 리턴
@@ -143,11 +152,13 @@ public class LessonDAO {
 			ss.getMapper(LessonMapper.class).deleteRegLesson();
 
 			int lessonCount = allLessonCount; // 레슨 전체 갯수
+			String type = (String) req.getSession().getAttribute("type"); // 세션에 있는 타입
 			String search = (String) req.getSession().getAttribute("search"); // 세션에 있는 검색어
-			if (search == null) {
+			if (search == null && type == null) {
 				search = "";
+				type = "";
 			} else {
-				lessonCount = countSearchMsg(search);
+				lessonCount = countSearchMsg(type, search);
 			}
 
 			// System.out.println("검색어: " + search);
@@ -163,8 +174,8 @@ public class LessonDAO {
 
 			int start = (lessonPerpage * (pageNo - 1)) + 1; // 한 페이지에 담을 게시물 첫 번째 번호 값
 			int end = (pageNo == pageCount) ? allLessonCount : (start + lessonPerpage - 1); // 한 페이지에 담을 끝 게시물 번호 값
-
-			req.setAttribute("List", ss.getMapper(LessonMapper.class).getAllList(search, start, end));
+			
+			req.setAttribute("List", ss.getMapper(LessonMapper.class).getAllList(type, search, start, end));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
