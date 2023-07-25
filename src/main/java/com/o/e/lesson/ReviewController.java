@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.o.e.member.MemberDAO;
 
@@ -13,13 +15,13 @@ import com.o.e.member.MemberDAO;
 public class ReviewController {
 
 	@Autowired
-	LessonDAO lDAO;
+	private LessonDAO lDAO;
 	
 	@Autowired
-	ReviewDAO rDAO;
+	private ReviewDAO rDAO;
 	
 	@Autowired
-	MemberDAO mDAO;
+	private MemberDAO mDAO;
 	
 	// 리뷰 작성 페이지
 	@RequestMapping(value = "/writeReview", method = RequestMethod.GET)
@@ -29,7 +31,7 @@ public class ReviewController {
 		}
 		lDAO.getDetail(l_num, req);
 
-		return "lesson/writeReview";
+		return "review/writeReview";
 	}
 
 	// 리뷰 작성
@@ -41,5 +43,36 @@ public class ReviewController {
 		rDAO.writeReview(r, l_num, req);
 
 		return "redirect:/lessonDetail?l_num=" + l_num;
+	}
+	
+	// 리뷰 리스트
+	@RequestMapping(value = "/review", method = RequestMethod.GET)
+	public String getReview(int l_num, HttpServletRequest req) {
+		if (req.getParameter("p") != null) {
+			int p = Integer.parseInt(req.getParameter("p"));
+			rDAO.getReivews(p, l_num, req);
+		} else {
+			rDAO.getReivews(1, l_num, req);
+		}
+
+		return "review/review";
+	}
+	
+	@RequestMapping(value = "/review_paging", method = RequestMethod.GET)
+	public String paging(int l_num, HttpServletRequest req) {
+		if (req.getParameter("p") != null) {
+			int p = Integer.parseInt(req.getParameter("p"));
+			rDAO.getReivews(p, l_num, req);
+		} else {
+			rDAO.getReivews(1, l_num, req);
+		}
+
+		return "review/review";
+	}
+	
+	@RequestMapping(value = "/reviewDetail", method = RequestMethod.GET)
+	public @ResponseBody Review reviewDetail(@RequestParam("r_num") int r_num) {
+		
+		return rDAO.reviewDetail(r_num);
 	}
 }

@@ -22,6 +22,10 @@ public class ReviewDAO {
 			Member m = (Member) req.getSession().getAttribute("loginMember");
 			r.setA_id(m.getM_id());
 			r.setL_num(l_num);
+			
+			// textarea 줄바꿈 처리
+			r.getR_content().replace("\r\n", "<br>");
+			System.out.println(r.getR_content());
 
 			ReviewMapper rm = ss.getMapper(ReviewMapper.class);
 			if (rm.writeReview(r) == 1) {
@@ -52,7 +56,7 @@ public class ReviewDAO {
 	public void getReivews(int pageNo, int l_num, HttpServletRequest req) {
 		try {
 			int reviewCount = ss.getMapper(ReviewMapper.class).count(l_num);
-			int reviewPerpage = 10;
+			int reviewPerpage = 9;
 
 			// 페이지 갯수 가져오기
 			int pageCount = (int) (Math.ceil(reviewCount / (double) reviewPerpage));
@@ -61,7 +65,8 @@ public class ReviewDAO {
 			int start = (reviewPerpage * (pageNo - 1)) + 1;
 			int end = (pageNo == pageCount) ? reviewCount : (start + reviewPerpage - 1);
 
-			req.setAttribute("reivews", ss.getMapper(ReviewMapper.class).getReviews(l_num, start, end));
+			req.setAttribute("l_num", l_num);
+			req.setAttribute("reviews", ss.getMapper(ReviewMapper.class).getReviews(l_num, start, end));
 			System.out.println("리뷰 리스트 가져오기 성공");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,13 +77,29 @@ public class ReviewDAO {
 	// 리뷰 평점 가져오기
 	public void getAvg(int l_num, HttpServletRequest req) {
 		try {
+			req.setAttribute("sCnt", ss.getMapper(ReviewMapper.class).getStuCnt(l_num));
 			req.setAttribute("avg", ss.getMapper(ReviewMapper.class).getAvg(l_num));
+			req.setAttribute("recCnt", ss.getMapper(ReviewMapper.class).getRecCnt(l_num));
+			req.setAttribute("lCnt", ss.getMapper(ReviewMapper.class).getLevCnt(l_num));
 			System.out.println("평점 가져오기 성공");
 		} catch (BindingException be) {
 			System.out.println("리뷰가 없음");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("평점 가져오기 실패");
+		}
+	}
+	
+	// 리뷰 상세보기
+	public Review reviewDetail(int r_num) {
+		try {
+			Review r = ss.getMapper(ReviewMapper.class).reviewDetail(r_num);
+			System.out.println("리뷰 상세보기 성공");
+			return r;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("리뷰 상세보기 실패");
+			return null;
 		}
 	}
 }

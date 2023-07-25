@@ -4,6 +4,7 @@
 <%@ include file="../header.jsp"%>
 
 <header id="gtco-header" class="gtco-cover gtco-cover-sm-v" role="banner"
+	style="background-image: url(resources/images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="gtco-container">
@@ -13,7 +14,7 @@
 				<div class="row">
 					<div class="col-md-12 mt-text animate-box"
 						data-animate-effect="fadeInUp">
-						<h1 class="cursive-font">LESSONS</h1>
+						<h1 class="cursive-font">REVIEW</h1>
 					</div>
 				</div>
 
@@ -28,45 +29,47 @@
 	<div class="gtco-container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-				<h2 class="cursive-font primary-color">Find the lesson you want!</h2>
+				<h2 class="oe_font primary-color"></h2>
 			</div>
 		</div>
-		<div class="row mb40">
-			<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_lesson eq 'lesson'}">
-				<button class="btn btn-primary oe_font_bold_18" onclick="regLesson();">레슨 등록</button>
-			</c:if>
-			<form action="lesson_search" class="form-inline oe_float_right">
-				<select class="form-control" id="type" name="type">
-						<option selected>지역</option>
-						<option>음악 카테고리</option>
-						<option>레슨 타입</option>
-				</select>
-		  		<input class="form-control" type="search" name="search" placeholder="find lesson">
-		  		<button class="btn btn-primary oe_font_bold_18 mt4" type="submit">Search</button>
-			</form>
-		</div>
-		
 		<div class="row">
-			<c:if test="${empty List}">
-				<h2 class="oe_font primary-color">등록된 레슨이 없습니다.</h2>
+			<c:if test="${empty reviews}">
+				<h2 class="oe_font primary-color oe_center">등록된 리뷰가 없습니다.</h2>
 			</c:if>
-			<c:forEach var="l" items="${List }">
+			<c:forEach var="r" items="${reviews }">
 				<div class="col-lg-4 col-md-4 col-sm-6">
-					<a href="lessonDetail?l_num=${l.l_num}" class="fh5co-card-item ">
+					<a href="javascript:reviewDetail(${r.r_num})" class="fh5co-card-item-r">
 						<figure>
 							<div class="overlay">
 								<i class="ti-plus"></i>
 							</div>
-							<!-- <img src="images/img_1.jpg" alt="Image" class="img-responsive"> -->
-							<img src="images/${l.l_category }.png" alt="Image" class="img-responsive">
 							
 						</figure>
 						<div class="fh5co-text-v">
-							<h2>${l.l_category }</h2>
-							<p>레슨 타입 : ${l.l_type } / 레슨 레벨 : ${l.l_level }
-							<br>레슨 요일 : ${l.lessonDetail.l_day }
-							<br>레슨 비용 : ${l.lessonDetail.l_pay }원 / 시간당
-							</p>
+							<div class="form-group oe_center" id="review" >
+								<fieldset>
+									<input type="radio" name="r_star" value="5" id="rate1"
+										<c:if test="${r.r_star == 5 }">checked</c:if>>
+									<label for="rate1">★</label>
+									<input type="radio" name="r_star" value="4" id="rate2"
+										<c:if test="${r.r_star == 4 }">checked</c:if>>
+									<label for="rate2">★</label>
+									<input type="radio" name="r_star" value="3" id="rate3"
+										<c:if test="${r.r_star == 3 }">checked</c:if>>
+									<label for="rate3">★</label>
+									<input type="radio" name="r_star" value="2" id="rate4"
+										<c:if test="${r.r_star == 2 }">checked</c:if>>
+									<label for="rate4">★</label>
+									<input type="radio" name="r_star" value="1" id="rate5"
+										<c:if test="${r.r_star == 1 }">checked</c:if>>
+									<label for="rate5">★</label>
+								</fieldset>
+							</div>
+							
+							<c:set var="t" value="
+							"/>
+							<h2 class="oe_font">${fn:split(r.r_content, t)[0] }</h2>
+							<p><fmt:formatDate value="${r.r_regdate }" pattern="yyyy-MM-dd" /></p>
 						</div>
 					</a>
 				</div>
@@ -77,7 +80,7 @@
 		<!-- paging -->
 		<div class="pageCount">
 			<c:forEach var="p" begin="1" end="${pageCount }">
-				<a href="lesson_paging?p=${p }">${p }</a>
+				<a href="review_paging?l_num=${l_num }&p=${p }">${p }</a>
 			</c:forEach>
 		</div>
 	</div>

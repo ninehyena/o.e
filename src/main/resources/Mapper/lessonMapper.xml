@@ -9,12 +9,26 @@
 	</insert>
 	
 	<!-- 레슨 상세 등록 -->
+	<!-- 
 	<insert id="regLessonDetail" parameterType="com.o.e.lesson.LessonDetail" >
 		insert into oe_lesson_detail values(
 		#{l_num}, #{l_location}, #{l_room}, #{l_level_of_education1}, #{l_level_of_education2},
-		#{l_major}, #{l_career1}, #{l_career2}, #{l_career3}, #{l_content}, #{l_pay}, #{l_day}
+		#{l_major}, #{l_career1}, #{l_career2}, #{l_career3}, #{l_content}, #{l_pay}, #{l_day}, 0
 		)
 	</insert>
+	 -->
+	 <insert id="regLessonDetail" parameterType="com.o.e.lesson.LessonDetail" >
+		insert into oe_lesson_detail values(
+		#{l_num}, #{l_location}, #{l_room}, #{l_photo}, #{l_level_of_education1}, #{l_level_of_education2},
+		#{l_major}, #{l_career1}, #{l_career2}, #{l_career3}, #{l_content}, #{l_pay}, #{l_day}, 0
+		)
+	</insert>
+	 
+	<!-- 레슨 상세 내용이 없는 레슨은 삭제 -->
+	<delete id="deleteRegLesson">
+		delete from oe_lesson
+		where l_num not in (select a.l_num from oe_lesson a, oe_lesson_detail b where a.l_num = b.l_num)
+	</delete>
 	
 	<!-- 전체 레슨 갯수 -->
 	<select id="count" resultType="int">
@@ -22,12 +36,33 @@
 	</select>
 	
 	<!-- 검색어에 해당하는 레슨 갯수 -->
+	<sql id="type">
+		<if test="type != ''">
+			<trim prefixOverrides="or" prefix="(" suffix=") and">
+				<trim prefix="or">
+					<choose>
+						<when test="type == '지역'">
+							(b.l_location like ('%${search}%'))
+						</when>
+						<when test="type == '음악 카테고리'">
+							(a.l_category like ('%${search}%'))
+						</when>
+						<when test="type == '레슨 타입'">
+							(a.l_type like ('%${search}%'))
+						</when>
+					</choose>
+				</trim>
+			</trim>
+		</if>
+	</sql>
 	<select id="countSearch" resultType="int" parameterType="String">
 		select count(*)
 		from oe_lesson a, oe_lesson_detail b 
-		where a.l_category like '%' || #{search} || '%'
-		and a.l_num = b.l_num
+		where 
+		<include refid="type"></include>
+		a.l_num = b.l_num
 	</select>
+	
 	
 	<!-- 전체 레슨 목록 페이징 -->	
 	<!-- join -->
@@ -51,6 +86,10 @@
 			<result property="a_date" column="a_date"/>
 			<result property="cnt" column="cnt"/>
 		</association>	
+		
+		<association javaType="com.o.e.member.Member" property="member">
+			<result property="m_phone" column="m_phone"/>
+		</association>	
 	</resultMap>
 	
 	<select id="getAllList" parameterType="map" resultMap="LessonMap">
@@ -58,8 +97,10 @@
 				select rownum as rn, c.*
 				from ( select rownum, a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*
 						from oe_lesson a, oe_lesson_detail b 
-						where a.l_category like '%' || #{search} || '%'
-						and a.l_num = b.l_num
+						where ]]>
+						<include refid="type"></include>
+			<![CDATA[
+						a.l_num = b.l_num
 						order by b.l_num desc
 				) c
 			) where rn >= #{start} and rn <= #{end}]]>
@@ -101,6 +142,7 @@
 		update oe_lesson_detail
 		set l_location = #{l_location},
 		l_room = #{l_room},
+		l_photo = #{l_photo},
 		l_level_of_education1 = #{l_level_of_education1},
 		l_level_of_education2 = #{l_level_of_education2},
 		l_major = #{l_major},
@@ -134,6 +176,7 @@
 	</select>
 	
 	<!-- 로그인한 회원의 레슨 신청 목록 가져오기 -->
+	<!-- 
 	<select id="getMyList" parameterType="map" resultMap="LessonMap">
 		<![CDATA[select * from ( 
 				select rownum as rn, d.*
@@ -146,22 +189,39 @@
 				) d
 			) where rn >= #{start} and rn <= #{end}]]>
 	</select>
+	 -->
+	 <select id="getMyList" parameterType="map" resultMap="LessonMap">
+		<![CDATA[select * from ( 
+				select rownum as rn, d.*
+				from ( select rownum, x.m_phone, y.*
+						from oe_member x, (
+						select a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*, c.a_id, c.a_status, c.a_date
+						from oe_lesson a, oe_lesson_detail b, oe_application_list c
+						where a.l_num = b.l_num
+						and a.l_num = c.l_num
+						and c.a_id = #{m_id}
+						order by b.l_num desc
+						) y
+						where x.m_id = y.l_teacher_id
+				) d
+			) where rn >= #{start} and rn <= #{end}]]>
+	</select>
 	
 	<!-- 로그인한 강사의 레슨 등록 목록 가져오기 -->
 	<select id="getMyList2" parameterType="map" resultMap="LessonMap">
 		<![CDATA[select * from ( 
-					select rownum as rn, e.*
-					from ( select rownum , a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*, subquery1.cnt
-							from oe_lesson a, oe_lesson_detail b, 
-								(select d.l_num as l_num, count(d.l_num) as cnt
-								from oe_lesson c inner join oe_application_list d on c.l_num = d.l_num
-								where c.l_teacher_id = #{m_id} and d.a_status = 0
-								group by d.l_num) subquery1
-							where a.l_teacher_id = #{m_id} 
+					select rownum as rn, z.*
+					from (select rownum, nvl(x.cnt, 0) cnt, y.*
+					from (select b.l_num l_num, b.a_status a_status, count(b.a_status) cnt 
+					from oe_lesson a, OE_APPLICATION_LIST b 
+					where a.l_teacher_id = #{m_id} and a.l_num = b.l_num  and b.a_status = 0
+					group by b.l_num, b.a_status 
+					order by b.l_num desc) x right outer join (select a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*
+							from oe_lesson a, oe_lesson_detail b
+							where a.l_teacher_id = #{m_id}
 							and a.l_num = b.l_num
-							and a.l_num = subquery1.l_num
 							order by a.l_num desc
-					) e
+					) y on x.l_num = y.l_num) z
 			) where rn >= #{start} and rn <= #{end}]]>
 	</select>
 	
@@ -176,18 +236,33 @@
 			<result property="l_type" column="l_type"/>
 			<result property="l_category" column="l_category"/>
 			<result property="l_level" column="l_level"/>
-			
+		</association>	
+		
+		<association javaType="com.o.e.member.Member" property="member">
+			<result property="m_phone" column="m_phone"/>
 		</association>	
 	</resultMap>
 	
+	<!-- 
 	<select id="getStudent" parameterType="map" resultMap="ApplicationMap">
 		<![CDATA[select * from ( 
 					select rownum as rn, c.*
 					from ( select rownum, a.l_type, a.l_category, a.l_level, b.*
 					from oe_lesson a, oe_application_list b
-					where a.l_num = b.l_num and a.l_num = #{l_num}
+					where a.l_num = b.l_num and a.l_num = #{l_num} and b.a_id is not null
 					order by b.a_date desc
 					) c
+				) where rn >= #{start} and rn <= #{end}]]>
+	</select>
+	 -->
+	 <select id="getStudent" parameterType="map" resultMap="ApplicationMap">
+		<![CDATA[select * from ( 
+					select rownum as rn, d.*
+					from ( select rownum, a.l_type, a.l_category, a.l_level, b.*, c.m_phone
+							from oe_lesson a, oe_application_list b, oe_member c
+							where a.l_num = b.l_num and a.l_num = #{l_num} and b.a_id is not null and b.a_id = c.m_id
+							order by b.a_date desc
+					) d
 				) where rn >= #{start} and rn <= #{end}]]>
 	</select>
 	
@@ -203,7 +278,7 @@
 	<select id="getStudent2" parameterType="int" resultType="int">
 		select count(*)
 		from oe_lesson a, oe_application_list b
-		where a.l_num = b.l_num and a.l_num = #{l_num}
+		where a.l_num = b.l_num and a.l_num = #{l_num} and b.a_id is not null
 	</select>
 	
 	
@@ -222,4 +297,16 @@
 		update oe_application_list set a_status = 2
 		where l_num = #{l_num} and a_id = #{a_id}
 	</update>
+	
+	<!-- 수강 중인 수업이 없는 회원 -->
+	<select id="noLesson" parameterType="String"  resultType="int">
+		select count(*)
+		from oe_member
+		where m_id not in (select a.m_id
+		from oe_member a, oe_application_list b
+		where a.m_id = b.a_id
+		and (b.a_status = 1 or b.a_status = 0))
+		and m_lesson = 'not_lesson'
+		and m_id = #{m_id}
+	</select>
 </mapper>

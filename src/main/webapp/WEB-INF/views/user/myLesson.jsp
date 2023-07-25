@@ -37,6 +37,7 @@
 						<th class="oe_center">음악 카테고리</th>
 						<th class="oe_center">레슨 레벨</th>
 						<th class="oe_center">강사 아이디</th>
+						<th class="oe_center">강사 연락처</th>
 						<th class="oe_center">상태</th>
 						<th class="oe_center">신청일</th>
 					</tr>
@@ -52,6 +53,7 @@
 							<td class="oe_center oe_vcenter">${l.l_category }</td>
 							<td class="oe_center oe_vcenter">${l.l_level }</td>
 							<td class="oe_center oe_vcenter">${l.l_teacher_id }</td>
+							<td class="oe_center oe_vcenter">${l.member.m_phone }</td>
 							<td class="oe_center oe_vcenter">
 								<c:if test="${l.applicationList.a_status == 0}">
 									<button class="btn btn-primary oe_font_bold_18">대기</button>
@@ -89,7 +91,7 @@
 						</tr>
 					</c:if>
 					<c:forEach var="l" items="${myList }" varStatus="status">
-						<tr onclick="applicationDetail(${l.l_num});" class="mouse">
+						<tr onclick="lessonDetail(${l.l_num});" class="mouse">
 							<td class="oe_center oe_vcenter">${status.count }</td>
 							<td class="oe_center oe_vcenter">${l.l_type }</td>
 							<td class="oe_center oe_vcenter">${l.l_category }</td>

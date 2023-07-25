@@ -9,19 +9,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.o.e.TokenManager;
+import com.o.e.comment.Comment;
+import com.o.e.comment.CommentDAO;
 import com.o.e.member.MemberDAO;
 
 @Controller
 public class LessonContoroller {
 
 	@Autowired
-	LessonDAO lDAO;
+	private LessonDAO lDAO;
 
 	@Autowired
-	MemberDAO mDAO;
-	
+	private MemberDAO mDAO;
+
 	@Autowired
-	ReviewDAO rDAO;
+	private ReviewDAO rDAO;
+
+	@Autowired
+	private CommentDAO cDAO;
 
 	// 레슨 목록에 처음 접근
 	@RequestMapping(value = "lesson", method = RequestMethod.GET)
@@ -47,8 +53,9 @@ public class LessonContoroller {
 		} else {
 			lDAO.getAllList(1, req);
 		}
-		// System.out.println("세션에 있는 검색어 : " +
-		// req.getSession().getAttribute("search"));
+		 System.out.println("세션에 있는 검색어 : " +
+		 req.getSession().getAttribute("type") +
+		 req.getSession().getAttribute("search"));
 
 		return "lesson/lesson";
 	}
@@ -81,7 +88,7 @@ public class LessonContoroller {
 
 		lDAO.regLesson(l, req);
 
-		return "lesson/regLessonDetail";
+		return "lesson/regLessonDetail2";
 	}
 
 	// 레슨 상세 정보 등록
@@ -102,8 +109,19 @@ public class LessonContoroller {
 		lDAO.getDetail(l_num, req);
 		rDAO.check(l_num, req);
 		rDAO.getAvg(l_num, req);
+		cDAO.countCmts(req);
+		TokenManager.make(req);
 
-		return "lesson/detail";
+		if (req.getParameter("p") != null) {
+			int p = Integer.parseInt(req.getParameter("p"));
+			rDAO.getReivews(p, l_num, req);
+			cDAO.getAllCmt(p, l_num, req);
+		} else {
+			rDAO.getReivews(1, l_num, req);
+			cDAO.getAllCmt(1, l_num, req);
+		}
+
+		return "lesson/detail2";
 	}
 
 	// 레슨 신청하기
@@ -149,7 +167,10 @@ public class LessonContoroller {
 			return "redirect:/lessonDetail?l_num=" + l_num;
 		}
 
-		lDAO.update(l, ld);
+		l_num = lDAO.update(l, ld, req);
+		if (l_num == 0) {
+			return "redirect:/lesson";
+		}
 
 		return "redirect:/lessonDetail?l_num=" + l_num;
 	}
@@ -160,8 +181,8 @@ public class LessonContoroller {
 		if (!mDAO.loginCheck(req)) {
 			return "redirect:/lessonDetail?l_num=" + l_num;
 		}
-
-		lDAO.delete(l_num);
+		
+		lDAO.delete(l_num, req);
 
 		return "redirect:/lesson";
 	}
@@ -205,7 +226,7 @@ public class LessonContoroller {
 		if (!mDAO.loginCheck(req)) {
 			return "redirect:/";
 		}
-		
+
 		if (req.getParameter("p") != null) {
 			int p = Integer.parseInt(req.getParameter("p"));
 			lDAO.getStudent(p, l_num, req);
@@ -215,7 +236,7 @@ public class LessonContoroller {
 
 		return "user/confirmApplication";
 	}
-	
+
 	@RequestMapping(value = "/applicationDetail_paging", method = RequestMethod.GET)
 	public String applicationDetail_paging(int l_num, HttpServletRequest req) {
 		if (!mDAO.loginCheck(req)) {
@@ -231,7 +252,6 @@ public class LessonContoroller {
 
 		return "user/confirmApplication";
 	}
-
 
 	// 레슨 신청 대기 -> 진행
 	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
@@ -263,4 +283,77 @@ public class LessonContoroller {
 		return cnt;
 	}
 
+	// 댓글 등록
+	@RequestMapping(value = "/cmtWrite", method = RequestMethod.POST)
+	public String regCmt(Comment cmt, HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return "redirect:/";
+		}
+
+		TokenManager.make(req);
+		cDAO.regCmt(cmt, req);
+
+		int l_num = Integer.parseInt(req.getParameter("l_num"));
+		return lessonDetail(l_num, req);
+	}
+
+	// 대댓글 등록
+	@RequestMapping(value = "/cmtCmtWrite", method = RequestMethod.POST)
+	public String regCmtCmt(Comment cmt, HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return "redirect:/";
+		}
+
+		TokenManager.make(req);
+		cDAO.regCmt(cmt, req);
+
+		int l_num = Integer.parseInt(req.getParameter("l_num"));
+		return lessonDetail(l_num, req);
+	}
+
+	// 댓글 페이징
+	@RequestMapping(value = "/cmt_paging", method = RequestMethod.GET)
+	public String getCmtPage(HttpServletRequest req) {
+		mDAO.loginCheck(req);
+		int l_num = Integer.parseInt(req.getParameter("l_num"));
+		if (req.getParameter("p") != null) {
+			int p = Integer.parseInt(req.getParameter("p"));
+			cDAO.getAllCmt(p, l_num, req);
+		} else {
+			cDAO.getAllCmt(1, l_num, req);
+		}
+
+		return lessonDetail(l_num, req);
+	}
+
+	@RequestMapping(value = "/updateCmt", method = RequestMethod.POST)
+	public @ResponseBody int goUpdateCmt(String c_content, int l_num, int c_num, HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return 0;
+		}
+
+		return cDAO.updateCmt(l_num, c_num, c_content);
+	}
+
+	// 삭제
+	@RequestMapping(value = "/deleteCmt", method = RequestMethod.GET)
+	public String deleteCmt(int l_num, int c_num, HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return "redirect:/";
+		}
+
+		cDAO.deleteCmt(l_num, c_num);
+
+		return lessonDetail(l_num, req);
+	}
+
+	// 레슨 추천
+	@RequestMapping(value = "/recommend", method = RequestMethod.GET)
+	public String recommend(HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return "redirect:/";
+		}
+
+		return "lesson/recommendLesson";
+	}
 }

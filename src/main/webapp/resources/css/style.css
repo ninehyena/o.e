@@ -47,12 +47,14 @@ body {
 }
 
 a {
+/*  color: #FBB448;*/
   color: #FBB448;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
 }
 a:hover, a:active, a:focus {
+/*  color: #FBB448;*/
   color: #FBB448;
   outline: none;
   text-decoration: none;
@@ -71,6 +73,7 @@ h1, h2, h3, h4, h5, h6, figure {
 
 ::-webkit-selection {
   color: #fff;
+/*  background: #FBB448;*/
   background: #FBB448;
 }
 
@@ -661,6 +664,7 @@ form label {
 }
 
 .primary-color {
+/*  color: #FBB448 !important;*/
   color: #FBB448 !important;
 }
 
