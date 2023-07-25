@@ -12,9 +12,9 @@ public interface LessonMapper {
 	public abstract int deleteRegLesson();
 	
 	public abstract int count();
-	public abstract int countSearch(@Param("search") String search);
+	public abstract int countSearch(@Param("type") String type, @Param("search") String search);
 	
-	public abstract List<Lesson> getAllList(@Param("search") String search, @Param("start") int start,
+	public abstract List<Lesson> getAllList(@Param("type") String type, @Param("search") String search, @Param("start") int start,
 			@Param("end") int end);
 	
 	public abstract Lesson getDetail1(@Param("l_num") int l_num);
@@ -57,4 +57,6 @@ public interface LessonMapper {
 	// 레슨 종료 진행 -> 완료
 	public abstract int finish(@Param("l_num") int l_num, @Param("a_id") String a_id);
 
+	// 수강 중인 수업이 없는 회원
+	public abstract int noLesson(@Param("m_id") String m_id);
 }

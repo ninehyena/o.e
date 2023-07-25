@@ -46,6 +46,11 @@ insert into oe_member values('test7', '1234', 'lesson', '테스트7', '010123412
 insert into oe_member values('test8', '1234', 'lesson', '테스트8', '01045674567', '13@naver.com', '우편번호', '1', '2');
 insert into oe_member values('test9', '1234', 'lesson', '테스트9', '01098989898', '14@naver.com', '우편번호', '1', '2');
 insert into oe_member values('test10', '1234', 'lesson', '테스트10', '01012302574', '15@naver.com', '우편번호', '1', '2');
+insert into oe_member values('test11', '1234', 'lesson', '테스트11', '01098765436', '21@naver.com', '우편번호', '1', '2');
+insert into oe_member values('test12', '1234', 'lesson', '테스트12', '01012341237', '22@naver.com', '우편번호', '1', '2');
+insert into oe_member values('test13', '1234', 'lesson', '테스트13', '01045674561', '23@naver.com', '우편번호', '1', '2');
+insert into oe_member values('test14', '1234', 'lesson', '테스트14', '01098989894', '24@naver.com', '우편번호', '1', '2');
+insert into oe_member values('test15', '1234', 'lesson', '테스트15', '01012302578', '25@naver.com', '우편번호', '1', '2');
 
 update oe_member set m_nickname = '테스트10' where m_id = 'test10';
 
@@ -64,6 +69,7 @@ create table oe_lesson(
 
 create sequence oe_lesson_seq;
 
+insert into OE_LESSON values(oe_lesson_seq.nextval, '준비', '통기타', 'test1', '고급', sysdate);
 insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '통기타', 'test2', '초급', sysdate);
 insert into OE_LESSON values(oe_lesson_seq.nextval, '준비', '드럼', 'test3', '고급', sysdate);
 insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '베이스', 'test4', '초급', sysdate);
@@ -73,6 +79,11 @@ insert into OE_LESSON values(oe_lesson_seq.nextval, '준비', '작곡', 'test7',
 insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '바이올린', 'test8', '초급', sysdate);
 insert into OE_LESSON values(oe_lesson_seq.nextval, '준비', '일렉기타', 'test9', '초급', sysdate);
 insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '피아노', 'test10', '중급', sysdate);
+insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '하프', 'test11', '초급', sysdate);
+insert into OE_LESSON values(oe_lesson_seq.nextval, '준비', '작곡', 'test12', '중급', sysdate);
+insert into OE_LESSON values(oe_lesson_seq.nextval, '준비', '바이올린', 'test13', '고급', sysdate);
+insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '일렉기타', 'test14', '초급', sysdate);
+insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '피아노', 'test15', '중급', sysdate);
 
 
 select * from OE_LESSON;
@@ -126,15 +137,21 @@ create table oe_lesson_detail(
 select * from OE_LESSON;
 select * from oe_lesson_detail;
 
-insert into OE_LESSON_DETAIL values(101, '성남 분당구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '통기타 수업', 10000, '토요일', 0);
-insert into OE_LESSON_DETAIL values(102, '서울 성북구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '베이스 수업', 15000, '토요일, 일요일', 0);
-insert into OE_LESSON_DETAIL values(103, '서울 마포구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '드럼 수업', 20000, '조율 가능', 0);
-insert into OE_LESSON_DETAIL values(104, '경기 구리시 수택동', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '베이스 수업', 30000, '수요일, 금요일', 0);
-insert into OE_LESSON_DETAIL values(105, '서울 용산구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '하프 수업', 50000, '조율 가능', 0);
-insert into OE_LESSON_DETAIL values(106, '서울 동대문구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '작곡 수업', 25000, '화요일', 0);
-insert into OE_LESSON_DETAIL values(107, '경기 부천시 원미동', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '바이올린 수업', 20000, '월요일, 목요일', 0);
-insert into OE_LESSON_DETAIL values(108, '경기 하남시 망월동', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '일렉기타 수업', 18000, '토요일', 0);
-insert into OE_LESSON_DETAIL values(109, '서울 송파구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 15000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(61, '성남 분당구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '통기타 수업', 10000, '토요일', 0);
+insert into OE_LESSON_DETAIL values(62, '서울 성북구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '베이스 수업', 15000, '토요일, 일요일', 0);
+insert into OE_LESSON_DETAIL values(63, '서울 마포구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '드럼 수업', 20000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(64, '경기 구리시 수택동', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '베이스 수업', 30000, '수요일, 금요일', 0);
+insert into OE_LESSON_DETAIL values(65, '서울 용산구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '하프 수업', 50000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(66, '서울 동대문구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '작곡 수업', 25000, '화요일', 0);
+insert into OE_LESSON_DETAIL values(67, '경기 부천시 원미동', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '바이올린 수업', 20000, '월요일, 목요일', 0);
+insert into OE_LESSON_DETAIL values(68, '경기 하남시 망월동', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '일렉기타 수업', 18000, '토요일', 0);
+insert into OE_LESSON_DETAIL values(69, '서울 송파구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 15000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(70, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '통기타 준비반 고급 수업', 20000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(71, '서울 강남구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '하프 수업', 25000, '화요일', 0);
+insert into OE_LESSON_DETAIL values(72, '경기 강남구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '작곡 수업', 20000, '월요일, 목요일', 0);
+insert into OE_LESSON_DETAIL values(73, '서울 성북구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '바이올린 수업', 18000, '토요일', 0);
+insert into OE_LESSON_DETAIL values(74, '서울 용산구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '일렉기타 수업', 15000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(75, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 20000, '조율 가능', 0);
 
 update OE_LESSON_DETAIL set l_day = '조율 가능' where l_num = 109;
 alter table oe_lesson_detail add l_student number default 0;
@@ -186,21 +203,21 @@ create table oe_application_list(
 select * from oe_application_list;
 drop table oe_application_list;
 update oe_application_list set a_status = 1 where l_num = 70;
-insert into OE_APPLICATION_LIST values(101, 'user1', 0, sysdate);
-insert into OE_APPLICATION_LIST values(101, 'user10', 0, sysdate);
-insert into OE_APPLICATION_LIST values(101, 'user5', 0, sysdate);
-insert into OE_APPLICATION_LIST values(101, 'user3', 0, sysdate);
-insert into OE_APPLICATION_LIST values(102, 'user2', 0, sysdate);
-insert into OE_APPLICATION_LIST values(103, 'user3', 0, sysdate);
-insert into OE_APPLICATION_LIST values(104, 'user9', 0, sysdate);
-insert into OE_APPLICATION_LIST values(105, 'user8', 0, sysdate);
-insert into OE_APPLICATION_LIST values(106, 'user7', 0, sysdate);
-insert into OE_APPLICATION_LIST values(106, 'user6', 0, sysdate);
-insert into OE_APPLICATION_LIST values(107, 'user6', 0, sysdate);
-insert into OE_APPLICATION_LIST values(107, 'user7', 0, sysdate);
-insert into OE_APPLICATION_LIST values(107, 'user1', 0, sysdate);
-insert into OE_APPLICATION_LIST values(107, 'user2', 0, sysdate);
-insert into OE_APPLICATION_LIST values(107, 'user3', 0, sysdate);
+insert into OE_APPLICATION_LIST values(61, 'user1', 0, sysdate);
+insert into OE_APPLICATION_LIST values(61, 'user10', 0, sysdate);
+insert into OE_APPLICATION_LIST values(61, 'user5', 0, sysdate);
+insert into OE_APPLICATION_LIST values(61, 'user3', 0, sysdate);
+insert into OE_APPLICATION_LIST values(62, 'user2', 0, sysdate);
+insert into OE_APPLICATION_LIST values(63, 'user3', 0, sysdate);
+insert into OE_APPLICATION_LIST values(64, 'user9', 0, sysdate);
+insert into OE_APPLICATION_LIST values(65, 'user8', 0, sysdate);
+insert into OE_APPLICATION_LIST values(66, 'user7', 0, sysdate);
+insert into OE_APPLICATION_LIST values(66, 'user6', 0, sysdate);
+insert into OE_APPLICATION_LIST values(67, 'user6', 0, sysdate);
+insert into OE_APPLICATION_LIST values(67, 'user7', 0, sysdate);
+insert into OE_APPLICATION_LIST values(67, 'user1', 0, sysdate);
+insert into OE_APPLICATION_LIST values(67, 'user2', 0, sysdate);
+insert into OE_APPLICATION_LIST values(67, 'user3', 0, sysdate);
 
 -- 리뷰
 create table oe_review(
@@ -224,6 +241,13 @@ create sequence oe_review_seq;
 select * from oe_review;
 drop table oe_review;
 delete from oe_review;
+
+-- 공지사항
+
+
+-- 정보 게시판
+
+
 -------------------------------------------------------------------------------
 select *
 from oe_lesson a, oe_lesson_detail b
@@ -586,8 +610,23 @@ order by count(*) desc) b
 where a.l_num = b.l_num;
 
 select a.l_teacher_id, a.l_category, b.*
-from oe_lesson a, oe_lesson_detail b
-where a.l_num = b.l_num
+from oe_lesson a, oe_lesson_detail b, oe_review c
+where a.l_num = b.l_num and a.l_num = c.l_num
 and b.l_pay > 10000 and b.l_pay < 50000
 and b.l_day like '%토요일%'
-and a.l_type like '준비';
+and a.l_type like '준비'
+and c.r_content like '%친절%';
+
+-- 회원 중 수강 중인 수업이 없는 회원
+select a.*, b.*
+from oe_member a, oe_application_list b
+where a.m_id = b.a_id
+
+select *
+from oe_member
+where m_id not in (select a.m_id
+from oe_member a, oe_application_list b
+where a.m_id = b.a_id
+and (b.a_status = 1 or b.a_status = 0))
+and m_lesson = 'not_lesson'
+and m_id = 'user1'

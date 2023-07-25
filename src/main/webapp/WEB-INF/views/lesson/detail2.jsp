@@ -4,7 +4,6 @@
 <%@ include file="../header.jsp"%>
 
 <header id="gtco-header" class="gtco-cover gtco-cover-sm-v" role="banner"
-	style="background-image: url(resources/images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="gtco-container">
@@ -197,6 +196,7 @@
 				<input type="hidden" name="l_num" value="${lesson.l_num }">
 				<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_id eq lesson.l_teacher_id}">
 					<div class="row">
+						<button type="button" class="btn btn-success oe_font_bold_18 oe_float_left" onclick="applicationDetail(${lesson.l_num });">수업 현황</button>
 						<button type="button" class="btn btn-danger oe_font_bold_18 oe_float_right" onclick="deleteL(${lesson.l_num });">삭제</button>
 						<button type="button" class="btn btn-secondary oe_font_bold_18 oe_float_right" onclick="updateL(${lesson.l_num });">수정</button>
 					</div>

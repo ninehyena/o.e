@@ -57,7 +57,7 @@
                             							<!-- 카카오 로그인 -->
 														<a id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=da627de1500bad51608594d4556e9751
 														&redirect_uri=http://localhost/e/kakaoLogin&response_type=code">
-														  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
+														  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" 
 														    alt="카카오 로그인 버튼" />
 														</a>
 													</div>
@@ -84,6 +84,11 @@
 													<div class="col-md-12">
 														<label>${sessionScope.loginMember.m_nickname }님</label> 
 														<label>어서오세요.</label>
+														<c:if test="${cnt == 1 }">
+															<label>현재 수강 중인 수업이 없네요.</label><br>
+														
+															<a href="recommend">레슨을 추천해 드릴까요?</a>
+														</c:if>
 													</div>
 												</div>
 												<div class="row form-group">
@@ -110,6 +115,7 @@
 		</div>
 	</div>
 </header>
+
 
 
 

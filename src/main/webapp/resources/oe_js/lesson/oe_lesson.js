@@ -536,3 +536,5 @@ function deleteC(l_num, c_num) {
         }
     });
 }
+
+

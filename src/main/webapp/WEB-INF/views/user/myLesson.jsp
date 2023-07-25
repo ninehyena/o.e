@@ -91,7 +91,7 @@
 						</tr>
 					</c:if>
 					<c:forEach var="l" items="${myList }" varStatus="status">
-						<tr onclick="applicationDetail(${l.l_num});" class="mouse">
+						<tr onclick="lessonDetail(${l.l_num});" class="mouse">
 							<td class="oe_center oe_vcenter">${status.count }</td>
 							<td class="oe_center oe_vcenter">${l.l_type }</td>
 							<td class="oe_center oe_vcenter">${l.l_category }</td>
