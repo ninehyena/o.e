@@ -172,7 +172,7 @@
 	text-align: center;
 }
 
-.gtco-section-v .gtco-container .oe_font {
+.oe_font {
 	font-family: 'Nanum Pen Script', cursive;
 }
 
@@ -180,12 +180,12 @@
 	font-family: 'Black Han Sans', sans-serif;
 }
 
-.gtco-section-v .gtco-container .oe_font_bold_18 {
+.oe_font_bold_18 {
 	font-weight: bold;
 	font-size: 18px;
 }
 
-.gtco-section-v .gtco-container .oe_font_bold_25 {
+.oe_font_bold_25 {
 	font-weight: bold;
 	font-size: 25px;
 }
@@ -239,6 +239,27 @@ and
 	vertical-align: middle;
 }
 
+.fh5co-card-item .fh5co-text-i {
+	padding: 0px 10px 10px 20px;
+	text-align: center;
+	position: relative;
+	z-index: 22;
+}
+
+.fh5co-card-item .fh5co-text-i h2 {
+	font-size: 25px;
+	font-weight: bold;
+	margin: 0 0 10px 0;
+	color: #FBB448;
+}
+
+.fh5co-card-item .fh5co-text-i p {
+	color: #000;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s;
+	transition: 0.5s;
+}
+
 /* 리뷰 */
 #myform fieldset {
 	display: inline-block;
@@ -272,7 +293,7 @@ and
 	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
 
-#gtco-features .gtco-container .row .oe_white {
+.oe_white, #oe_white {
 	color: white;
 }
 
@@ -688,4 +709,8 @@ and
 	border-radius: 4px;
 	background-color: silver;
 	color: #ffffff;
+}
+
+.oe_b_white {
+	background-color: white;
 }

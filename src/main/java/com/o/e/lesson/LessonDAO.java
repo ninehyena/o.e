@@ -105,10 +105,11 @@ public class LessonDAO {
 	}
 
 	// 전체 레슨 글 갯수 가져오기
-	public void countLessons() {
+	public void countLessons(HttpServletRequest req) {
 		try {
 			allLessonCount = ss.getMapper(LessonMapper.class).count();
 			System.out.println("전체 레슨 글 갯수 : " + allLessonCount);
+			req.setAttribute("allLessonCount", allLessonCount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -305,9 +306,6 @@ public class LessonDAO {
 			ld.setL_day(l_day);
 			LessonMapper lm = ss.getMapper(LessonMapper.class);
 
-			// textarea 줄바꿈 처리
-			ld.getL_content().replace("\r\n", "<br>");
-
 			if (lm.updateLesson(l) == 1 && lm.updateLessonDetail(ld) == 1) {
 				System.out.println("레슨 수정 성공");
 				if (!new_photo.equals(old_photo)) { // 사진을 수정했으면
@@ -318,7 +316,7 @@ public class LessonDAO {
 				System.out.println("레슨 수정 실패");
 				if (!new_photo.equals(old_photo)) { 
 					// 새로운 사진 올라간 거 삭제
-					new File(path + "/" + URLDecoder.decode(new_photo, "EUC-KR")).delete();
+					new File(path + "/" + URLDecoder.decode(new_photo, "UTF-8")).delete();
 				}
 			}
 			return l.getL_num();
@@ -472,6 +470,19 @@ public class LessonDAO {
 			e.printStackTrace();
 			System.out.println("레슨 완료 실패");
 			return 0;
+		}
+	}
+	
+	// index.js에서 필요한 데이터들 (레슨별 신청자 주간 통계 등)
+	public void needDatas(HttpServletRequest req) {
+		try {
+			LessonMapper lm = ss.getMapper(LessonMapper.class);
+			ReviewMapper rm = ss.getMapper(ReviewMapper.class);
+			req.setAttribute("popular", lm.popularLesson());
+			req.setAttribute("countA", lm.countAll());
+			req.setAttribute("countR", rm.countAll());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

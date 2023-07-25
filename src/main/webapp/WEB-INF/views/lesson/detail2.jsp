@@ -89,7 +89,7 @@
 						<img src="images/won.png" class="checkbox">
 						<span class="checkbox_text">레슨 비용은 시간 당  <fmt:formatNumber value="${detail.l_pay}" pattern="#,###"/>원이에요!</span>
 						<br>
-						<pre class="mt10 fs18"><c:out value="${detail.l_content }"/></pre>
+						<pre class="mt10 fs18">${detail.l_content }</pre>
 					</div>
 					
 					<!-- id는 고유한 이름으로 설정하고 tab의 href와 연결되어야 한다. -->
@@ -320,21 +320,21 @@
 						<span class="icon"> <i class="ti-star"></i>
 						</span>
 						<h2 class="cursive-font oe_white">${avg } / 5.0</h2>
-						<p>${lesson.l_teacher_id }님의 수업을 들은 수강생분들이<br>남겨주신 평점이에요.</p>
+						<p>${lesson.l_teacher_id }님의 수업을 들은<br>수강생분들이<br>남겨주신 평점이에요.</p>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-6 gtco-heading">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon"> <i class="ti-thumb-up"></i>
 						</span>
-						<p class="oe_white oe_font oe_font_bold_45">${sCnt }명의 수강생 중<br>${recCnt }명이 추천했어요.</p>
+						<span class="oe_white oe_font oe_font_bold_45">${sCnt }명의 수강생 중<br>${recCnt }명이 추천했어요.</span>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-6 gtco-heading">
 					<div class="feature-center animate-box" data-animate-effect="fadeIn">
 						<span class="icon"> <i class="ti-face-smile"></i>
 						</span>
-						<p class="oe_white oe_font oe_font_bold_45">레슨 수준이 잘 맞았어요.</p>
+						<span class="oe_white oe_font oe_font_bold_45">레슨 수준이 잘 맞았어요.</span>
 						<p>${sCnt }명의 수강생 중<br>${lCnt }명은 진행된 레슨의 수준이<br>${lesson.l_level } 레벨에 딱 맞았다고 느꼈어요.</p>
 					</div>
 				</div>

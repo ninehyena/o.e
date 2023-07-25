@@ -1,11 +1,9 @@
 package com.o.e.board;
 
-import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.List;
 
 public class Board {
-	BigDecimal b_no;
+	int b_no;
 	String b_category;
 	String b_title;
 	String b_content;
@@ -17,8 +15,8 @@ public class Board {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Board(BigDecimal b_no, String b_category, String b_title, String b_content, Date b_regdate,
-			Date b_updatedate, String b_poster) {
+	public Board(int b_no, String b_category, String b_title, String b_content, Date b_regdate, Date b_updatedate,
+			String b_poster) {
 		super();
 		this.b_no = b_no;
 		this.b_category = b_category;
@@ -29,11 +27,11 @@ public class Board {
 		this.b_poster = b_poster;
 	}
 
-	public BigDecimal getB_no() {
+	public int getB_no() {
 		return b_no;
 	}
 
-	public void setB_no(BigDecimal b_no) {
+	public void setB_no(int b_no) {
 		this.b_no = b_no;
 	}
 
@@ -84,4 +82,5 @@ public class Board {
 	public void setB_poster(String b_poster) {
 		this.b_poster = b_poster;
 	}
+
 }

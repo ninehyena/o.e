@@ -16,11 +16,11 @@ public class MemberController {
 	private MailSendService mailService;
 	
 	//회원가입 약관 동의 페이지
-		@RequestMapping(value = "/registerAgree", method = RequestMethod.GET)
-		public String register(Member m, HttpServletRequest req) {
-			
-			return "user/registerAgree";
-		}
+	@RequestMapping(value = "/registerAgree", method = RequestMethod.GET)
+	public String register(Member m, HttpServletRequest req) {
+		
+		return "user/registerAgree";
+	}
 	
 	//회원가입페이지
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)

@@ -71,6 +71,9 @@ public class NoticeDAO {
 	public void regNotice(HttpServletRequest req, Notice n) {
 		try {
 			NoticeMapper nm = ss.getMapper(NoticeMapper.class);
+			
+			// textarea 줄바꿈 처리
+			n.getN_content().replace("\r\n", "<br>");
 			if (nm.regNotice(n) == 1) {
 				System.out.println("공지글 등록 성공");
 			}

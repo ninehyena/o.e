@@ -33,7 +33,7 @@ public class LessonContoroller {
 	@RequestMapping(value = "lesson", method = RequestMethod.GET)
 	public String lesson(HttpServletRequest req) {
 		lDAO.clearSearch(req);
-		lDAO.countLessons();
+		lDAO.countLessons(req);
 		if (req.getParameter("p") != null) {
 			int p = Integer.parseInt(req.getParameter("p"));
 			lDAO.getAllList(p, req);

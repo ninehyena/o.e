@@ -25,7 +25,8 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest req) {
 		mDAO.loginCheck(req);
-		lDAO.countLessons();
+		lDAO.countLessons(req);
+		lDAO.needDatas(req);
 		
 		return "index";
 	}

@@ -58,7 +58,8 @@
 
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="resources/css/style.css">
-	<link rel="stylesheet" href="resources/css/oe_style.css">
+	<link rel="stylesheet" href="resources/oe_css/lesson/oe_style.css">
+	<link rel="stylesheet" href="resources/oe_css/user/registerAgree.css">
 
 	<!-- Modernizr JS -->
 	<script src="resources/js/modernizr-2.6.2.min.js"></script>
@@ -85,6 +86,9 @@
 	<script type="text/javascript" src="resources/oe_js/signup/addressCheck.js"></script>
 	<!-- 회원가입 JS 끝 -->
 	
+	<!-- 공지사항 JS 시작 -->
+	<script type="text/javascript" src="resources/oe_js/notice/oe_notice.js"></script>
+	
 	<!-- oe_js 끝 -->
 
 	</head>
@@ -106,6 +110,7 @@
 				<div class="col-xs-8 text-right menu-1">
 					<ul>
 						<li><a href="lesson">Lessons</a></li>
+						<!-- 
 						<li class="has-dropdown">
 							<a href="services.html">Information</a>
 							<ul class="dropdown">
@@ -114,15 +119,19 @@
 								<li><a href="#">Birthday's Celebration</a></li>
 							</ul>
 						</li>
-						<li><a href="contact.html">Notice</a></li>
+						-->
+						<li><a href="boardList">Information</a></li>
+						<li><a href="noticeList">Notice</a></li>
 						<li class="btn-cta">
 							<!-- 비로그인 상태 -->
 							<c:if test="${sessionScope.loginMember.m_id == null}">
-								<a href="signup"><span>Sign Up</span></a>
+								<a href="registerAgree"><span>Sign Up</span></a>
 							</c:if>
 							<!-- 로그인 상태 -->
 							<c:if test="${sessionScope.loginMember.m_id != null}">
-								<a href="myLesson"><span>My Lesson</span></a>
+								<c:if test="${sessionScope.loginMember.m_id != 'admin'}">
+									<a href="myLesson"><span>My Lesson</span></a>
+								</c:if>
 							</c:if>
 						</li>
 					</ul>	

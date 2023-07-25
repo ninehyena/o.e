@@ -1,7 +1,9 @@
 package com.o.e.board;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,6 +103,9 @@ public class BoardDAO {
 			b.setB_category(category);
 			b.setB_title(title);
 			b.setB_content(content);
+			
+			// textarea 줄바꿈 처리
+			b.getB_content().replace("\r\n", "<br>");
 
 			if (poster != null) {
 				b.setB_poster(poster);
@@ -119,7 +124,7 @@ public class BoardDAO {
 		}
 	}
 
-	public void readBoard(HttpServletRequest req, BigDecimal b_no) {
+	public void readBoard(HttpServletRequest req, int b_no) {
 		try {
 			Board board = ss.getMapper(BoardMapper.class).readBoard(b_no);
 			req.setAttribute("board", board);
@@ -128,53 +133,75 @@ public class BoardDAO {
 		}
 	}
 
-	public void updateBoard(HttpServletRequest req, Board b) {
-
+	public int updateBoard(HttpServletRequest req, Board b) {
 		String path = null;
 		MultipartRequest mr = null;
+		String old_poster = null;
+		String new_poster = null;
+		int b_no = 0;
 
 		try {
 			path = req.getRealPath("storage");
 			System.out.println(path);
 			mr = new MultipartRequest(req, path, 20 * 1024 * 1024, "UTF-8", new DefaultFileRenamePolicy());
+			b_no = Integer.parseInt(mr.getParameter("b_no"));
+			b = ss.getMapper(BoardMapper.class).readBoard(b_no);
+			old_poster = b.getB_poster();
+			
+			new_poster = mr.getFilesystemName("b_poster");
+			if (new_poster != null) {
+				new_poster = URLEncoder.encode(new_poster, "UTF-8").replace("+", " ");
+			} else {
+				new_poster = old_poster;
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("등록 실패");
-			return;
+			return 0;
 		}
 
 		try {
+			// 값 셋팅
+			b.setB_no(b_no);
+			b.setB_category(mr.getParameter("b_category"));
+			b.setB_title(mr.getParameter("b_title"));
+			
+			b.setB_content(mr.getParameter("b_content"));
+			b.getB_content().replace("\r\n", "<br>");
+			
+			b.setB_poster(new_poster);
+			
 			BoardMapper bm = ss.getMapper(BoardMapper.class);
-
-			BigDecimal no = new BigDecimal(mr.getParameter("b_no"));
-			String category = mr.getParameter("b_category");
-			String title = mr.getParameter("b_title");
-			String content = mr.getParameter("b_content");
-			String poster = mr.getFilesystemName("b_poster");
-			poster = URLEncoder.encode(poster, "UTF-8").replace("+", " ");
-			System.out.println(poster);
-
-			b.setB_no(no);
-			b.setB_category(category);
-			b.setB_title(title);
-			b.setB_content(content);
-			b.setB_poster(poster);
+			
 
 			if (bm.updateBoard(b) == 1) {
 				System.out.println("정보글 수정 성공");
+				if (!new_poster.equals(old_poster)) { // 사진을 수정했으면
+					// 기존 사진 파일 지우기
+					new File(path + "/" + URLDecoder.decode(old_poster, "UTF-8")).delete();
+				} 
+			} else {
+				System.out.println("레슨 수정 실패");
+				if (!new_poster.equals(old_poster)) { // 사진을 수정했으면
+					// 기존 사진 파일 지우기
+					new File(path + "/" + URLDecoder.decode(old_poster, "UTF-8")).delete();
+				} 
 			}
-		} catch (NullPointerException ne) {
-			System.out.println("파일 미입력");
-
+			return b.getB_no();
 		} catch (Exception e) {
 			e.printStackTrace();
-			File f = new File(path + "/" + mr.getFilesystemName("m_photo"));
-			f.delete();
+			try {
+				new File(path + "/" + URLDecoder.decode(new_poster, "UTF-8")).delete();
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
 			System.out.println("정보글 수정 실패");
+			return b.getB_no();
 		}
 	}
 
-	public void deleteBoard(BigDecimal b_no, HttpServletRequest req) {
+	public void deleteBoard(int b_no, HttpServletRequest req) {
 		try {
 			BoardMapper bm = ss.getMapper(BoardMapper.class);
 			if (bm.deleteBoard(b_no) == 1) {

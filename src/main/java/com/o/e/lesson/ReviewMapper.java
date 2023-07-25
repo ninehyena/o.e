@@ -26,4 +26,7 @@ public interface ReviewMapper {
 	// 리뷰 상세보기
 	public abstract Review reviewDetail(@Param("r_num") int r_num);
 	
+	// 전체 리뷰 갯수
+	public abstract int countAll();
+	
 }

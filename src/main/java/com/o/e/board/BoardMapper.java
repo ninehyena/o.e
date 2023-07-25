@@ -1,6 +1,5 @@
 package com.o.e.board;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -16,9 +15,9 @@ public interface BoardMapper {
 
 	public abstract int regBoard(Board b);
 
-	public abstract Board readBoard(BigDecimal b_no);
+	public abstract Board readBoard(int b_no);
 
 	public abstract int updateBoard(Board b);
 
-	public abstract int deleteBoard(BigDecimal b_no);
+	public abstract int deleteBoard(int b_no);
 }
