@@ -1,9 +1,16 @@
-//회원가입버튼
+//회원가입 버튼
 $(function gosignup() {
 	$("#goSignupBtn").click(function(){
 		location.href="signup";
 	});
 });
+//약관동의 페이지 버튼
+$(function gosignup() {
+	$("#goRegisterBtn").click(function(){
+		location.href="registerAgree";
+	});
+});
+//로그아웃 버튼
 $(function logout() {
 	$("#logoutBtn").click(function(){
 		location.href="logout";
