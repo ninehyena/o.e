@@ -16,7 +16,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeDAO nDAO;
 
-	@RequestMapping(value = "noticeList", method = RequestMethod.GET)
+	@RequestMapping(value = "notice", method = RequestMethod.GET)
 	public String getAllNotice(HttpServletRequest request) {
 		System.out.println("공지글 게시판으로 이동합니다.");
 		nDAO.clearSearch(request);
@@ -27,10 +27,10 @@ public class NoticeController {
 		} else {
 			nDAO.getListNotice(1, request);
 		}
-		return "notice/noticeList";
+		return "notice/notice";
 	}
 
-	@RequestMapping(value = "noticeListWithPaging", method = RequestMethod.GET)
+	@RequestMapping(value = "notice_paging", method = RequestMethod.GET)
 	public String pagingNotice(HttpServletRequest request) {
 		if (request.getParameter("p") != null) {
 			int p = Integer.parseInt(request.getParameter("p"));
@@ -38,7 +38,7 @@ public class NoticeController {
 		} else {
 			nDAO.getListNotice(1, request);
 		}
-		return "notice/noticeList";
+		return "notice/notice";
 	}
 
 	@RequestMapping(value = "regNotice", method = RequestMethod.GET)
@@ -48,23 +48,23 @@ public class NoticeController {
 		return "notice/regNotice";
 	}
 
-	@RequestMapping(value = "regNotice.do", method = RequestMethod.POST)
+	@RequestMapping(value = "regNotice", method = RequestMethod.POST)
 	public String regNoticePOST(Notice n, HttpServletRequest request) {
 		System.out.println("공지글을 등록합니다: " + n);
 
 		nDAO.regNotice(request, n);
 
-		return "redirect:/noticeList";
+		return "redirect:/notice";
 	}
 
-	@RequestMapping(value = "readNotice", method = RequestMethod.GET)
+	@RequestMapping(value = "noticeDetail", method = RequestMethod.GET)
 	public String readNoticeGET(HttpServletRequest request, BigDecimal n_no) {
 
 		System.out.println("공지글을 읽어옵니다: " + n_no);
 
 		nDAO.readNotice(request, n_no);
 
-		return "notice/readNotice";
+		return "notice/noticeDetail";
 	}
 
 	@RequestMapping(value = "updateNotice", method = RequestMethod.GET)
@@ -74,7 +74,7 @@ public class NoticeController {
 		return "notice/updateNotice";
 	}
 
-	@RequestMapping(value = "updateNotice.do", method = RequestMethod.POST)
+	@RequestMapping(value = "updateNotice", method = RequestMethod.POST)
 	public String updateNoticePOST(HttpServletRequest request, Notice n) {
 		System.out.println("공지글을 수정합니다: " + n);
 
@@ -82,7 +82,7 @@ public class NoticeController {
 
 		nDAO.updateNotice(request, n);
 
-		return "redirect:/readNotice?n_no=" + n_no;
+		return "redirect:/noticeDetail?n_no=" + n_no;
 	}
 
 	@RequestMapping(value = "deleteNotice", method = RequestMethod.GET)
@@ -91,6 +91,6 @@ public class NoticeController {
 
 		nDAO.deleteNotice(n_no, request);
 
-		return "redirect:/noticeList";
+		return "redirect:/notice";
 	}
 }

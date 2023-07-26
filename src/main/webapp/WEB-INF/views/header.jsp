@@ -13,7 +13,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>O.E &mdash; 오늘 이런 수업 어때요?</title>
+	<title>o.e &mdash; 오늘 이런 수업 어때요?</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by GetTemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -105,7 +105,7 @@
 			
 			<div class="row">
 				<div class="col-sm-4 col-xs-12">
-					<div id="gtco-logo"><a href="/e">O <em>.</em> E</a></div>
+					<div id="gtco-logo"><a href="/e">o <em>.</em> e</a></div>
 				</div>
 				<div class="col-xs-8 text-right menu-1">
 					<ul>
@@ -120,8 +120,8 @@
 							</ul>
 						</li>
 						-->
-						<li><a href="boardList">Information</a></li>
-						<li><a href="noticeList">Notice</a></li>
+						<li><a href="board">Information</a></li>
+						<li><a href="notice">Notice</a></li>
 						<li class="btn-cta">
 							<!-- 비로그인 상태 -->
 							<c:if test="${sessionScope.loginMember.m_id == null}">

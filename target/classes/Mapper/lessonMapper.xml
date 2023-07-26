@@ -42,13 +42,13 @@
 				<trim prefix="or">
 					<choose>
 						<when test="type == '지역'">
-							(b.l_location like ('%${search}%'))
+							(b.l_location like ('%#{search}%'))
 						</when>
 						<when test="type == '음악 카테고리'">
-							(a.l_category like ('%${search}%'))
+							(a.l_category like ('%#{search}%'))
 						</when>
 						<when test="type == '레슨 타입'">
-							(a.l_type like ('%${search}%'))
+							(a.l_type like ('%#{search}%'))
 						</when>
 					</choose>
 				</trim>
@@ -78,6 +78,7 @@
 			<result property="l_day" column="l_day"/>
 			<result property="l_pay" column="l_pay"/>
 			<result property="l_student" column="l_student"/>
+			<result property="l_photo" column="l_photo"/>
 		</association>	
 		
 		<association javaType="com.o.e.lesson.ApplicationList" property="applicationList">
@@ -310,6 +311,22 @@
 		and m_id = #{m_id}
 	</select>
 	
+	<!-- 신규 신청이 있는 강사 -->
+	<select id="countNewStu" parameterType="String" resultType="int">
+		select count(*)
+		from oe_lesson a, OE_APPLICATION_LIST b
+		where a.l_num = b.l_num
+		and a.l_teacher_id = #{m_id}
+		and b.a_status = 0
+	</select>
+	
+	<!-- 레슨을 등록한 강사 -->
+	<select id="notRegLesson" parameterType="String" resultType="int">
+		select count(m_id)
+		from oe_member
+		where m_id in (select l_teacher_id from oe_lesson where l_teacher_id = #{m_id})
+	</select>
+	
 	<!-- 레슨별 신청자 주간 통계 top6 -->
 	<select id="popularLesson" resultMap="LessonMap">
 		<![CDATA[select * from ( 
@@ -332,4 +349,30 @@
 		from oe_lesson_detail
 	</select>
 	
+	
+	<!-- 레슨 추천 -->
+	<select id="recommendLesson" parameterType="map" resultMap="LessonMap">
+		<![CDATA[select * from ( 
+					select rownum as rn, c.*
+					from ( select rownum, a.l_teacher_id, a.l_category, b.*
+							from oe_lesson a, oe_lesson_detail b
+							where a.l_num = b.l_num
+							and b.l_location like '%' ||  #{ld.l_location} || '%'
+							and a.l_type like '%' || #{l.l_type} || '%'
+							and a.l_category like '%' || #{l.l_category} || '%'
+							and a.l_level like '%' || #{l.l_level} || '%'
+							and b.l_pay > #{l_pay_min} and b.l_pay < #{l_pay_max}
+							and b.l_day like '%' || #{ld.l_day} || '%'
+							)c
+							) where rn >= 1 and rn <=3]]>
+	</select>
+	
+	<!-- 음악 카테고리별 수강생 수 -->
+	<select id="popularCategory" resultMap="LessonMap">
+		<![CDATA[select a.l_category, SUM(b.l_student) AS cnt
+		from OE_LESSON a, OE_LESSON_DETAIL b
+		where a.l_num = b.l_num
+		group by a.l_category
+		order by SUM(b.l_student) desc]]>
+	</select>
 </mapper>

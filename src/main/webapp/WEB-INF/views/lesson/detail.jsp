@@ -13,7 +13,7 @@
 				<div class="row">
 					<div class="col-md-12 mt-text animate-box"
 						data-animate-effect="fadeInUp">
-						<h1 class="cursive-font">LESSONS</h1>
+						<h1 class="cursive-font">LESSONS </h1>
 					</div>
 				</div>
 

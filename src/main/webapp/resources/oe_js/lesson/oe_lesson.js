@@ -392,8 +392,9 @@ function reviewDetail(r_num) {
 		data: {r_num:r_num},
 		dataType: "json",
 		success: function(data) {
+			data.r_content = data.r_content.replace("\r\n", "<br>");
 			Swal.fire({
-                title: '<b>' + data.r_content + '</b>',
+                html: '<div style="margin: auto; text-align: left; margin-top: 50px;"><p style="margin: auto;"><b>' + data.r_content + '</b></p></div>',
                 showConfirmButton: true,
                 confirmButtonText: '닫기',
                 confirmButtonColor: '#FBB448',
@@ -536,5 +537,4 @@ function deleteC(l_num, c_num) {
         }
     });
 }
-
 
