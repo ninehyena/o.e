@@ -102,7 +102,16 @@ public class MemberDAO {
 		Member m = (Member) req.getSession().getAttribute("loginMember");
 		if (m != null) {
 			// 로그인 성공 or 로그인 상태 유지 시
-			req.setAttribute("cnt", ss.getMapper(LessonMapper.class).noLesson(m.getM_id()));
+			if (m.getM_lesson().equals("not_lesson")) {
+				req.setAttribute("cnt", ss.getMapper(LessonMapper.class).noLesson(m.getM_id()));
+			} else {
+				if (ss.getMapper(LessonMapper.class).notRegLesson(m.getM_id()) == 1) {
+					req.setAttribute("notRegLesson", 0);
+					req.setAttribute("cnt", ss.getMapper(LessonMapper.class).countNewStu(m.getM_id()));
+				} else {
+					req.setAttribute("notRegLesson", 1);
+				}
+			}
 			return true;
 		}
 		// 로그인 상태가 아니거나 로그인 실패 시

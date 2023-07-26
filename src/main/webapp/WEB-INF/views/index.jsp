@@ -82,18 +82,30 @@
 											<form action="mypage" method="POST">
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label>${sessionScope.loginMember.m_nickname }님</label> 
-														<label>어서오세요.</label>
-														<c:if test="${cnt == 1 }">
-															<label>현재 수강 중인 수업이 없네요.</label><br>
-														
-															<a href="recommend">레슨을 추천해 드릴까요?</a>
+														<c:if test="${sessionScope.loginMember.m_lesson == 'not_lesson'}">
+															<c:if test="${cnt == 1 }">
+																<label>현재 수강 중인 레슨이 없네요.</label><br>
+																<a href="recommend">레슨을 추천해 드릴까요?</a>
+															</c:if>
+															<c:if test="${cnt == 0 }">
+																<label>현재 레슨을 수강하고 있어요.</label><br>
+															</c:if>
 														</c:if>
-													</div>
-												</div>
-												<div class="row form-group">
-													<div class="col-md-12">
-														<span>${sessionScope.loginMember.m_id }</span>
+														<c:if test="${sessionScope.loginMember.m_lesson == 'lesson'}">
+															<c:if test="${notRegLesson == 1 }">
+																<label>아직 등록한 레슨이 없네요.</label><br>
+																<a href="regLesson">레슨을 등록해 보세요!</a>
+															</c:if>
+															<c:if test="${notRegLesson == 0 }">
+																<c:if test="${cnt != 0 }">
+																	<label>신규 신청이 존재하는 레슨이 있어요.</label><br>
+																	<a href="myLesson">신청을 수락해 주세요.</a>
+																</c:if>
+																<c:if test="${cnt == 0 }">
+																	<label>신규 신청이 존재하는 레슨이 없어요.</label>
+																</c:if>
+															</c:if>
+														</c:if>
 													</div>
 												</div>
 	
@@ -129,11 +141,9 @@
 				<p>이번 주에 신청한 회원이 가장 많은 레슨이에요.</p>
 			</div>
 		</div>
-		<div class="row">
-			<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
-		</div>
-		<div class="row">
-
+		
+		<div class="row mb40">
+			<input type="hidden" id="popular" value="${popular }">
 			<c:forEach var="p" items="${popular }">
 				<div class="col-lg-4 col-md-4 col-sm-6">
 					<a href="lessonDetail?l_num=${p.l_num}" class="fh5co-card-item">
@@ -153,7 +163,11 @@
 					</a>
 				</div>
 			</c:forEach>
-
+		</div>
+		
+		<div class="row">
+			<h2 class="primary-color oe_center">카테고리별 수강생 비율</h2>
+			<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
 		</div>
 	</div>
 </div>
@@ -219,10 +233,8 @@
 		<div class="row">
 			<div
 				class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
-				<h2 class="cursive-font primary-color">Fun Facts</h2>
-				<p>Dignissimos asperiores vitae velit veniam totam fuga
-					molestias accusamus alias autem provident. Odit ab aliquam dolor
-					eius.</p>
+				<h2 class="cursive-font primary-color">Statistics</h2>
+				<p>o.e 사용자 기반의 데이터 통계를 확인해 보세요.</p>
 			</div>
 		</div>
 		
@@ -230,18 +242,10 @@
 			<div id="chartContainer" style="height: 370px; width: 100%;"></div>
 		</div>
 
-		<div class="row">
+		<div class="row" style="margin-left: 10px; margin-right: 10px; width: 100%;">
 
-			<div class="col-md-3 col-sm-6 animate-box"
-				data-animate-effect="fadeInUp">
-				<div class="feature-center">
-					<span class="counter js-counter" data-from="0" data-to="5"
-						data-speed="2000" data-refresh-interval="50">100</span> <span
-						class="counter-label">Avg. Rating</span>
-
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 animate-box"
+		
+			<div class="col-md-3 col-sm-3 animate-box"
 				data-animate-effect="fadeInUp">
 				<div class="feature-center">
 					<span class="counter-label">총</span>
@@ -250,7 +254,16 @@
 					<span class="counter-label">개의 레슨</span>
 				</div>
 			</div>
-			<div class="col-md-3 col-sm-6 animate-box"
+			<div class="col-md-3 col-sm-3 animate-box"
+				data-animate-effect="fadeInUp">
+				<div class="feature-center">
+				<span class="counter-label">총</span>
+					<span class="counter js-counter" data-from="0" data-to="${countA }"
+						data-speed="2000" data-refresh-interval="50">1</span> 
+					<span class="counter-label">번의 레슨 진행</span>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-3 animate-box"
 				data-animate-effect="fadeInUp">
 				<div class="feature-center">
 					<span class="counter-label">총</span>
@@ -259,13 +272,13 @@
 						<span class="counter-label">개의 리뷰</span>
 				</div>
 			</div>
-			<div class="col-md-3 col-sm-6 animate-box"
+			<div class="col-md-3 col-sm-3 animate-box"
 				data-animate-effect="fadeInUp">
 				<div class="feature-center">
-				<span class="counter-label">총</span>
-					<span class="counter js-counter" data-from="0" data-to="${countA }"
+					<span class="counter-label">총</span>
+					<span class="counter js-counter" data-from="0" data-to="${countR }"
 						data-speed="2000" data-refresh-interval="50">1</span> 
-					<span class="counter-label">번의 레슨 진행</span>
+						<span class="counter-label">번의 추천</span>
 				</div>
 			</div>
 
@@ -276,7 +289,6 @@
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
 	window.onload = function () {
-	
 		
 		var chart = new CanvasJS.Chart("chartContainer", {
 			animationEnabled: true,
@@ -293,40 +305,58 @@
 				indexLabelPlacement: "outside",
 				color: "#FBB448",
 				dataPoints: [
-					{ label: '??', y: 100 },
-					{ label: '총 레슨 갯수', y: ${allLessonCount } },
-					{ label: '누적 리뷰 수', y: ${countR } },
-					{ label: '레슨 진행 누적 횟수', y: ${countA } }
+					{ y: ${allLessonCount } },
+					{ y: ${countA } },
+					{ y: ${countR } },
+					{ y: ${countRec } }
 				]
 			}]
 	
 		});
 		chart.render();
+
 		
-		var chart2 = new CanvasJS.Chart("chartContainer2", {
-			animationEnabled: true,
-			title:{
-				// text: "Email Categories",
-				horizontalAlign: "left"
-			},
-			data: [{
-				type: "doughnut",
-				startAngle: 60,
-				//innerRadius: 60,
-				indexLabelFontSize: 17,
-				indexLabel: "{label} - #percent%",
-				toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-				dataPoints: [
-					{ y: 67, label: "Inbox" },
-					{ y: 28, label: "Archives" },
-					{ y: 10, label: "Labels" },
-					{ y: 7, label: "Drafts"},
-					{ y: 15, label: "Trash"},
-					{ y: 6, label: "Spam"}
-				]
-			}]
-		});
-		chart2.render();
+    	$.ajax({
+			url : "popularLesson",
+			type : 'GET',
+    		success: function(data) {
+    			let ar = [];
+    			let l = [];
+				let d = [];
+				
+    			for (var key in data) {
+    				ar[key] = {
+    					label: data[key].l_category,
+    					y : data[key].applicationList.cnt
+    				}
+    				
+    				d[key] = data[key].applicationList.cnt
+    			}
+    			
+    			CanvasJS.addColorSet("customColors1", ["#ff6384", "#36a2eb", "#ffce56", "#37ED54", "#DB51ED"]);
+    			var chart2 = new CanvasJS.Chart("chartContainer2", {
+    				colorSet: "customColors1",
+    				animationEnabled: true,
+    				
+    				  legend: {
+    				  	verticalAlign: "top"
+    				  },
+    				data: [{
+    					type: "doughnut",
+    					startAngle: 60,
+    					innerRadius: 60,
+    					indexLabelFontSize: 17,
+    					indexLabel: "{label} - #percent%",
+    					toolTipContent: "<b>{label}:</b> {y}명 (#percent%)",
+    					dataPoints: ar,
+    					margin: 30
+    				}]
+    			});
+    			chart2.render();
+    		}
+    	});
+    	
+		
 
 	}
 </script>
