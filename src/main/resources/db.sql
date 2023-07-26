@@ -696,9 +696,9 @@ where r_recommend = 1;
 select count(*)
 from oe_lesson a, OE_APPLICATION_LIST b
 where a.l_num = b.l_num
-and a.l_teacher_id = 'test8'
+and a.l_teacher_id = 'test1'
 and b.a_status = 0;
 
-select m_id
+select count(m_id)
 from oe_member
 where m_id in (select l_teacher_id from oe_lesson where l_teacher_id = 'test8')
