@@ -120,8 +120,8 @@
 							</ul>
 						</li>
 						-->
-						<li><a href="boardList">Information</a></li>
-						<li><a href="noticeList">Notice</a></li>
+						<li><a href="board">Information</a></li>
+						<li><a href="notice">Notice</a></li>
 						<li class="btn-cta">
 							<!-- 비로그인 상태 -->
 							<c:if test="${sessionScope.loginMember.m_id == null}">
