@@ -85,6 +85,11 @@
 	margin: 0 auto;
 }
 
+.w30 {
+	margin: 0 auto;
+	display: inline-block;
+}
+
 @media ( max-width : 800px) {
 	.gtco-section-v .gtco-container .w49 {
 		width: 100%;
@@ -301,11 +306,11 @@ and
 	font-family: 'Nanum Pen Script', cursive;
 }
 
-#gtco-features .gtco-container .row .oe_center {
+.oe_center {
 	text-align: center;
 }
 
-#gtco-features .gtco-container .oe_font_bold_45 {
+.oe_font_bold_45 {
 	font-weight: 400;
 	font-size: 45px;
 	margin-bottom: 10px;
@@ -714,3 +719,4 @@ and
 .oe_b_white {
 	background-color: white;
 }
+

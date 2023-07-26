@@ -218,6 +218,8 @@ insert into OE_LESSON values(oe_lesson_seq.nextval, '준비', '작곡', 'test12'
 insert into OE_LESSON values(oe_lesson_seq.nextval, '준비', '바이올린', 'test13', '고급', sysdate);
 insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '일렉기타', 'test14', '초급', sysdate);
 insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '피아노', 'test15', '중급', sysdate);
+insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '피아노', 'test15', '중급', sysdate);
+insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '피아노', 'test1', '중급', sysdate);
 
 insert into OE_LESSON_DETAIL values(61, '성남 분당구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '통기타 수업', 10000, '토요일', 0);
 insert into OE_LESSON_DETAIL values(62, '서울 성북구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '베이스 수업', 15000, '토요일, 일요일', 0);
@@ -234,6 +236,7 @@ insert into OE_LESSON_DETAIL values(72, '경기 강남구', '개인 연습실', 
 insert into OE_LESSON_DETAIL values(73, '서울 성북구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '바이올린 수업', 18000, '토요일', 0);
 insert into OE_LESSON_DETAIL values(74, '서울 용산구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '일렉기타 수업', 15000, '조율 가능', 0);
 insert into OE_LESSON_DETAIL values(75, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 20000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(78, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 25000, '조율 가능', 0);
 
 
 insert into OE_APPLICATION_LIST values(61, 'user1', 0, sysdate);
@@ -595,11 +598,19 @@ select * from (
 
 
 -- 음악 카테고리 별 수강생 수
-select a.l_category, SUM(b.l_student) AS "수강생 수"
+select a.l_category, SUM(b.l_student) AS cnt
 from OE_LESSON a, OE_LESSON_DETAIL b
 where a.l_num = b.l_num
 group by a.l_category
 order by SUM(b.l_student) desc;
+
+select rownum as rn, d.*
+from ( select rownum, a.l_category, SUM(b.l_student) AS "수강생 수"
+from OE_LESSON a, OE_LESSON_DETAIL b
+where a.l_num = b.l_num
+group by a.l_category
+order by SUM(b.l_student) desc
+) d
 
 -- 레슨 인기순
 select to_date(to_char(sysdate - 6, 'DD'), 'DD') from dual;
@@ -627,14 +638,6 @@ from ( select rownum, a.*, b.l_pay, c.cnt
 			and a.l_num = c.l_num
 	) d
 ) where rn >= 1 and rn <= 6
-
-select a.l_teacher_id, a.l_category, b.*
-from oe_lesson a, oe_lesson_detail b, oe_review c
-where a.l_num = b.l_num and a.l_num = c.l_num
-and b.l_pay > 10000 and b.l_pay < 50000
-and b.l_day like '%토요일%'
-and a.l_type like '준비'
-and c.r_content like '%친절%';
 
 -- 회원 중 수강 중인 수업이 없는 회원
 select a.*, b.*
@@ -665,4 +668,37 @@ where r_recommend = 1
 select count(*)
 from oe_lesson
 
+-- 레슨 추천 쿼리
+select a.l_teacher_id, a.l_category, b.*
+from oe_lesson a, oe_lesson_detail b
+where a.l_num = b.l_num
+and b.l_location like '%경기%'
+and a.l_type like '%취미%'
+and a.l_category like '%바이올린%'
+and a.l_level like '%초급%'
+and b.l_pay > 10000 and b.l_pay < 50000
+and b.l_day like '%월요일, 목요일%';
 
+select a.l_teacher_id, a.l_category, b.*
+from oe_lesson a, oe_lesson_detail b
+where a.l_num = b.l_num
+and b.l_location like '%경기%'
+and a.l_type like '%취미%'
+and a.l_category like '%바이올린%'
+and a.l_level like '%초급%'
+and b.l_pay > 10000 and b.l_pay < 50000
+and b.l_day like '%월요일, 목요일%'
+
+select count(*) 
+from oe_review
+where r_recommend = 1;
+
+select count(*)
+from oe_lesson a, OE_APPLICATION_LIST b
+where a.l_num = b.l_num
+and a.l_teacher_id = 'test1'
+and b.a_status = 0;
+
+select count(m_id)
+from oe_member
+where m_id in (select l_teacher_id from oe_lesson where l_teacher_id = 'test8')

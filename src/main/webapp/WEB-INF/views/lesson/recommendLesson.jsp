@@ -47,6 +47,10 @@
 									 	</select>
 									 </div>
 									 <div class="form-group">
+										<label for="l_category" class="primary-color fs18"><b>무엇을 배우고 싶나요?</b></label> 
+										<input type="text" class="form-control" id="l_category" name="l_category" placeholder="피아노, 작곡 등">
+									</div>
+									 <div class="form-group">
 										<label for="l_type" class="primary-color fs18"><b>어느 정도의 레슨 수준을 원하나요?</b></label> 
 										<select class="form-control" id="l_level" name="l_level">
 											<option style="color:black;">초급</option>
@@ -54,18 +58,14 @@
 											<option style="color:black;">고급</option>
 									 	</select>
 									 </div>
-									 <div class="form-group">
-										<label for="l_category" class="primary-color fs18"><b>무엇을 배우고 싶나요?</b></label> 
-										<input type="text" class="form-control" id="l_category" name="l_category" placeholder="피아노, 작곡 등">
-									</div>
 									<div class="form-group">
 										<label for="l_pay" class="primary-color fs18"><b>레슨 비용(시간 당)</b></label><br> 
 										<div class="w49_2 oe_center">
-											<input type="number" name="l_pay_min" class="form-control" placeholder="최소">
+											<input type="number" id="l_pay_min" name="l_pay_min" class="form-control" placeholder="최소">
 										</div>
 										~
 										<div class="w49_2 oe_center">
-											<input type="number" name="l_pay_max" class="form-control" placeholder="최대">
+											<input type="number" id="l_pay_max" name="l_pay_max" class="form-control" placeholder="최대">
 										</div>
 									</div>
 									<div class="form-group">
@@ -83,7 +83,7 @@
 										</div>
 									</div>
 									<div class="oe_center">
-										<button type="submit" class="btn btn-primary mt10">찾기</button>
+										<button type="button" class="btn btn-primary mt10" onclick="recommend('${sessionScope.loginMember.m_nickname }');">찾기</button>
 									</div>
 								</form>
 							</div>
@@ -95,5 +95,102 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+//레슨 추천
+function recommend(m_id) {
+	var l_location = $.trim($('#l_location').val());
+	var l_type = $.trim($('#l_type').val());
+	var l_category = $.trim($('#l_category').val());
+	var l_level = $.trim($('#l_level').val());
+	var l_pay_min = $.trim($('#l_pay_min').val());
+	var l_pay_max = $.trim($('#l_pay_max').val());
+	var l_day = "";
+	var arr = [];
+	$("input:checkbox[name='l_day']:checked").each(function(){
+		l_day = $(this).val();
+		arr.push(l_day);
+	});
+	
+//	alert(l_location+l_type+l_category+l_level+l_pay_min+l_pay_max);
+	l_day = arr.join(', ');
+	let timerInterval
+	Swal.fire({
+	  title: m_id + '님께 맞는 레슨을 찾고 있어요.',
+	  timer: 3000,
+	  timerProgressBar: true,
+	  didOpen: () => {
+	    Swal.showLoading()
+	    
+	  },
+	  willClose: () => {
+	    clearInterval(timerInterval)
+	  }
+	}).then((result) => {
+		$.ajax({
+			url : "recommend",
+			type : 'POST',
+			data : {
+				l_location : l_location,
+				l_type : l_type,
+				l_category : l_category,
+				l_level : l_level,
+				l_pay_min : l_pay_min,
+				l_pay_max : l_pay_max,
+				l_day : l_day
+			},
+    		success: function(data) {
+    			let ar = [];
+
+				for (var key in data) {
+					//ar[key] = [data[key].l_teacher_id]
+					//ar[key] = ['<a href="lessonDetail?l_num='+ data[key].l_num +'" style="display: inline-block">' 
+					//		+ '<img src="storage/'+ data[key].lessonDetail.l_photo + '" style="width: 100px;">'
+					//		+ data[key].l_teacher_id + '님</a>']
+					
+					ar[key] = [
+						'<div class="w30"> <a href="lessonDetail?l_num=' + data[key].l_num + '" class="fh5co-card-item ">'
+						
+						+		'<img src="storage/' + data[key].lessonDetail.l_photo +'" alt="Image" class="w30">'
+						
+						+	'<div class="fh5co-text-v">'
+						+		'<h2>' + data[key].l_teacher_id + '님</h2>'
+						+	'</div>'
+						+'</a>'
+						+'</div>'
+					]
+				}
+				
+				let list = ar.join('&nbsp;');
+    			
+				if (ar.length != 0) {
+    				Swal.fire({
+   	                	title: m_id +'님!',
+    	             	html: list +'<br>의 수업을 추천할게요!',
+    	                showConfirmButton: false
+    	            });
+				} else {
+					Swal.fire({
+    	                title: '<span class="icon"> <i class="ti-face-sad"></i></span>',
+    	                html : '현재 ' + m_id +'님에게 맞는 레슨이 아직 없어요:(',
+    	                showConfirmButton: true,
+    	                confirmButtonText: '닫기'
+    	            });
+				}
+    		},
+    		error : function(e) {
+				Swal.fire({
+	                icon: 'error',                         
+	                title: '조회에 실패하였습니다.',
+	                showConfirmButton: true,
+	                confirmButtonText: '닫기'
+	            });
+    		}
+    	});
+	});
+	
+}
+
+</script>
 
 <%@ include file="../footer.jsp"%>

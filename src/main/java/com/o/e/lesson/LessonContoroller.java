@@ -1,5 +1,7 @@
 package com.o.e.lesson;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -349,11 +351,40 @@ public class LessonContoroller {
 
 	// 레슨 추천
 	@RequestMapping(value = "/recommend", method = RequestMethod.GET)
-	public String recommend(HttpServletRequest req) {
+	public String goLecommend(Lesson l, LessonDetail ld, HttpServletRequest req) {
 		if (!mDAO.loginCheck(req)) {
 			return "redirect:/";
 		}
 
 		return "lesson/recommendLesson";
+	}
+	
+//	@RequestMapping(value = "/recommend", method = RequestMethod.POST)
+//	public String recommend(Lesson l, LessonDetail ld, HttpServletRequest req) {
+//		if (!mDAO.loginCheck(req)) {
+//			return "redirect:/";
+//		}
+//		lDAO.recommendLesson(l, ld, req);
+//
+//		return "lesson/recommendLesson";
+//	}
+	
+	@RequestMapping(value = "/recommend", method = RequestMethod.POST)
+	public @ResponseBody List<Lesson> recommend(String l_location, String l_type, String l_category,
+			String l_level, int l_pay_min, int l_pay_max, String l_day, HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return null;
+		}
+		System.out.println(l_location);
+		System.out.println(l_pay_min);
+		
+
+		return lDAO.recommendLesson(l_location, l_type, l_category, l_level, l_pay_min, l_pay_max, l_day, req);
+	}
+	
+	@RequestMapping(value = "/popularLesson", method = RequestMethod.GET)
+	public @ResponseBody List<Lesson> popularLesson(HttpServletRequest req) {
+		
+		return lDAO.jsonData();
 	}
 }

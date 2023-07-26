@@ -65,4 +65,11 @@
 	<select id="countAll"  resultType="int">
 		select count(*) from oe_review
 	</select>
+	
+	<!-- 추천 갯수 가져오기 -->
+	<select id="getRec" resultType="int">
+		select count(*) 
+		from oe_review
+		where r_recommend = 1
+	</select>
 </mapper>

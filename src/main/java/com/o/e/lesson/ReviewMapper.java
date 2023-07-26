@@ -28,5 +28,5 @@ public interface ReviewMapper {
 	
 	// 전체 리뷰 갯수
 	public abstract int countAll();
-	
+	public abstract int getRec();
 }
