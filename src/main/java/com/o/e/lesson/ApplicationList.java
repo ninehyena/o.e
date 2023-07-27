@@ -2,6 +2,8 @@ package com.o.e.lesson;
 
 import java.util.Date;
 
+import com.o.e.member.Member;
+
 public class ApplicationList {
 	private int l_num;
 	private String a_id;
@@ -11,24 +13,8 @@ public class ApplicationList {
 	
 	private Lesson lesson; 
 	
+	private Member member;
 	
-	
-	public Lesson getLesson() {
-		return lesson;
-	}
-
-	public void setLesson(Lesson lesson) {
-		this.lesson = lesson;
-	}
-
-	public int getCnt() {
-		return cnt;
-	}
-
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
-	}
-
 	public ApplicationList() {
 		// TODO Auto-generated constructor stub
 	}
@@ -71,6 +57,30 @@ public class ApplicationList {
 
 	public void setA_date(Date a_date) {
 		this.a_date = a_date;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public Lesson getLesson() {
+		return lesson;
+	}
+
+	public void setLesson(Lesson lesson) {
+		this.lesson = lesson;
+	}
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 
 }

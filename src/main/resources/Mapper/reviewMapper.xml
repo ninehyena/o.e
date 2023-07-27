@@ -24,7 +24,7 @@
 					select rownum as rn, b.*
 					from ( select rownum, a.*
 					from oe_review a
-					where al_num = #{l_num}
+					where a.l_num = #{l_num}
 					order by r_regdate desc
 					) b
 				) where rn >= #{start} and rn <= #{end}]]>
@@ -37,5 +37,27 @@
 				where l_num = #{l_num}
 				group by l_num]]>
 	</select>
-
+	
+	<!-- 추천한 수강생 수 카운트 -->
+	<select id="getStuCnt" parameterType="int" resultType="int">
+		select count(*) from oe_lesson_detail where l_num = #{l_num}
+	</select>
+	<select id="getRecCnt" parameterType="int" resultType="int">
+		select count(r_recommend)
+		from oe_review
+		where l_num = #{l_num} and r_recommend = 1
+		group by r_recommend
+	</select>
+	
+	<!-- 레슨 수준 평가 -->
+	<select id="getLevCnt" parameterType="int" resultType="int">
+		select count(r_level)
+		from oe_review
+		where l_num = #{l_num} and r_level = 1
+	</select>
+	
+	<!-- 리뷰 상세보기 -->
+	<select id="reviewDetail" parameterType="int" resultType="com.o.e.lesson.Review">
+		select * from oe_review where r_num = #{r_num}
+	</select>
 </mapper>

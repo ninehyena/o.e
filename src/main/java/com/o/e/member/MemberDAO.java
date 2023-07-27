@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.o.e.lesson.LessonMapper;
+
 @Service
 public class MemberDAO {
 	//DB연결
@@ -63,6 +65,7 @@ public class MemberDAO {
 					req.getSession().setAttribute("loginMember", mm.login(m));
 					req.getSession().setMaxInactiveInterval(600); //10분
 					System.out.println("로그인 성공");
+					
 				}else {
 					System.out.println("로그인 실패/pw 오류");
 				}
@@ -130,6 +133,7 @@ public class MemberDAO {
 		Member m = (Member) req.getSession().getAttribute("loginMember");
 		if (m != null) {
 			// 로그인 성공 or 로그인 상태 유지 시
+			req.setAttribute("cnt", ss.getMapper(LessonMapper.class).noLesson(m.getM_id()));
 			return true;
 		}
 		// 로그인 상태가 아니거나 로그인 실패 시
