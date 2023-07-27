@@ -48,27 +48,6 @@ create sequence oe_lesson_seq;
 select * from oe_lesson;
 
 -- 레슨 상세 테이블
--- v1
-create table oe_lesson_detail(
-	l_num number primary key,					-- 레슨 번호 oe_lesson의 l_num 참조
-	l_location varchar2(100 char) not null,		-- 레슨 지역
-	l_room varchar2(50 char),					-- 레슨 장소 (연습실 없으면 null)
-	l_level_of_education1 varchar2(30 char),	-- 학력 (고등학교)
-	l_level_of_education2 varchar2(30 char),	-- 학력 (대학교)
-	l_major varchar2(30 char),					-- 전공 (대학교)
-	l_career1 varchar2(30 char),				-- 이력 1
-	l_career2 varchar2(30 char),				-- 이력 2
-	l_career3 varchar2(30 char),				-- 이력 3
-	l_content varchar2(100 char) not null,		-- 레슨 내용
-	l_pay number not null,						-- 레슨 비용
-	l_day varchar2(50 char) not null,			-- 레슨 요일 (체크박스)
-	l_student number default 0,					-- 수강생 수
-	constraint fk_num foreign key(l_num)
-		references oe_lesson(l_num)
-		on delete cascade
-);
-
--- v2
 create table oe_lesson_detail(
 	l_num number primary key,					-- 레슨 번호 oe_lesson의 l_num 참조
 	l_location varchar2(100 char) not null,		-- 레슨 지역
@@ -232,12 +211,11 @@ insert into OE_LESSON_DETAIL values(68, '경기 하남시 망월동', '연습실
 insert into OE_LESSON_DETAIL values(69, '서울 송파구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 15000, '조율 가능', 0);
 insert into OE_LESSON_DETAIL values(70, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '통기타 준비반 고급 수업', 20000, '조율 가능', 0);
 insert into OE_LESSON_DETAIL values(71, '서울 강남구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '하프 수업', 25000, '화요일', 0);
-insert into OE_LESSON_DETAIL values(72, '경기 강남구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '작곡 수업', 20000, '월요일, 목요일', 0);
+insert into OE_LESSON_DETAIL values(72, '서울 강남구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '작곡 수업', 20000, '월요일, 목요일', 0);
 insert into OE_LESSON_DETAIL values(73, '서울 성북구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '바이올린 수업', 18000, '토요일', 0);
 insert into OE_LESSON_DETAIL values(74, '서울 용산구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '일렉기타 수업', 15000, '조율 가능', 0);
 insert into OE_LESSON_DETAIL values(75, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 20000, '조율 가능', 0);
 insert into OE_LESSON_DETAIL values(78, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 25000, '조율 가능', 0);
-
 
 insert into OE_APPLICATION_LIST values(61, 'user1', 0, sysdate);
 insert into OE_APPLICATION_LIST values(61, 'user10', 0, sysdate);

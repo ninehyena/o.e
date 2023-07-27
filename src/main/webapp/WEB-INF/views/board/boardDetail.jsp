@@ -13,7 +13,7 @@
 					<div class="col-md-12 mt-text animate-box"
 						data-animate-effect="fadeInUp">
 						<h1 class="cursive-font">
-							<a href="boardList" id="oe_white">INFORMATION</a>
+							<a href="board" id="oe_white">INFORMATION</a>
 						</h1>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 		<button type="button" class="btn btn-secondary" onclick="location.href='updateBoard?b_no=${board.b_no }'">수정</button>
 		<button type="button" class="btn btn-danger" onclick="deleteBoard(${board.b_no});">삭제</button>
 	</c:if>
-	<button type="button" class="btn btn-primary" onclick="location.href='boardList'">목록</button>
+	<button type="button" class="btn btn-primary" onclick="location.href='board'">목록</button>
 </div>
 
 <%@ include file="../footer.jsp"%>

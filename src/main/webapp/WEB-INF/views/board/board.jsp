@@ -16,7 +16,7 @@
 					<div class="col-md-12 mt-text animate-box"
 						data-animate-effect="fadeInUp">
 						<h1 class="cursive-font">
-							<a href="boardList" id="oe_white">INFORMATION</a>
+							<a href="board" id="oe_white">INFORMATION</a>
 						</h1>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<div class="row mb40">
-			<form class="form-inline oe_float_right" action="boardSearch" >
+			<form class="form-inline oe_float_right" action="board_search" >
 				<input class="form-control" type="search" name="search" placeholder="검색어를 입력하세요">
 				<button class="btn btn-primary oe_font_bold_18 mt4" type="submit">검색</button>
 			</form>
@@ -53,7 +53,7 @@
 						</tr>
 					</c:if>
 					<c:forEach var="b" items="${boards }" varStatus="status">
-						<tr onclick="location.href='readBoard?b_no=${b.b_no}'" class="mouse">
+						<tr onclick="location.href='boardDetail?b_no=${b.b_no}'" class="mouse">
 							<td class="oe_center oe_vcenter"><c:out value="${b.b_no}"/></td>
 							<td class="oe_center oe_vcenter"><c:out value="${b.b_category}" /></td>
 							<td class="oe_center oe_vcenter"><c:out value="${b.b_title}" /></td>
@@ -67,7 +67,7 @@
 		<!-- paging -->
 		<div class="pageCount">
 			<c:forEach var="p" begin="1" end="${pageCount}">
-				<a href="boardListWithPaging?p=${p}">${p}</a>
+				<a href="board_paging?p=${p}">${p}</a>
 			</c:forEach>
 		</div>
 	</div>

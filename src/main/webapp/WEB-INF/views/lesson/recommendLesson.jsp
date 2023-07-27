@@ -153,7 +153,7 @@ function recommend(m_id) {
 						
 						+		'<img src="storage/' + data[key].lessonDetail.l_photo +'" alt="Image" class="w30">'
 						
-						+	'<div class="fh5co-text-v">'
+						+	'<div class="fh5co-text-r">'
 						+		'<h2>' + data[key].l_teacher_id + '님</h2>'
 						+	'</div>'
 						+'</a>'
@@ -166,7 +166,7 @@ function recommend(m_id) {
 				if (ar.length != 0) {
     				Swal.fire({
    	                	title: m_id +'님!',
-    	             	html: list +'<br>의 수업을 추천할게요!',
+    	             	html: list +'<br>의 ' + l_category + ' 수업을 추천할게요!',
     	                showConfirmButton: false
     	            });
 				} else {

@@ -18,23 +18,13 @@
 					
 					<!-- 비로그인 상태 -->
 					<c:if test="${sessionScope.loginMember.m_id == null}">
-						<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
+						<div class="col-md-4 mt-text2 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
 							<div class="form-wrap">
 								<div class="tab">
 									<div class="tab-content">
 										<div class="tab-content-inner active" data-content="signup">
 											<h2 class="primary-color"><b>로그인</b></h2>
 											<form action="login" method="POST">
-												<div class="row form-group">
-													<div class="col-md-12">
-														<label for="activities">User</label> 
-														<select name="#" id="activities" class="form-control">
-															<option value="">User</option>
-															<option value="">guest</option>
-															<option value="">admin</option>
-														</select>
-													</div>
-												</div>
 												<div class="row form-group">
 													<div class="col-md-12">
 														<label for="m_id">ID</label> 
@@ -165,8 +155,8 @@
 			</c:forEach>
 		</div>
 		
-		<div class="row">
-			<h2 class="primary-color oe_center">카테고리별 수강생 비율</h2>
+		<div class="row gtco-heading">
+			<h2 class="primary-color oe_center oe_font">카테고리별 수강생 비율</h2>
 			<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
 		</div>
 	</div>
