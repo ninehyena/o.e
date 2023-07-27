@@ -12,12 +12,12 @@
 							<span class="intro-text-small">Hand-crafted by <a href="http://gettemplates.co" target="_blank">GetTemplates.co</a></span>
 							<h1 class="cursive-font">마이페이지</h1>
 						</div>
-							<form action="mypageUpdate" method="post" onsubmit="return Validation2()">
+							<form action="updateMypage" method="post" onsubmit="return Validation2()">
 								<table>
 									<tr>
 										<td>아이디</td>
-										<td><input name="m_id" id="signupId" class="id_confirm" value="${sessionScope.loginMember.m_id }" readonly="readonly" />
-								 			
+										<td>
+										<input name="m_id" id="signupId" class="id_confirm" value="${sessionScope.loginMember.m_id }" readonly="readonly" />
 								 		</td>
 								 		
 									</tr>
@@ -48,7 +48,7 @@
 									</tr>
 									<tr>
 										<td>이름</td>
-										<td><input name="m_nickname" id="signupNickname" autofocus="autofocus"
+										<td><input name="m_nickname" id="signupNickname2" autofocus="autofocus"
 								 				autocomplete="off" placeholder="닉네임을 입력하세요" 
 								 				value="${sessionScope.loginMember.m_nickname }"><br>
 								 			<span id="nameImpo" style="display: none;">이름은 최소 2글자 15글자 이하</span>
@@ -58,7 +58,7 @@
 									</tr>
 									<tr>
 										<td>연락처</td>
-										<td><input name="m_phone" id="signupPhone" autofocus="autofocus"
+										<td><input name="m_phone" id="signupPhone2" autofocus="autofocus"
 								 				autocomplete="off" placeholder="숫자만 입력해주세요" 
 								 				value="${sessionScope.loginMember.m_phone }" maxlength="11"
 								 				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
@@ -69,13 +69,6 @@
 										<td><input name="m_email" id="signupEmail" autofocus="autofocus"
 								 				autocomplete="off" placeholder="이메일을 입력하세요"
 								 				value="${sessionScope.loginMember.m_email }" readonly="readonly">
-								 			<button id="signupEmailChkBtn" type="button">인증번호 발송</button><br>
-							 				<span id="emailImpo" style="display: none;">잘못된 이메일 형식입니다.</span>
-								 			<span id="emailAva" style="display: none;">사용 가능한 이메일</span>
-									
-										<input id="emailChk"autofocus="autofocus"
-								 				autocomplete="off" placeholder="인증번호 6자리를 입력하세요."><br>
-										<span id="mail-check-warn"></span>
 									</tr>
 									<tr>
 										<td>주소</td>
@@ -88,6 +81,7 @@
 									<tr>
 										<td colspan="2" align="center">
 											<button type="submit" name="mypageUpdateBtn">수정하기</button>
+											<button type="button" id="memberSecessionBtn">탈퇴하기</button>
 										</td>
 									</tr>
 								</table>
