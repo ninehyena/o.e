@@ -39,7 +39,7 @@
 					<select class="form-control" id="b_category" name="b_category">
 						<option value="공연 정보">공연 정보</option>
 						<option value="악기 정보">악기 정보</option>
-						<option value="연습실 정보">연습실 정보</option>
+						<option value="칼럼">칼럼</option>
 						<option value="기타">기타</option>
 				 	</select>
 				</div>

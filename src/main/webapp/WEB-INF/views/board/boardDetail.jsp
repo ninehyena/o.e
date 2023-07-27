@@ -48,7 +48,7 @@
 							<div class="w100 oe_center">
 								<img src="storage/${board.b_poster }" class="photo">
 							</div>
-							<pre class="mt10 fs18 oe_b_white">${board.b_content }</pre>
+							<pre class="mt10 fs18 oe_b_white w100">${board.b_content }</pre>
 						</td>
 					</tr>
 				</table>

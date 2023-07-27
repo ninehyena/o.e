@@ -68,7 +68,7 @@ public class kakaoController {
 	
 	//카카오 로그아웃
 	@RequestMapping(value="/kakaoLogout")
-	public String logout(HttpServletRequest req, HttpServletResponse res) {
+	public String logout(HttpServletRequest req, HttpServletResponse res) throws NullPointerException {
 		try {
 			HttpSession session = req.getSession(false); //세션이 없을때 생성하지 않기 위해 false
 

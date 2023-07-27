@@ -69,7 +69,7 @@ public interface LessonMapper {
 	public abstract List<Lesson> popularLesson();
 	
 	// 레슨 추천
-	public abstract List<Lesson> recommendLesson(@Param("l") Lesson l, @Param("ld") LessonDetail ld, @Param("l_pay_min") int l_pay_min, @Param("l_pay_max") int l_pay_max);
+	public abstract List<Lesson> recommendLesson(@Param("m_id") String m_id, @Param("l") Lesson l, @Param("ld") LessonDetail ld, @Param("l_pay_min") int l_pay_min, @Param("l_pay_max") int l_pay_max);
 	
 	// index.js에서 띄워줄 것들
 	public abstract int countAll();

@@ -734,3 +734,8 @@ and
 	background-color: white;
 }
 
+.oe_underline {
+	color: black;
+	text-decoration: underline;
+}
+

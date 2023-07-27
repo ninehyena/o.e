@@ -25,7 +25,7 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
 				<h2 class="cursive-font primary-color">Application List</h2>
-				<h2 class="oe_font">${lesson.l_level } 레벨의 ${lesson.l_category } ${lesson.l_type }반 레슨</h2>
+				<h2 class="oe_font"><a href="lessonDetail?l_num=${lesson.l_num }" class="oe_underline">${lesson.l_level } 레벨의 ${lesson.l_category } ${lesson.l_type }반 레슨</a></h2>
 			</div>
 		</div>
 		<div class="row">
