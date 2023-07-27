@@ -1,20 +1,10 @@
-//회원가입버튼
-//$(function gosignup() {
-//	$("#goSignupBtn").click(function(){
-//		location.href="signup";
-//	});
-//});
-
-//페이지 로딩과 동시에 실행되는 함수
-$(document).ready(function(){
-	$('#signupEmailChkBtn').attr('disabled',true); //인증번호 발송 버튼 비활성화
-});
 	
 var isPwChecked = false; // pw 확인
 var isPwChecked2 = false; // pwChk 확인
 var isNameChecked = true; // 이름 중복체크 확인
 var isPhoneChecked = false; //전화번호 양식 확인
 $(function(){
+	$('#signupEmailChkBtn').attr('disabled',true); //인증번호 발송 버튼 비활성화
 
 	var regIdPw = /^[a-zA-Z0-9!@#$%^*+=-]{4,12}$/;
 	//비밀번호 체크
@@ -72,62 +62,52 @@ $(function(){
 	// 이름(닉네임) 확인
 	var regName = /^[가-힣a-zA-Z0-9]{2,15}$/;
 	
-	$("#signupNickname").change(function(){
+	$("#signupNickname2").change(function(){
 		isNameChecked = false; // 변경되면 확인 풀리게
-		var m_nickname = $(this).val();
-		// 빈 칸 체크 , 4자 이상 12자 이하 체크
-		if (m_nickname.length == 0 || m_nickname != '') {
-			if (!regName.test(m_nickname)) {
-			   // alert("아이디는 영문자 또는 영문자와 숫자 조합 4~12자여야 해요.22");
-			   $("#nameAva").css("display", "none");
-			   $("#nameOver").css("display", "none");
-			   $("#nameImpo").css("display", "block");
-			   }
-		}
+		var m_nickname = $("#signupNickname").val();
 		var data = {
-				m_nickname : m_nickname
-        }
+			m_nickname : m_nickname
+		}
 		$.ajax({
 			url : "/e/signup/userNameCheck",
 			type : "POST",
-            data : data,
-            success : function(result) {
-            	if (result != 'find') {
-                    $("#nameAva").css("display", "block");
-                    $("#nameOver").css("display", "none");
-                    $("#nameImpo").css("display", "none");
-                    isNameChecked = true;
-                 } else {
-                    $("#nameOver").css("display", "block");
-                    $("#nameAva").css("display", "none");
-                    $("#nameImpo").css("display", "none");
-                 }
+			data : data,
+			success : function(result) {
+				// 빈 칸 체크 , 3자 이상 15자 이하 체크
+				if (m_nickname.length != 0) {
+					if (!regName.test(m_nickname)) {
+						$("#nameAva").css("display", "none");
+						$("#nameOver").css("display", "none");
+						$("#nameImpo").css("display", "block");
+					} 
+					else if (result == "true") {
+						$("#nameAva").css("display", "block");
+						$("#nameOver").css("display", "none");
+						$("#nameImpo").css("display", "none");
+						isNameChecked = true;
+					} else {
+						$("#nameAva").css("display", "none");
+						$("#nameOver").css("display", "block");
+						$("#nameImpo").css("display", "none");
+					}
+				}
             },error : function(req,status,err){
 				console.log(req);
 			}
 		})
-	});
-	
-	//전화번호 양식 확인
-//	var regPhone = /^[0-9]{9,11}$/;
-//	$("#signupPhone").change(function(){
-//		isPhoneChecked = false; // 변경되면 확인 풀리게
-//		var phone = $("#signupPhone").val();
-//		if (phone.length == 0 || phone != '') {
-//			if (!regPhone.test(phone)) {
-//				alert("전화번호 양식에 맞춰 작성해 주세요. <br> ex) 010-1234-5678");
-//				console.log(phone);
-//			} else {
-//				isPhoneChecked = true;
-//			}
-//		}
-//	});
-	
+	});//nameCheck end
+});//function end
 
+$(function(){
+	//회원 탈퇴 버튼
+    $("#memberSecessionBtn").click(function(){
+    	let secessionCheck = prompt("정말 탈퇴하시겠습니까? Y/N");
+    	if(secessionCheck == "Y"){
+    		location.href = "deleteMember";
+    		alert("지금까지 이용해주셔서 감사합니다.");
+    	}
+    });
 });
-	
-
-
 
 // 유효성 검사 메서드
 function Validation2() {
@@ -136,8 +116,8 @@ function Validation2() {
 	var m_id = document.getElementById("signupId")
 	var pw = document.getElementById("signupPw")
 	var pwchk = document.getElementById("signupPwchk")
-	var nickname = document.getElementById("signupNickname")
-	var phone = document.getElementById("signupPhone")
+	var nickname = document.getElementById("signupNickname2")
+	var phone = document.getElementById("signupPhone2")
 	var email = document.getElementById("signupEmail")
 	var arr1 = document.getElementById("arr1")
 	var arr2 = document.getElementById("arr2")

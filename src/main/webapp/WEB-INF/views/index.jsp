@@ -25,12 +25,13 @@
 								<div class="tab-content">
 									<!-- 비로그인 상태 -->
 									<c:if test="${sessionScope.loginMember.m_id == null}">
+									<c:if test="${sessionScope.kakaoLoginMember.m_id == null}">
 										<div class="tab-content-inner active" data-content="signup">
 											<h2 class="primary-color"><b>로그인</b></h2>
 											<form action="login" method="POST">
 												<div class="row form-group">
 													<div class="col-md-12">
-														<label for="activities">User</label> 
+														<label for="activities">User</label>
 														<select name="#" id="activities" class="form-control">
 															<option value="">User</option>
 															<option value="">guest</option>
@@ -53,18 +54,20 @@
 
 												<div class="row form-group">
 													<div class="col-md-12">
-														<input type="submit" class="btn btn-primary btn-block" value="로그인"> 
-														<input type="button" class="btn btn-primary btn-block" id="goRegisterBtn" value="회원가입">
+														<input type="submit" class="btn btn-primary btn-block" value="로그인">
+														<a href="idFind">ID 찾기</a> <a href="pwFind">PW 찾기</a>
+														<!-- <input type="button" class="btn btn-primary btn-block" id="goRegisterBtn" value="회원가입"> -->
 														<!-- 카카오 로그인 -->
-														<a id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=da627de1500bad51608594d4556e9751
-														&redirect_uri=http://localhost/e/kakaoLogin&response_type=code">
-														  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
-														    alt="카카오 로그인 버튼" />
-														</a>
+														<a href="https://kauth.kakao.com/oauth/authorize?response_type=code
+														&client_id=da627de1500bad51608594d4556e9751
+														&redirect_uri=http://localhost/e/kakaoLogin">
+														<img src="resources/images/kakao_login_medium_narrow.png" width="100%"
+														    alt="카카오 로그인 버튼" /></a>
 													</div>
 												</div>
 											</form>
 										</div>
+									</c:if>
 									</c:if>
 									
 									<!-- 로그인 상태 -->
@@ -88,12 +91,13 @@
 												<div class="row form-group">
 													<div class="col-md-12">
 														<input type="submit" class="btn btn-primary btn-block" value="마이페이지"> 
-														<input type="button" class="btn btn-primary btn-block" id="logoutBtn" value="로그아웃">
+														<input type="button" class="btn btn-primary btn-block" id="kakaoLogoutBtn" value="로그아웃">
 													</div>
 												</div>
 											</form>
 										</div>
 									</c:if>
+									
 								</div>
 
 							</div>

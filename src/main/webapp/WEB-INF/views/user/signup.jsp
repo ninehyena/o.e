@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 <!-- <c:set var="path" value="${pageContext.request.contextPath}"/> -->
+<!-- <c:if test="${sessionScope.email != null}">
+<script>
+isEmailChecked = true;
+</script>
+</c:if> -->
    <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url(resources/images/img_bg_1.jpg)" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="gtco-container">
@@ -54,7 +59,7 @@
 										<td>이름</td>
 										<td><input name="m_nickname" id="signupNickname" autofocus="autofocus"
 								 				autocomplete="off" placeholder="닉네임을 입력하세요"><br>
-								 			<span id="nameImpo" style="display: none;">이름은 최소 2글자 15글자 이하</span>
+								 			<span id="nameImpo" style="display: none;">이름은 최소 3글자 15글자 이하</span>
 								 			<span id="nameAva" style="display: none;">사용 가능한 이름</span>
 								 			<span id="nameOver" style="display: none;">중복된 이름입니다.</span>
 								 		</td>
@@ -69,14 +74,16 @@
 									<tr>
 										<td>이메일</td>
 										<td><input name="m_email" id="signupEmail" autofocus="autofocus"
-								 				autocomplete="off" placeholder="이메일을 입력하세요">
+								 				autocomplete="off" placeholder="이메일을 입력하세요"value="${sessionScope.email }">
 								 			<button id="signupEmailChkBtn" type="button">인증번호 발송</button><br>
 							 				<span id="emailImpo" style="display: none;">잘못된 이메일 형식입니다.</span>
 								 			<span id="emailAva" style="display: none;">사용 가능한 이메일</span>
-									
+								 			<span id="emailOver" style="display: none;">이미 등록된 이메일입니다.</span>
+										
 										<input id="emailChk"autofocus="autofocus"
 								 				autocomplete="off" placeholder="인증번호 6자리를 입력하세요."><br>
 										<span id="mail-check-warn"></span>
+										
 									</tr>
 									<tr>
 										<td>주소</td>

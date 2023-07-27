@@ -81,10 +81,10 @@
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/jQuery.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/signup.js"></script>
-	<script type="text/javascript" src="resources/oe_js/signup/addressCheck.js"></script>
 	<!-- 마이페이지 수정 JS -->
 	<script type="text/javascript" src="resources/oe_js/signup/mypage.js"></script>
-	<!-- 마이페이지 수정 JS -->
+	<!-- 카카오로그아웃 JS -->
+	<script type="text/javascript" src="resources/oe_js/signup/userCommon.js"></script>
 	
 	<!-- oe_js 끝 -->
 

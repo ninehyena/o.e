@@ -7,7 +7,7 @@ public class Member {
 	private String m_pw;
 	private String m_lesson;
 	private String m_nickname;
-	private BigDecimal m_phone;
+	private String m_phone;
 	private String m_email;
 	private String m_addr1;
 	private String m_addr2;
@@ -17,7 +17,7 @@ public class Member {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Member(String m_id, String m_pw, String m_lesson, String m_nickname, BigDecimal m_phone, String m_email,
+	public Member(String m_id, String m_pw, String m_lesson, String m_nickname, String m_phone, String m_email,
 			String m_addr1, String m_addr2, String m_addr3) {
 		super();
 		this.m_id = m_id;
@@ -63,11 +63,11 @@ public class Member {
 		this.m_nickname = m_nickname;
 	}
 
-	public BigDecimal getM_phone() {
+	public String getM_phone() {
 		return m_phone;
 	}
 
-	public void setM_phone(BigDecimal m_phone) {
+	public void setM_phone(String m_phone) {
 		this.m_phone = m_phone;
 	}
 
