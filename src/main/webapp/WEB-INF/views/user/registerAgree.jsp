@@ -3,7 +3,7 @@
 <%@ include file="../header.jsp"%>
 
 <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner"
-	style="background-image: url(resources/images/img_bg_1.jpg); height:80px;"
+	style="height:80px;"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 </header>
@@ -13,7 +13,8 @@
 	<div class="gtco-container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-center gtco-heading" style="margin-bottom: 0;">
-				<h2 class="cursive-font primary-color">약관 동의<span>(Register Agree)</span></h2>
+				<h2 class="cursive-font primary-color">Register Agree</h2>
+				<p>(<span class="notnull">필수</span>) 약관에 모두 동의해야 회원 가입이 가능합니다.</p>
 			</div>
 		</div>
 		<div class="row">

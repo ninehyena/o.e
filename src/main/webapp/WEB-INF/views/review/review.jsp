@@ -4,7 +4,6 @@
 <%@ include file="../header.jsp"%>
 
 <header id="gtco-header" class="gtco-cover gtco-cover-sm-v" role="banner"
-	style="background-image: url(resources/images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="gtco-container">
@@ -29,7 +28,7 @@
 	<div class="gtco-container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-				<h2 class="oe_font primary-color"></h2>
+				<h2 class="oe_font primary-color">${lesson.l_teacher_id }님 수업의 리뷰를 확인하세요!</h2>
 			</div>
 		</div>
 		<div class="row">

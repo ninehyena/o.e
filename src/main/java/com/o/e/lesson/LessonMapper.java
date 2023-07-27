@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.o.e.member.Member;
 
 public interface LessonMapper {
 	public abstract int regLesson(Lesson l);
@@ -59,4 +58,20 @@ public interface LessonMapper {
 
 	// 수강 중인 수업이 없는 회원
 	public abstract int noLesson(@Param("m_id") String m_id);
+
+	// 신규 신청이 있는 강사
+	public abstract int countNewStu(@Param("m_id") String m_id);
+	
+	// 레슨을 등록한 강사
+	public abstract int notRegLesson(@Param("m_id") String m_id);
+	
+	// 레슨별 신청자 주간 통계
+	public abstract List<Lesson> popularLesson();
+	
+	// 레슨 추천
+	public abstract List<Lesson> recommendLesson(@Param("l") Lesson l, @Param("ld") LessonDetail ld, @Param("l_pay_min") int l_pay_min, @Param("l_pay_max") int l_pay_max);
+	
+	// index.js에서 띄워줄 것들
+	public abstract int countAll();
+	public abstract List<Lesson> popularCategory();
 }

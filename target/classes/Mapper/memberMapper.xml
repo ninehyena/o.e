@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o.e.member.MemberMapper">
+	<!-- 회원가입 -->
+	<insert id="regSignup" parameterType="com.o.e.member.Member">
+		insert into oe_member values(#{m_id}, #{m_pw}, #{m_lesson}, #{m_nickname}, #{m_phone}, #{m_email}, #{m_addr1}, #{m_addr2}, #{m_addr3})
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="login" resultType="com.o.e.member.Member">
+	select * from oe_member 
+		where m_id = #{m_id}
+	</select>
+	
+	<!-- <delete id="MemberBye" >
+		delete from apr25_cc_member 
+			where m_id = #{m_id}
+	</delete> -->
+	
+	<!-- 아이디 중복 확인 -->
+	<select id="userIdCheck" resultType="int">
+		SELECT COUNT(*) FROM oe_member WHERE m_id = #{m_id}
+	</select>
+	
+	<!-- 이름 중복 확인 -->
+	<select id="userNameCheck" resultType="int">
+		SELECT COUNT(*) FROM oe_member WHERE m_nickname = #{m_nickname}
+	</select>
+	
+	<!-- 마이페이지 수정 -->
+	<update id="mypageUpdate" parameterType="com.o.e.member.Member">
+		update oe_member set 
+		m_pw = #{m_pw}, 
+		m_lesson = #{m_lesson}, 
+		m_nickname = #{m_nickname}, 
+		m_phone = #{m_phone}, 
+		m_email = #{m_email}, 
+		m_addr1 = #{m_addr1}, 
+		m_addr2 = #{m_addr2}, 
+		m_addr3 = #{m_addr3} 
+		where m_id = #{m_id}
+	</update>
+</mapper>

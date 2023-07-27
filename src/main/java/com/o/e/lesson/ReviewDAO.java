@@ -22,7 +22,7 @@ public class ReviewDAO {
 			Member m = (Member) req.getSession().getAttribute("loginMember");
 			r.setA_id(m.getM_id());
 			r.setL_num(l_num);
-			
+
 			// textarea 줄바꿈 처리
 			r.getR_content().replace("\r\n", "<br>");
 			System.out.println(r.getR_content());
@@ -43,7 +43,7 @@ public class ReviewDAO {
 		try {
 			// 작성자 아이디 - 세션에서 받아오기
 			Member m = (Member) req.getSession().getAttribute("loginMember");
-			
+
 			req.setAttribute("check", ss.getMapper(ReviewMapper.class).check(l_num, m.getM_id()));
 		} catch (NullPointerException npe) {
 			System.out.println("비회원이 레슨 상세보기 조회");
@@ -67,6 +67,7 @@ public class ReviewDAO {
 
 			req.setAttribute("l_num", l_num);
 			req.setAttribute("reviews", ss.getMapper(ReviewMapper.class).getReviews(l_num, start, end));
+			req.setAttribute("lesson", ss.getMapper(LessonMapper.class).getDetail1(l_num));
 			System.out.println("리뷰 리스트 가져오기 성공");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,7 +90,7 @@ public class ReviewDAO {
 			System.out.println("평점 가져오기 실패");
 		}
 	}
-	
+
 	// 리뷰 상세보기
 	public Review reviewDetail(int r_num) {
 		try {

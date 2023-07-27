@@ -4,7 +4,6 @@
 <%@ include file="../header.jsp"%>
 
 <header id="gtco-header" class="gtco-cover gtco-cover-sm-v" role="banner"
-	style="background-image: url(resources/images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="gtco-container">
@@ -28,7 +27,7 @@
 <div class="gtco-section-v">
 	<div class="gtco-container">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+			<div class="col-md-10 col-md-offset-1 text-center gtco-heading">
 				<h2 class="oe_font primary-color">${lesson.l_teacher_id }님의 ${lesson.l_category }레슨에 대한 경험을 공유해 주세요!</h2>
 			</div>
 		</div>

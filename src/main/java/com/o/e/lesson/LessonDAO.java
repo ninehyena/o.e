@@ -105,10 +105,11 @@ public class LessonDAO {
 	}
 
 	// 전체 레슨 글 갯수 가져오기
-	public void countLessons() {
+	public void countLessons(HttpServletRequest req) {
 		try {
 			allLessonCount = ss.getMapper(LessonMapper.class).count();
 			System.out.println("전체 레슨 글 갯수 : " + allLessonCount);
+			req.setAttribute("allLessonCount", allLessonCount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -305,9 +306,6 @@ public class LessonDAO {
 			ld.setL_day(l_day);
 			LessonMapper lm = ss.getMapper(LessonMapper.class);
 
-			// textarea 줄바꿈 처리
-			ld.getL_content().replace("\r\n", "<br>");
-
 			if (lm.updateLesson(l) == 1 && lm.updateLessonDetail(ld) == 1) {
 				System.out.println("레슨 수정 성공");
 				if (!new_photo.equals(old_photo)) { // 사진을 수정했으면
@@ -318,7 +316,7 @@ public class LessonDAO {
 				System.out.println("레슨 수정 실패");
 				if (!new_photo.equals(old_photo)) { 
 					// 새로운 사진 올라간 거 삭제
-					new File(path + "/" + URLDecoder.decode(new_photo, "EUC-KR")).delete();
+					new File(path + "/" + URLDecoder.decode(new_photo, "UTF-8")).delete();
 				}
 			}
 			return l.getL_num();
@@ -472,6 +470,78 @@ public class LessonDAO {
 			e.printStackTrace();
 			System.out.println("레슨 완료 실패");
 			return 0;
+		}
+	}
+	
+	// 레슨 추천
+//	public void recommendLesson(Lesson l, LessonDetail ld, HttpServletRequest req) {
+//		try {
+//			System.out.println(ld.getL_location());
+//			int l_pay_min = Integer.parseInt(req.getParameter("l_pay_min"));
+//			int l_pay_max = Integer.parseInt(req.getParameter("l_pay_max"));
+//			
+//			System.out.println(l.getL_category());
+//			
+//			List<Lesson> recommend = ss.getMapper(LessonMapper.class).recommendLesson(l, ld, l_pay_min, l_pay_max);
+//			System.out.println(recommend.get(0).getL_category());
+//			req.setAttribute("recommend", recommend);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+	public List<Lesson> recommendLesson(String l_location, String l_type, String l_category,
+			String l_level, int l_pay_min, int l_pay_max, String l_day, HttpServletRequest req) {
+		try {
+			System.out.println(l_location);
+			System.out.println(l_pay_min);
+			
+			Lesson l = new Lesson();
+			LessonDetail ld = new LessonDetail();
+			ld.setL_location(l_location);
+			l.setL_type(l_type);
+			l.setL_category(l_category);
+			l.setL_level(l_level);
+			ld.setL_day(l_day);
+
+			
+			List<Lesson> recommend = ss.getMapper(LessonMapper.class).recommendLesson(l, ld, l_pay_min, l_pay_max);
+
+			System.out.println("리스트 사이즈 : " + recommend.size());
+			if (recommend.size() != 0) {
+				return recommend;
+			} else {
+				return null;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// index.js에서 필요한 데이터들 (레슨별 신청자 주간 통계 등)
+	public void needDatas(HttpServletRequest req) {
+		try {
+			LessonMapper lm = ss.getMapper(LessonMapper.class);
+			ReviewMapper rm = ss.getMapper(ReviewMapper.class);
+			req.setAttribute("popular", lm.popularLesson());
+			req.setAttribute("countA", lm.countAll());
+			req.setAttribute("countR", rm.countAll());
+			req.setAttribute("countRec", rm.getRec());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public List<Lesson> jsonData() {
+		try {
+			LessonMapper lm = ss.getMapper(LessonMapper.class);
+			return lm.popularCategory();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
