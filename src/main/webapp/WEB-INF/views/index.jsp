@@ -18,6 +18,7 @@
 					
 					<!-- 비로그인 상태 -->
 					<c:if test="${sessionScope.loginMember.m_id == null}">
+					<c:if test="${sessionScope.kakaoLoginMember.m_id == null}">
 						<div class="col-md-4 mt-text2 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
 							<div class="form-wrap">
 								<div class="tab">
@@ -45,10 +46,11 @@
                             							
                             							<hr>
                             							<!-- 카카오 로그인 -->
-														<a id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=da627de1500bad51608594d4556e9751
-														&redirect_uri=http://localhost/e/kakaoLogin&response_type=code">
-														  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" 
-														    alt="카카오 로그인 버튼" />
+														<a href="https://kauth.kakao.com/oauth/authorize?response_type=code
+														&client_id=da627de1500bad51608594d4556e9751
+														&redirect_uri=http://localhost/e/kakaoLogin">
+														<img src="resources/images/kakao_login_medium_narrow.png" width="100%"
+																    alt="카카오 로그인 버튼" />
 														</a>
 													</div>
 												</div>
@@ -58,6 +60,7 @@
 								</div>
 							</div>
 						</div>
+					</c:if>
 					</c:if>
 				
 					<!-- 로그인 상태 -->
@@ -104,7 +107,7 @@
 														<c:if test="${sessionScope.loginMember.m_id != 'admin'}">
 															<input type="submit" class="btn btn-primary btn-block" value="마이페이지"> 
 														</c:if>
-														<input type="button" class="btn btn-primary btn-block" id="logoutBtn" value="로그아웃">
+														<input type="button" class="btn btn-primary btn-block" id="kakaoLogoutBtn" value="로그아웃">
 													</div>
 												</div>
 											</form>

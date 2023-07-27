@@ -60,6 +60,7 @@
 	<link rel="stylesheet" href="resources/css/style.css">
 	<link rel="stylesheet" href="resources/oe_css/lesson/oe_style.css">
 	<link rel="stylesheet" href="resources/oe_css/user/registerAgree.css">
+	
 
 	<!-- Modernizr JS -->
 	<script src="resources/js/modernizr-2.6.2.min.js"></script>
@@ -82,14 +83,16 @@
 	<!-- 회원가입 JS 시작 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/jQuery.js"></script>
+	<script type="text/javascript" src="resources/oe_js/signup/mypage.js"></script>
+	<script type="text/javascript" src="resources/oe_js/signup/userCommon.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/signup.js"></script>
-	<script type="text/javascript" src="resources/oe_js/signup/addressCheck.js"></script>
 	<!-- 회원가입 JS 끝 -->
 	
 	<!-- 공지사항 JS 시작 -->
 	<script type="text/javascript" src="resources/oe_js/notice/oe_notice.js"></script>
 	
 	<!-- oe_js 끝 -->
+	
 
 	</head>
 	<body>

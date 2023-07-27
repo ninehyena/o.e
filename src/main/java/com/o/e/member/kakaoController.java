@@ -55,7 +55,7 @@ public class kakaoController {
 				mDAO.kakaoLogin(m_email, req);
 				return "redirect:/";
 			} else { //없다면 회원가입 페이지
-				return "user/signup";
+				return "user/signup2";
 			}
 			
 		} catch (Exception e) {

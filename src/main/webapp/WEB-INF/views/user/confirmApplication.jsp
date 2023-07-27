@@ -3,6 +3,7 @@
 <%@ include file="../header.jsp"%>
 
 <header id="gtco-header" class="gtco-cover gtco-cover-sm-v" role="banner"
+	style="background-image: url(resources/images/img_bg_1.jpg)"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="gtco-container">
@@ -35,7 +36,6 @@
 					<tr>
 						<th class="oe_center">번호</th>
 						<th class="oe_center">신청자 아이디</th>
-						<th class="oe_center">신청자 연락처</th>
 						<th class="oe_center">신청일</th>
 						<th class="oe_center">레슨 상태</th>
 					</tr>
@@ -48,7 +48,6 @@
 						<tr>
 							<td class="oe_center oe_vcenter"><c:out value="${status.count}" /></td>
 							<td class="oe_center oe_vcenter">${l.a_id }</td>
-							<td class="oe_center oe_vcenter">${l.member.m_phone }</td>
 							<td class="oe_center oe_vcenter"><fmt:formatDate value="${l.a_date}" pattern="yyyy-MM-dd" /></td>
 							<td class="oe_center oe_vcenter">
 								<c:if test="${l.a_status == 0}">

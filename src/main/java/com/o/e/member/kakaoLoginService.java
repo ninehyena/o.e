@@ -151,7 +151,7 @@ public class kakaoLoginService {
 	        System.out.println(result);
 	        
 	    } catch (IOException e) {
-	        e.printStackTrace();
+	    	System.out.println("일반 회원 로그아웃");
 	    }
 	}
 	
