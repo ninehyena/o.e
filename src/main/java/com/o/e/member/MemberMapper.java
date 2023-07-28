@@ -11,6 +11,8 @@ public interface MemberMapper {
 	
 	//로그인
 	public abstract Member login(Member m);
+	//인증뱃지를 위한 수업당 누적 학생수
+	public int cumulativeStudent(String m_id);
 	//카카오 로그인(이메일 로그인)
 	public abstract Member kakaoLogin(String m_email);
 	

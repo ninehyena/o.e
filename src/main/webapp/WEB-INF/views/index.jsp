@@ -49,7 +49,7 @@
 														<a href="https://kauth.kakao.com/oauth/authorize?response_type=code
 														&client_id=da627de1500bad51608594d4556e9751
 														&redirect_uri=http://localhost/e/kakaoLogin">
-														<img src="resources/images/kakao_login_medium_narrow.png" width="100%"
+														<img src="resources/images/kakao_login_medium_narrow.png"
 																    alt="카카오 로그인 버튼" />
 														</a>
 													</div>
@@ -70,7 +70,14 @@
 								<div class="tab">
 									<div class="tab-content">
 										<div class="tab-content-inner active" data-content="memberInfo">
-											<h2 class="primary-color"><b>${sessionScope.loginMember.m_nickname }님!</b></h2>
+											<h2 class="primary-color">
+												<b>
+													<c:if test="${sessionScope.memberBadgeCheck >= 3}">
+														<img alt="bronze_badge" src="resources/images/officialMark.png">
+													</c:if>
+													${sessionScope.loginMember.m_nickname }님!
+												</b>
+											</h2>
 											
 											<form action="mypage" method="POST">
 												<div class="row form-group">

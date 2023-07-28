@@ -62,7 +62,11 @@
 							
 						</figure>
 						<div class="fh5co-text-v">
-							<h2>${l.l_category }</h2>
+							<h2>${l.l_category }
+								<c:if test="${l.lessonDetail.l_student >= 1}">
+									<img alt="officialMark" src="resources/images/officialMark.png">
+								</c:if>
+							</h2>
 							<p>레슨 타입 : ${l.l_type } / 레슨 레벨 : ${l.l_level }
 							<br>레슨 요일 : ${l.lessonDetail.l_day }
 							<br>레슨 비용 : ${l.lessonDetail.l_pay }원 / 시간당
