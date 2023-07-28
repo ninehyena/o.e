@@ -155,7 +155,9 @@
 							<img src="images/${p.l_category }.png" alt="Image" class="img-responsive">
 						</figure>
 						<div class="fh5co-text-i">
-							<h2>${p.l_teacher_id }님의 ${p.l_category }수업</h2>
+							<h2><c:if test="${p.lessonDetail.l_student >= 3}">
+									<img alt="officialMark" src="resources/images/officialMark.png">
+								</c:if>${p.l_teacher_id }님의 ${p.l_category }수업</h2>
 							<p>레슨 타입 : ${p.l_type } / 레슨 레벨 : ${p.l_level }
 							<br>레슨 비용 : ${p.lessonDetail.l_pay }원 / 시간당
 							</p>

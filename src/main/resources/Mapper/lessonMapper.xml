@@ -331,7 +331,7 @@
 	<select id="popularLesson" resultMap="LessonMap">
 		<![CDATA[select * from ( 
 					select rownum as rn, d.*
-					from ( select rownum, a.*, b.l_pay, c.cnt 
+					from ( select rownum, a.*, b.l_pay, b.l_student, c.cnt 
 							from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
 							from OE_APPLICATION_LIST
 							where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date < to_date(to_char(sysdate + 1, 'DD'), 'DD')
