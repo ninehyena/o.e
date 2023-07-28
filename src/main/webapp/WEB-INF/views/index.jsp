@@ -42,6 +42,7 @@
 												<div class="row form-group">
 													<div class="col-md-12 oe_center">
 														<input type="submit" class="btn btn-primary btn-block" value="로그인"> 
+														<a href="idFind">ID 찾기</a> <a href="pwFind">PW 찾기</a>
 														<!-- <input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입"> -->
                             							
                             							<hr>
@@ -326,7 +327,7 @@
     				d[key] = data[key].applicationList.cnt
     			}
     			
-    			CanvasJS.addColorSet("customColors1", ["#ff6384", "#36a2eb", "#ffce56", "#37ED54", "#DB51ED"]);
+    			CanvasJS.addColorSet("customColors1", ["#ff6384", "#36a2eb", "#ffce56", "#37ED54", "#DB51ED", "#09E1F0"]);
     			var chart2 = new CanvasJS.Chart("chartContainer2", {
     				colorSet: "customColors1",
     				animationEnabled: true,

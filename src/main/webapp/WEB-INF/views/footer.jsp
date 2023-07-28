@@ -12,9 +12,9 @@
 					<div class="gtco-widget">
 						<h3>Get In Touch</h3>
 						<ul class="gtco-quick-contact">
-							<li><a href="#"><i class="icon-phone"></i> +1 234 567 890</a></li>
-							<li><a href="#"><i class="icon-mail2"></i> info@GetTemplates.co</a></li>
-							<li><a href="#"><i class="icon-chat"></i> Live Chat</a></li>
+							<li><a href="tel://0212345678"><i class="icon-phone"></i> +82 02 - 1234 - 5678</a></li>
+							<li><a href="mailto:o.e@sobakee.com"><i class="icon-mail2"></i> o.e@sobakee.com</a></li>
+							<li><a href="javascript:address();"><i class="icon-chat"></i> Live Chat</a></li>
 						</ul>
 					</div>
 					<div class="gtco-widget">
@@ -73,6 +73,26 @@
 	<!-- Main -->
 	<script src="resources/js/main.js"></script>
 
+	<script type="text/javascript">
+	function address() {
+		// alert('address');
+		Swal.fire({
+			html: '<div id="map" style="width:500px;height:400px;"></div>',
+			showCancelButton: true,
+			showConfirmButton: false
+        });
+	}
+	</script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6cf17c7ef9ab946af1f3b972dd77b7d0"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+	</script>
 
 	</body>
 </html>

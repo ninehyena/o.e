@@ -72,6 +72,18 @@
 	</div>
 </c:if>
 
-
+<div class="gtco-cover gtco-cover-sm"
+	data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="gtco-container text-center">
+		<div class="display-t">
+			<div class="display-tc">
+				<h1>&ldquo; Our high quality of service makes you back over
+					and over again!&rdquo;</h1>
+				<p>&mdash; Team sobakee </p>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%@ include file="../footer.jsp"%>
