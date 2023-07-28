@@ -47,7 +47,14 @@ public class MemberDAO {
 		MemberMapper mm = ss.getMapper(MemberMapper.class);
 		return mm.userEmailCheck(m_email);
 	}
-
+	
+	//인증 뱃지
+	public int cumulativeStudent(String m_id) {
+		MemberMapper mm = ss.getMapper(MemberMapper.class);
+		System.out.println("mm.cumulativeStudent(m_id) 값 : "+mm.cumulativeStudent(m_id));
+		return mm.cumulativeStudent(m_id);
+	}
+	
 	//로그인
 	public void login(Member m, HttpServletRequest req) {
 		try {
@@ -63,9 +70,11 @@ public class MemberDAO {
 				//입력한 pw와 회원가입한 pw가 같다면
 				if((mm.login(m).getM_pw()).equals(pw)) {
 					req.getSession().setAttribute("loginMember", mm.login(m));
+					if((mm.login(m).getM_lesson()).equals("lesson")) {
+						req.getSession().setAttribute("memberBadgeCheck", mm.cumulativeStudent(id));
+					}
 					req.getSession().setMaxInactiveInterval(600); //10분
 					System.out.println("로그인 성공");
-					
 				}else {
 					System.out.println("로그인 실패/pw 오류");
 				}
@@ -87,6 +96,7 @@ public class MemberDAO {
 			// 로그인 회원의 정보가 있다면
 			if(mm.kakaoLogin(m_email) != null) {
 				req.getSession().setAttribute("loginMember", mm.kakaoLogin(m_email));
+				req.getSession().setAttribute("memberBadgeCheck", mm.cumulativeStudent(mm.kakaoLogin(m_email).getM_id()));
 				req.getSession().setMaxInactiveInterval(600); //10분
 				System.out.println("카카오 로그인 성공");
 			}else {

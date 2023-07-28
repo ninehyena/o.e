@@ -111,6 +111,7 @@ public class MemberController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Member m, HttpServletRequest req) {
 		mDAO.login(m, req);
+//		mDAO.cumulativeStudent(m.getM_id());
 		return "redirect:/";
 	}
 	//로그아웃
