@@ -2,12 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 
-<header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner"
-	style="height:80px;"
+<header id="gtco-header" class="gtco-cover gtco-cover-sm-v" role="banner"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
+	<div class="gtco-container">
+		<div class="row">
+			<div class="col-md-12 col-md-offset-0 text-center">
+				<div class="row">
+					<div class="col-md-12 mt-text animate-box"
+						data-animate-effect="fadeInUp">
+						<span class="intro-text-small">If you're <a href="/e">already a member?</a></span>
+						<h1 class="cursive-font">Register Agree</h1>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
 </header>
-<link rel="stylesheet" href="resources/oe_css/user/registerAgree.css">
+
 
 <div class="gtco-section">
 	<div class="gtco-container">

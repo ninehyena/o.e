@@ -46,7 +46,7 @@
 						</tr>
 					</c:if>
 					<c:forEach var="n" items="${notices }" varStatus="status">
-						<tr onclick="location.href='readNotice?n_no=${n.n_no}'" class="mouse">
+						<tr onclick="location.href='noticeDetail?n_no=${n.n_no}'" class="mouse">
 							<td class="oe_center oe_vcenter"><img src="images/notice.png" class="checkbox"></td>
 							<td class="oe_center oe_vcenter"><c:out value="${n.n_no}"/></td>
 							<td class="oe_center oe_vcenter"><c:out value="${n.n_title}" /></td>
@@ -60,7 +60,7 @@
 		<!-- paging -->
 		<div class="pageCount">
 			<c:forEach var="p" begin="1" end="${pageCount}">
-				<a href="noticeListWithPaging?p=${p}">${p}</a>
+				<a href="notice_paging?p=${p}">${p}</a>
 			</c:forEach>
 		</div>
 	</div>

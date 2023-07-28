@@ -55,7 +55,7 @@
 		<button type="button" class="btn btn-secondary" onclick="location.href='updateNotice?n_no=${notice.n_no }'">수정</button>
 		<button type="button" class="btn btn-danger" onclick="deleteNotice(${notice.n_no});">삭제</button>
 	</c:if>
-	<button type="button" class="btn btn-primary oe_font_bold_18" onclick="location.href='noticeList'">목록</button>
+	<button type="button" class="btn btn-primary oe_font_bold_18" onclick="location.href='notice'">목록</button>
 </div>
 
 

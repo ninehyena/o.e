@@ -42,13 +42,13 @@
 				<trim prefix="or">
 					<choose>
 						<when test="type == '지역'">
-							(b.l_location like ('%#{search}%'))
+							(b.l_location like ('%${search}%'))
 						</when>
 						<when test="type == '음악 카테고리'">
-							(a.l_category like ('%#{search}%'))
+							(a.l_category like ('%${search}%'))
 						</when>
 						<when test="type == '레슨 타입'">
-							(a.l_type like ('%#{search}%'))
+							(a.l_type like ('%${search}%'))
 						</when>
 					</choose>
 				</trim>
@@ -364,6 +364,12 @@
 							and b.l_pay > #{l_pay_min} and b.l_pay < #{l_pay_max}
 							and b.l_day like '%' || #{ld.l_day} || '%'
 							)c
+							where c.l_num in (select l_num 
+							from oe_lesson
+							where l_num not in (
+								select l_num
+								from oe_application_list
+								where a_id = #{m_id}))
 							) where rn >= 1 and rn <=3]]>
 	</select>
 	

@@ -30,7 +30,7 @@
 		</div>
 		
 		<div class="row w80 txt">
-			<form action="mypageUpdate" method="post" onsubmit="return Validation2()">
+			<form action="updateMypage" method="post" onsubmit="return Validation2()">
 				<div class="form-group">
 					<label for="signupId"><b>아이디</b></label> 
 					<input name="m_id" id="signupId" class="form-control" value="${sessionScope.loginMember.m_id }" readonly="readonly" />
@@ -60,16 +60,16 @@
 				</div>
 				<div class="form-group">
 					<label for="signupNickname"><b>이름</b></label> 
-					<input name="m_nickname" id="signupNickname" autofocus="autofocus" class="form-control"
+					<input name="m_nickname" id="signupNickname2" autofocus="autofocus" class="form-control"
 		 				autocomplete="off" placeholder="닉네임을 입력하세요"
 		 				value="${sessionScope.loginMember.m_nickname }">
-		 			<span id="nameImpo" style="display: none;">이름은 최소 2글자 15글자 이하</span>
+		 			<span id="nameImpo" style="display: none;">이름은 최소 3글자 15글자 이하</span>
 		 			<span id="nameAva" style="display: none;">사용 가능한 이름</span>
 		 			<span id="nameOver" style="display: none;">중복된 이름입니다.</span>
 				</div>
 				<div class="form-group">
 					<label for="l_content"><b>연락처</b></label> 
-					<input name="m_phone" id="signupPhone" autofocus="autofocus" class="form-control"
+					<input name="m_phone" id="signupPhone2" autofocus="autofocus" class="form-control"
 		 				autocomplete="off" placeholder="숫자만 입력해주세요" 
 		 				value="${sessionScope.loginMember.m_phone }" maxlength="11"
 		 				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
@@ -98,6 +98,7 @@
 				</div>
 				<div class="oe_center">
 					<button type="submit" class="btn btn-primary mt10 oe_font_bold_18">수정하기</button>
+					<button type="button" id="memberSecessionBtn" class="btn btn-danger mt10 oe_font_bold_18">탈퇴하기</button>
 				</div>
 			</form>
 

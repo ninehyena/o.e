@@ -18,23 +18,14 @@
 					
 					<!-- 비로그인 상태 -->
 					<c:if test="${sessionScope.loginMember.m_id == null}">
-						<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
+					<c:if test="${sessionScope.kakaoLoginMember.m_id == null}">
+						<div class="col-md-4 mt-text2 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
 							<div class="form-wrap">
 								<div class="tab">
 									<div class="tab-content">
 										<div class="tab-content-inner active" data-content="signup">
 											<h2 class="primary-color"><b>로그인</b></h2>
 											<form action="login" method="POST">
-												<div class="row form-group">
-													<div class="col-md-12">
-														<label for="activities">User</label> 
-														<select name="#" id="activities" class="form-control">
-															<option value="">User</option>
-															<option value="">guest</option>
-															<option value="">admin</option>
-														</select>
-													</div>
-												</div>
 												<div class="row form-group">
 													<div class="col-md-12">
 														<label for="m_id">ID</label> 
@@ -55,10 +46,11 @@
                             							
                             							<hr>
                             							<!-- 카카오 로그인 -->
-														<a id="kakao-login-btn" href="https://kauth.kakao.com/oauth/authorize?client_id=da627de1500bad51608594d4556e9751
-														&redirect_uri=http://localhost/e/kakaoLogin&response_type=code">
-														  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" 
-														    alt="카카오 로그인 버튼" />
+														<a href="https://kauth.kakao.com/oauth/authorize?response_type=code
+														&client_id=da627de1500bad51608594d4556e9751
+														&redirect_uri=http://localhost/e/kakaoLogin">
+														<img src="resources/images/kakao_login_medium_narrow.png" width="100%"
+																    alt="카카오 로그인 버튼" />
 														</a>
 													</div>
 												</div>
@@ -68,6 +60,7 @@
 								</div>
 							</div>
 						</div>
+					</c:if>
 					</c:if>
 				
 					<!-- 로그인 상태 -->
@@ -114,7 +107,7 @@
 														<c:if test="${sessionScope.loginMember.m_id != 'admin'}">
 															<input type="submit" class="btn btn-primary btn-block" value="마이페이지"> 
 														</c:if>
-														<input type="button" class="btn btn-primary btn-block" id="logoutBtn" value="로그아웃">
+														<input type="button" class="btn btn-primary btn-block" id="kakaoLogoutBtn" value="로그아웃">
 													</div>
 												</div>
 											</form>
@@ -165,8 +158,8 @@
 			</c:forEach>
 		</div>
 		
-		<div class="row">
-			<h2 class="primary-color oe_center">카테고리별 수강생 비율</h2>
+		<div class="row gtco-heading">
+			<h2 class="primary-color oe_center oe_font">카테고리별 수강생 비율</h2>
 			<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
 		</div>
 	</div>

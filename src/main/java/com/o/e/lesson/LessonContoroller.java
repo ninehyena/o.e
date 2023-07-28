@@ -370,7 +370,7 @@ public class LessonContoroller {
 //	}
 	
 	@RequestMapping(value = "/recommend", method = RequestMethod.POST)
-	public @ResponseBody List<Lesson> recommend(String l_location, String l_type, String l_category,
+	public @ResponseBody List<Lesson> recommend(String m_id, String l_location, String l_type, String l_category,
 			String l_level, int l_pay_min, int l_pay_max, String l_day, HttpServletRequest req) {
 		if (!mDAO.loginCheck(req)) {
 			return null;
@@ -379,7 +379,7 @@ public class LessonContoroller {
 		System.out.println(l_pay_min);
 		
 
-		return lDAO.recommendLesson(l_location, l_type, l_category, l_level, l_pay_min, l_pay_max, l_day, req);
+		return lDAO.recommendLesson(m_id, l_location, l_type, l_category, l_level, l_pay_min, l_pay_max, l_day, req);
 	}
 	
 	@RequestMapping(value = "/popularLesson", method = RequestMethod.GET)

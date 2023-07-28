@@ -83,7 +83,7 @@
 										</div>
 									</div>
 									<div class="oe_center">
-										<button type="button" class="btn btn-primary mt10" onclick="recommend('${sessionScope.loginMember.m_nickname }');">찾기</button>
+										<button type="button" class="btn btn-primary mt10" onclick="recommend('${sessionScope.loginMember.m_nickname }', '${sessionScope.loginMember.m_id }');">찾기</button>
 									</div>
 								</form>
 							</div>
@@ -98,7 +98,7 @@
 
 <script type="text/javascript">
 //레슨 추천
-function recommend(m_id) {
+function recommend(m_nickname, m_id) {
 	var l_location = $.trim($('#l_location').val());
 	var l_type = $.trim($('#l_type').val());
 	var l_category = $.trim($('#l_category').val());
@@ -116,7 +116,7 @@ function recommend(m_id) {
 	l_day = arr.join(', ');
 	let timerInterval
 	Swal.fire({
-	  title: m_id + '님께 맞는 레슨을 찾고 있어요.',
+	  title: m_nickname + '님께 맞는 레슨을 찾고 있어요.',
 	  timer: 3000,
 	  timerProgressBar: true,
 	  didOpen: () => {
@@ -131,6 +131,7 @@ function recommend(m_id) {
 			url : "recommend",
 			type : 'POST',
 			data : {
+				m_id : m_id,
 				l_location : l_location,
 				l_type : l_type,
 				l_category : l_category,
@@ -153,7 +154,7 @@ function recommend(m_id) {
 						
 						+		'<img src="storage/' + data[key].lessonDetail.l_photo +'" alt="Image" class="w30">'
 						
-						+	'<div class="fh5co-text-v">'
+						+	'<div class="fh5co-text-r">'
 						+		'<h2>' + data[key].l_teacher_id + '님</h2>'
 						+	'</div>'
 						+'</a>'
@@ -165,8 +166,8 @@ function recommend(m_id) {
     			
 				if (ar.length != 0) {
     				Swal.fire({
-   	                	title: m_id +'님!',
-    	             	html: list +'<br>의 수업을 추천할게요!',
+   	                	title: m_nickname +'님!',
+    	             	html: list +'<br>의 ' + l_category + ' 수업을 추천할게요!',
     	                showConfirmButton: false
     	            });
 				} else {

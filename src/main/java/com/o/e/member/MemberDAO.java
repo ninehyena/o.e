@@ -1,6 +1,8 @@
 package com.o.e.member;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,11 @@ public class MemberDAO {
 		MemberMapper mm = ss.getMapper(MemberMapper.class);
 		return mm.userNameCheck(m_nickname);
 	}
+	//이메일 중복 검사
+	public int userEmailCheck(String m_email) throws Exception {
+		MemberMapper mm = ss.getMapper(MemberMapper.class);
+		return mm.userEmailCheck(m_email);
+	}
 
 	//로그인
 	public void login(Member m, HttpServletRequest req) {
@@ -57,9 +64,6 @@ public class MemberDAO {
 				if((mm.login(m).getM_pw()).equals(pw)) {
 					req.getSession().setAttribute("loginMember", mm.login(m));
 					req.getSession().setMaxInactiveInterval(600); //10분
-//						Cookie c = new Cookie("lastLoginId", id);
-//						c.setMaxAge(60 * 60 * 24 * 5);
-//						res.addCookie(c);
 					System.out.println("로그인 성공");
 					
 				}else {
@@ -73,11 +77,38 @@ public class MemberDAO {
 			System.out.println("로그인 실패/DB 통신 오류");
 		}
 	}
+	
+	//카카오 로그인
+	public void kakaoLogin(String m_email, HttpServletRequest req) {
+		try {
+			System.out.println("m_email값:"+m_email);//입력 확인용
+			
+			MemberMapper mm = ss.getMapper(MemberMapper.class);
+			// 로그인 회원의 정보가 있다면
+			if(mm.kakaoLogin(m_email) != null) {
+				req.getSession().setAttribute("loginMember", mm.kakaoLogin(m_email));
+				req.getSession().setMaxInactiveInterval(600); //10분
+				System.out.println("카카오 로그인 성공");
+			}else {
+				System.out.println("카카오 로그인 실패/미가입 ID");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("카카오 로그인 실패/DB 통신 오류");
+		}
+	}
 
 	//로그아웃
-	public void logout(HttpServletRequest req) {
+	public void logout(HttpServletRequest req, HttpServletResponse res) {
 		//해당 회원에 대한 session만 null로
 		req.getSession().setAttribute("loginMember", null);
+		Cookie[] cookies = req.getCookies(); // 모든 쿠키의 정보를 cookies에 저장
+		if(cookies != null){ // 쿠키가 한개라도 있으면 실행
+			for(int i=0; i< cookies.length; i++){
+			cookies[i].setMaxAge(0); // 유효시간을 0으로 설정
+			res.addCookie(cookies[i]); // 응답 헤더에 추가
+			}
+		}
 		System.out.println("로그아웃 성공");
 	}
 	
@@ -116,6 +147,38 @@ public class MemberDAO {
 		}
 		// 로그인 상태가 아니거나 로그인 실패 시
 		return false;
+	}
+	
+	//아이디 찾기
+	public void searchUserId(String m_email, HttpServletRequest req) {
+		System.out.println("m_email값:"+m_email);//입력 확인용
+		MemberMapper mm = ss.getMapper(MemberMapper.class);
+		// 로그인 회원의 정보가 있다면
+		if(mm.searchUserId(m_email) != null) {
+			req.getSession().setAttribute("userId", mm.searchUserId(m_email).getM_id());
+			req.getSession().setMaxInactiveInterval(1); //1초
+		}
+	}
+	//비밀번호 변경
+	public int update_pw(Member m) throws Exception{
+		return ss.update("member.update_pw", m);
+	}
+	
+	//회원탈퇴
+	public void deleteMember(HttpServletRequest req, HttpServletResponse res) {
+		try {
+			MemberMapper mm = ss.getMapper(MemberMapper.class);
+			Member m = (Member) req.getSession().getAttribute("loginMember");
+			String m_id = m.getM_id();
+			if(mm.deleteMember(m_id)==1) {
+				System.out.println("회원탈퇴 성공");
+				
+				logout(req, res); //탈퇴하면 로그아웃(세션,쿠키 삭제)
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("회원탈퇴 실패");
+		}
 	}
 	
 }

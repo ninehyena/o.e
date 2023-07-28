@@ -136,6 +136,7 @@ public class LessonDAO {
 	private int countSearchMsg(String type, String search) { // Controller에서 사용할 것이 아니라서 private으로 작성
 		try {
 			int cnt = 0;
+			System.out.println(type + ", " + search + "으로 검색어에 해당하는 글 갯수 카운트");
 			cnt = ss.getMapper(LessonMapper.class).countSearch(type, search);
 			System.out.println(cnt);
 			return cnt;
@@ -161,10 +162,12 @@ public class LessonDAO {
 			} else {
 				lessonCount = countSearchMsg(type, search);
 			}
+			
 
-			// System.out.println("검색어: " + search);
-			// System.out.println("레슨 전체 갯수: " + allLessonCount);
-			// System.out.println("필터링된 레슨 갯수: " + lessonCount);
+			System.out.println("타입: " + type);
+			 System.out.println("검색어: " + search);
+			 System.out.println("레슨 전체 갯수: " + allLessonCount);
+			 System.out.println("필터링된 레슨 갯수: " + lessonCount);
 
 			int lessonPerpage = 12; // 한 페이지당 보여줄 게시글 데이터 수
 
@@ -491,7 +494,7 @@ public class LessonDAO {
 //		}
 //	}
 	
-	public List<Lesson> recommendLesson(String l_location, String l_type, String l_category,
+	public List<Lesson> recommendLesson(String m_id, String l_location, String l_type, String l_category,
 			String l_level, int l_pay_min, int l_pay_max, String l_day, HttpServletRequest req) {
 		try {
 			System.out.println(l_location);
@@ -505,8 +508,8 @@ public class LessonDAO {
 			l.setL_level(l_level);
 			ld.setL_day(l_day);
 
-			
-			List<Lesson> recommend = ss.getMapper(LessonMapper.class).recommendLesson(l, ld, l_pay_min, l_pay_max);
+			System.out.println("레슨 추천 대상 : " + m_id);
+			List<Lesson> recommend = ss.getMapper(LessonMapper.class).recommendLesson(m_id, l, ld, l_pay_min, l_pay_max);
 
 			System.out.println("리스트 사이즈 : " + recommend.size());
 			if (recommend.size() != 0) {
