@@ -75,12 +75,22 @@
 
 <c:if test="${sessionScope.loginMember != null && sessionScope.loginMember.m_id == 'admin'}">
 	<div
-		style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+		style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-bottom: 40px;">
 		<button class="btn btn-primary" onclick="location.href='regBoard'">글쓰기</button>
 	</div>
 </c:if>
 
-<br>
-
-<br>
+<div class="gtco-cover gtco-cover-sm"
+	data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="gtco-container text-center">
+		<div class="display-t">
+			<div class="display-tc">
+				<h1>&ldquo; Our high quality of service makes you back over
+					and over again!&rdquo;</h1>
+				<p>&mdash; Team sobakee </p>
+			</div>
+		</div>
+	</div>
+</div>
 <%@ include file="../footer.jsp"%>

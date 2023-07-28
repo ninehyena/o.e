@@ -138,7 +138,7 @@ public class LessonDAO {
 			int cnt = 0;
 			System.out.println(type + ", " + search + "으로 검색어에 해당하는 글 갯수 카운트");
 			cnt = ss.getMapper(LessonMapper.class).countSearch(type, search);
-			System.out.println(cnt);
+			// System.out.println(cnt);
 			return cnt;
 			
 		} catch (Exception e) {
@@ -165,9 +165,9 @@ public class LessonDAO {
 			
 
 			System.out.println("타입: " + type);
-			 System.out.println("검색어: " + search);
-			 System.out.println("레슨 전체 갯수: " + allLessonCount);
-			 System.out.println("필터링된 레슨 갯수: " + lessonCount);
+			System.out.println("검색어: " + search);
+			System.out.println("레슨 전체 갯수: " + allLessonCount);
+			System.out.println("필터링된 레슨 갯수: " + lessonCount);
 
 			int lessonPerpage = 12; // 한 페이지당 보여줄 게시글 데이터 수
 
