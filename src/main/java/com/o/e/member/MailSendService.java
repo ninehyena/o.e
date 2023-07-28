@@ -25,11 +25,11 @@ public class MailSendService {
 			//Mail Server 설정
 			String charSet="utf-8";
 			String hostSMTP="smtp.gmail.com";
-			String hostSMTPid="ansangouk216@gmail.com"; //관리자 이메일 아이디
-			String hostSMTPpw="siregmtomhtytejw"; //관리자 이메일 비밀번호
+			String hostSMTPid="projectoe72@gmail.com";
+			String hostSMTPpw="wbevkqyemslglnuw"; //관리자 이메일 비밀번호
 			
 			//보내는 사람 
-			String fromEmail="sangouk216@naver.com"; //보내는 사람 이메일 
+			String fromEmail="projectoe72@gmail.com"; //보내는 사람 이메일 
 			String fromName="오늘 이런 수업 어때요?"; //보내는 사람 이름
 			
 			String subject="회원 가입 인증 이메일 입니다."; //메일 제목
@@ -71,11 +71,11 @@ public class MailSendService {
 			//Mail Server 설정
 			String charSet="utf-8";
 			String hostSMTP="smtp.gmail.com";
-			String hostSMTPid="ansangouk216@gmail.com"; //관리자 이메일 아이디
-			String hostSMTPpw="siregmtomhtytejw"; //관리자 이메일 비밀번호
+			String hostSMTPid="projectoe72@gmail.com"; //관리자 이메일 아이디
+			String hostSMTPpw="wbevkqyemslglnuw"; //관리자 이메일 비밀번호
 			
 			//보내는 사람 
-			String fromEmail="sangouk216@naver.com"; //보내는 사람 이메일 
+			String fromEmail="projectoe72@gmail.com"; //보내는 사람 이메일 
 			String fromName="오늘 이런 수업 어때요?"; //보내는 사람 이름
 			
 			String subject="임시 비밀번호 알려드립니다."; //메일 제목

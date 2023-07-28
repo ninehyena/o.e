@@ -13,18 +13,9 @@
 						<h3>Get In Touch</h3>
 						<ul class="gtco-quick-contact">
 							<li><a href="tel://0212345678"><i class="icon-phone"></i> +82 02 - 1234 - 5678</a></li>
-							<li><a href="mailto:o.e@sobakee.com"><i class="icon-mail2"></i> o.e@sobakee.com</a></li>
-							<li><a href="javascript:address();"><i class="icon-chat"></i> Live Chat</a></li>
+							<li><a href="mailto:o.e@sobakee.com"><i class="icon-mail2"></i> projectoe72@gmail.com</a></li>
 						</ul>
-					</div>
-					<div class="gtco-widget">
-						<h3>Get Social</h3>
-						<ul class="gtco-social-icons">
-							<li><a href="#"><i class="icon-twitter"></i></a></li>
-							<li><a href="#"><i class="icon-facebook"></i></a></li>
-							<li><a href="#"><i class="icon-linkedin"></i></a></li>
-							<li><a href="#"><i class="icon-dribbble"></i></a></li>
-						</ul>
+						<div id="map" style="width:500px;height:400px; margin: 0 auto;"></div>
 					</div>
 				</div>
 
@@ -73,25 +64,55 @@
 	<!-- Main -->
 	<script src="resources/js/main.js"></script>
 
-	<script type="text/javascript">
-	function address() {
-		// alert('address');
-		Swal.fire({
-			html: '<div id="map" style="width:500px;height:400px;"></div>',
-			showCancelButton: true,
-			showConfirmButton: false
-        });
-	}
-	</script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6cf17c7ef9ab946af1f3b972dd77b7d0"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a84fac31ff8ac655eb89add0f4e69bc5&libraries=services"></script>
 	<script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
-			level: 3
-		};
-
-		var map = new kakao.maps.Map(container, options);
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };  
+		
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		//일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+		
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+		
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('서울 강남구 강남대로98길 16', function(result, status) {
+		
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+		
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+		
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">TEAM 소박이</div>'
+		        });
+		        infowindow.open(map, marker);
+		
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } 
+		});    
 	</script>
 
 	</body>
