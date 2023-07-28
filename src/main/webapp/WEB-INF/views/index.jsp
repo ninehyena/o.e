@@ -41,8 +41,11 @@
 
 												<div class="row form-group">
 													<div class="col-md-12 oe_center">
-														<input type="submit" class="btn btn-primary btn-block" value="로그인"> 
-														<a href="idFind">ID 찾기</a> <a href="pwFind">PW 찾기</a>
+														<div class="mb4">
+															<input type="submit" class="btn btn-primary btn-block" value="로그인"> 
+														</div>
+														<a href="javascript:idFind();">ID 찾기</a> / <a href="javascript:pwFind();">PW 찾기</a>
+														<!-- <a href="idFind">ID 찾기</a> <a href="pwFind">PW 찾기</a> -->
 														<!-- <input type="button" class="btn btn-primary btn-block" id="goSignupBtn" value="회원가입"> -->
                             							
                             							<hr>

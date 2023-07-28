@@ -86,6 +86,7 @@
 	<script type="text/javascript" src="resources/oe_js/signup/mypage.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/userCommon.js"></script>
 	<script type="text/javascript" src="resources/oe_js/signup/signup.js"></script>
+	<script type="text/javascript" src="resources/oe_js/signup/findInfo.js"></script>
 	<!-- 회원가입 JS 끝 -->
 	
 	<!-- 공지사항 JS 시작 -->

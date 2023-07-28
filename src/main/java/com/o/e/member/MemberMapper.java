@@ -22,7 +22,7 @@ public interface MemberMapper {
 	//아이디 찾기
 	public abstract Member searchUserId(String m_email);
 	//비밀번호 찾기
-	public abstract Member searchUserPw(String m_id);
+	public abstract Member searchUserPw(Member m);
 	//임시비밀번호로 수정
 	public abstract void updateUserPw(Member m);
 	

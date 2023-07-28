@@ -35,6 +35,7 @@ public class MemberDAO {
 	//아이디 중복 검사
 	public int userIdCheck(String m_id) throws Exception {
 		MemberMapper mm = ss.getMapper(MemberMapper.class);
+		System.out.println(mm.userIdCheck(m_id));
 	    return mm.userIdCheck(m_id);
 	   }
 	//이름 중복 검사
@@ -160,18 +161,32 @@ public class MemberDAO {
 	}
 	
 	//아이디 찾기
-	public void searchUserId(String m_email, HttpServletRequest req) {
-		System.out.println("m_email값:"+m_email);//입력 확인용
-		MemberMapper mm = ss.getMapper(MemberMapper.class);
-		// 로그인 회원의 정보가 있다면
-		if(mm.searchUserId(m_email) != null) {
-			req.getSession().setAttribute("userId", mm.searchUserId(m_email).getM_id());
-			req.getSession().setMaxInactiveInterval(1); //1초
+//	public void searchUserId(String m_email, HttpServletRequest req) {
+//		System.out.println("m_email값:"+m_email);//입력 확인용
+//		MemberMapper mm = ss.getMapper(MemberMapper.class);
+//		// 로그인 회원의 정보가 있다면
+//		if(mm.searchUserId(m_email) != null) {
+//			req.getSession().setAttribute("userId", mm.searchUserId(m_email).getM_id());
+//			req.getSession().setMaxInactiveInterval(1); //1초
+//		}
+//	}
+	public String searchUserId(String m_email, HttpServletRequest req) {
+		try {
+			System.out.println("m_email값:"+m_email);//입력 확인용
+			MemberMapper mm = ss.getMapper(MemberMapper.class);
+			// 로그인 회원의 정보가 있다면
+			if(mm.searchUserId(m_email) != null) {
+				System.out.println("찾은 아이디 : " + mm.searchUserId(m_email).getM_id());
+				return mm.searchUserId(m_email).getM_id();
+			} else {
+				return null;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-	}
-	//비밀번호 변경
-	public int update_pw(Member m) throws Exception{
-		return ss.update("member.update_pw", m);
+		
 	}
 	
 	//회원탈퇴

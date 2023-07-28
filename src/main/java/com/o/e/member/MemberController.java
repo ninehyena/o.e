@@ -144,45 +144,89 @@ public class MemberController {
 		return "user/idFind";
 	}
 	//아이디 찾기 기능
+//	@RequestMapping(value = "/idFind.do", method = RequestMethod.GET)
+//	public String goIdFind(String m_email, HttpServletRequest req) {
+//		mDAO.searchUserId(m_email, req);
+//		return "user/idFind";
+//	}
+	
 	@RequestMapping(value = "/idFind.do", method = RequestMethod.GET)
-	public String goIdFind(String m_email, HttpServletRequest req) {
-		mDAO.searchUserId(m_email, req);
-		return "user/idFind";
+	public @ResponseBody String goIdFind(String m_email, HttpServletRequest req) {
+		// System.out.println(m_email);
+		String id = mDAO.searchUserId(m_email, req);
+		System.out.println(id);
+		return id;
 	}
+	
+	
 	//패스워드 찾기 페이지
 	@RequestMapping(value = "/pwFind", method = RequestMethod.GET)
 	public String pwFind() {
 		return "user/pwFind";
 	}
 	//패스워드 찾기 기능
+//	@ResponseBody
+//	@RequestMapping(value = "/pwFind.do", method = RequestMethod.POST)
+//	public void goPwFind(Member m, HttpServletRequest req, HttpServletResponse res) throws Exception {
+////		mDAO.searchUserPw(m,req,res);
+//		res.setContentType("text/html; charset=UTF-8");
+//		PrintWriter out = res.getWriter();
+//		MemberMapper mm = ss.getMapper(MemberMapper.class);
+//		try {
+//			if (mDAO.userIdCheck(m.getM_id()) == 0) {
+//				out.println("아이디가 없습니다.");
+//				out.flush();
+//				out.close();
+//			} else if (mDAO.userEmailCheck(m.getM_email()) == 0) {
+//				out.print("이메일이 없습니다.");
+//				out.flush();
+//				out.close();
+//			} else {
+//				// 임시 비밀번호 생성
+//				String pw = "";
+//				for (int i = 0; i < 12; i++) {
+//					pw += (char) ((Math.random() * 26) + 97);
+//				}
+//				m.setM_pw(pw);
+//				// 비밀번호 변경
+//				mm.updateUserPw(m);
+//				// 비밀번호 변경 메일 발송
+//				MailSendService.sendEmail(m);
+//				out.print("이메일 발송");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	@ResponseBody
 	@RequestMapping(value = "/pwFind.do", method = RequestMethod.POST)
-	public void goPwFind(Member m, HttpServletRequest req, HttpServletResponse res) throws Exception {
-//		mDAO.searchUserPw(m,req,res);
+	public void goPwFind(String m_id, String m_email, Member m, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		System.out.println("비번 찾기(아이디) : " + m_id);
+		System.out.println("비번 찾기(이메일) : " + m_email);
+
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		MemberMapper mm = ss.getMapper(MemberMapper.class);
 		try {
 			if (mDAO.userIdCheck(m.getM_id()) == 0) {
-				out.println("아이디가 없습니다.");
-				out.flush();
-				out.close();
+				out.print("아이디가 없습니다.");
 			} else if (mDAO.userEmailCheck(m.getM_email()) == 0) {
 				out.print("이메일이 없습니다.");
-				out.flush();
-				out.close();
-			} else {
+			} else if (mm.searchUserPw(m) != null){
 				// 임시 비밀번호 생성
 				String pw = "";
 				for (int i = 0; i < 12; i++) {
 					pw += (char) ((Math.random() * 26) + 97);
 				}
 				m.setM_pw(pw);
+				System.out.println("변경된 비밀번호 : " + m.getM_pw());
 				// 비밀번호 변경
 				mm.updateUserPw(m);
 				// 비밀번호 변경 메일 발송
 				MailSendService.sendEmail(m);
 				out.print("이메일 발송");
+			} else {
+				out.print("아이디&이메일 불일치");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
