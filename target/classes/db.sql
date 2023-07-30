@@ -17,28 +17,28 @@ drop sequence oe_board_seq;
 
 -- 회원 테이블
 create table oe_member(
-    m_id varchar2(12) primary key,
-    m_pw varchar2(12) not null,
-    m_lesson varchar2(15) not null,		-- 강습: lesson 과 교습: not_lesson
-    m_nickname varchar2(30) not null,
-    m_phone varchar2(13) not null,
-    m_email varchar2(100) not null,
-    m_addr1 varchar2(20) not null,
-    m_addr2 varchar2(50) not null,
-    m_addr3 varchar2(40) not null
+    m_id varchar2(12 char) primary key,
+    m_pw varchar2(12 char) not null,
+    m_lesson varchar2(15 char) not null,		-- 강습: lesson 과 교습: not_lesson
+    m_nickname varchar2(30 char) not null,
+    m_phone varchar2(13 char) not null,
+    m_email varchar2(100 char) not null,
+    m_addr1 varchar2(20 char) not null,
+    m_addr2 varchar2(50 char) not null,
+    m_addr3 varchar2(40 char) not null
 );
 
 select * from oe_member;
 
 -- 관리자 계정
-insert into oe_member values('admin', 'admin1234', '관리자', '관리자', '00', 'admin@gmail.com', '00', '00', '00');
+insert into oe_member values('admin', '1234', '관리자', '관리자', '00', 'projectoe72@gmail.com', '00', '00', '00');
 
 -- 레슨 테이블
 create table oe_lesson(
 	l_num number primary key,					-- 레슨 번호
 	l_type varchar2(5 char) not null,			-- 취미 / 준비
 	l_category varchar2(20 char) not null,		-- 음악 카테고리
-	l_teacher_id varchar2(20 char) not null,	-- 회원T에서 FK 받아오기
+	l_teacher_id varchar2(12 char) not null,	-- 회원T에서 FK 받아오기
 	l_level varchar2(5 char) not null,			-- 레슨 레벨 
 	l_regdate date default sysdate not null,		-- 등록일
 	constraint fk_id foreign key(l_teacher_id)
@@ -53,8 +53,8 @@ select * from oe_lesson;
 create table oe_lesson_detail(
 	l_num number primary key,					-- 레슨 번호 oe_lesson의 l_num 참조
 	l_location varchar2(100 char) not null,		-- 레슨 지역
-	l_room varchar2(50 char),					-- 레슨 장소 (연습실 없으면 null)
-	l_photo varchar2(255 char),					-- 프로필 사진
+	l_room varchar2(50 char) not null,					-- 레슨 장소 (연습실 없으면 null)
+	l_photo varchar2(255 char) not null,					-- 프로필 사진
 	l_level_of_education1 varchar2(30 char),	-- 학력 (고등학교)
 	l_level_of_education2 varchar2(30 char),	-- 학력 (대학교)
 	l_major varchar2(30 char),					-- 전공 (대학교)
@@ -76,9 +76,9 @@ update OE_LESSON_DETAIL set l_photo = 'common.jpg';
 -- 신청 목록
 create table oe_application_list(
 	l_num number not null,					-- 레슨 테이블의 레슨 번호
-	a_id varchar2(12 char),				-- 회원 테이블의 회원 아이디 (수강생)
-	a_status number,		-- 레슨 상태
-	a_date date default sysdate, 	-- 레슨 신청일
+	a_id varchar2(12 char) not null,				-- 회원 테이블의 회원 아이디 (수강생)
+	a_status number default 0 not null,		-- 레슨 상태
+	a_date date default sysdate not null, 	-- 레슨 신청일
 	constraint a_fk_id foreign key(a_id)
 		references oe_member(m_id)
 		on delete cascade,
@@ -91,13 +91,13 @@ select * from oe_application_list;
 
 -- 댓글 테이블
 create table oe_cmt(
-	c_num number(3) primary key,
-	l_num number(3) not null,
-	c_id varchar2(10 char),
+	c_num number primary key,
+	l_num number not null,
+	c_id varchar2(12 char) not null,
 	c_content varchar2(200 char) not null,
-	c_regdate date default sysdate,
-	c_indent number(5) default 0,
-	c_ansnum number(5) default 0,
+	c_regdate date default sysdate not null,
+	c_indent number default 0,
+	c_ansnum number default 0,
 	constraint cmt_no foreign key(l_num)
 		references oe_lesson(l_num)
 		on delete cascade,
@@ -118,7 +118,7 @@ create table oe_review(
 	r_level number not null,		-- 수업 수준 0:쉬웠어요 1: 딱 맞아요 2: 어려워요
 	r_recommend number not null,	-- 0: 비추천 1: 추천
 	r_content varchar2(200 char) not null,	-- 내용
-	r_regdate date default sysdate,
+	r_regdate date default sysdate not null,
 	constraint r_fk_num foreign key(l_num)
 		references oe_lesson(l_num)
 		on delete cascade,
@@ -133,8 +133,8 @@ select * from oe_review;
 -- 공지사항
 CREATE TABLE oe_notice (
     n_no         NUMBER(10, 0) PRIMARY KEY,
-    n_title      VARCHAR2(200) NOT NULL,
-    n_content    VARCHAR2(2000) NOT NULL,
+    n_title      VARCHAR2(200 char) NOT NULL,
+    n_content    VARCHAR2(2000 char) NOT NULL,
     n_regdate    DATE DEFAULT sysdate NOT NULL,
     n_updatedate DATE DEFAULT sysdate
 );
@@ -144,10 +144,10 @@ create sequence oe_notice_seq;
 -- 정보 게시판
 CREATE TABLE oe_board (
     b_no         NUMBER(10, 0) PRIMARY KEY,
-    b_category   VARCHAR2(50) NOT NULL,
-    b_title      VARCHAR2(200) NOT NULL,
-    b_content    VARCHAR2(4000),
-    b_poster VARCHAR2(500) DEFAULT 'poster.jpg' NOT NULL,
+    b_category   VARCHAR2(50 char) NOT NULL,
+    b_title      VARCHAR2(200 char) NOT NULL,
+    b_content    VARCHAR2(4000 char),
+    b_poster VARCHAR2(500 char) NOT NULL,
     b_regdate    DATE DEFAULT sysdate NOT NULL,
     b_updatedate DATE DEFAULT sysdate
 );
@@ -205,23 +205,23 @@ insert into OE_LESSON values(oe_lesson_seq.nextval, '취미', '피아노', 'test
 
 select * from oe_lesson;
 
-insert into OE_LESSON_DETAIL values(1, '성남 분당구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '통기타 수업', 10000, '토요일', 0);
-insert into OE_LESSON_DETAIL values(2, '서울 성북구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '통기타 수업', 15000, '토요일, 일요일', 0);
-insert into OE_LESSON_DETAIL values(3, '서울 마포구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '드럼 수업', 20000, '조율 가능', 0);
-insert into OE_LESSON_DETAIL values(4, '경기 구리시 수택동', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '베이스 수업', 30000, '수요일, 금요일', 0);
-insert into OE_LESSON_DETAIL values(5, '서울 용산구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '베이스 수업', 50000, '조율 가능', 0);
-insert into OE_LESSON_DETAIL values(6, '서울 동대문구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '하프 수업', 25000, '화요일', 0);
-insert into OE_LESSON_DETAIL values(7, '경기 부천시 원미동', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '작곡 수업', 20000, '월요일, 목요일', 0);
-insert into OE_LESSON_DETAIL values(8, '경기 하남시 망월동', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '바이올린 수업', 18000, '토요일', 0);
-insert into OE_LESSON_DETAIL values(9, '서울 송파구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '일렉기타 수업', 15000, '조율 가능', 0);
-insert into OE_LESSON_DETAIL values(10, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 20000, '조율 가능', 0);
-insert into OE_LESSON_DETAIL values(11, '서울 강남구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '하프 수업', 25000, '화요일', 0);
-insert into OE_LESSON_DETAIL values(12, '서울 강남구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '작곡 수업', 20000, '월요일, 목요일', 0);
-insert into OE_LESSON_DETAIL values(13, '서울 성북구', '연습실 대관', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '바이올린 수업', 18000, '토요일', 0);
-insert into OE_LESSON_DETAIL values(14, '서울 용산구', '기타', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '일렉기타 수업', 15000, '조율 가능', 0);
-insert into OE_LESSON_DETAIL values(15, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 20000, '조율 가능', 0);
-insert into OE_LESSON_DETAIL values(16, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 25000, '조율 가능', 0);
-insert into OE_LESSON_DETAIL values(17, '서울 송파구', '개인 연습실', '%EA%BD%81%EC%A7%804.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 65000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(1, '성남 분당구', '개인 연습실', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '통기타 수업', 10000, '토요일', 0);
+insert into OE_LESSON_DETAIL values(2, '서울 성북구', '기타', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '통기타 수업', 15000, '토요일, 일요일', 0);
+insert into OE_LESSON_DETAIL values(3, '서울 마포구', '기타', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '드럼 수업', 20000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(4, '경기 구리시 수택동', '연습실 대관', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '베이스 수업', 30000, '수요일, 금요일', 0);
+insert into OE_LESSON_DETAIL values(5, '서울 용산구', '개인 연습실', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '베이스 수업', 50000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(6, '서울 동대문구', '연습실 대관', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '하프 수업', 25000, '화요일', 0);
+insert into OE_LESSON_DETAIL values(7, '경기 부천시 원미동', '개인 연습실', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '작곡 수업', 20000, '월요일, 목요일', 0);
+insert into OE_LESSON_DETAIL values(8, '경기 하남시 망월동', '연습실 대관', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '바이올린 수업', 18000, '토요일', 0);
+insert into OE_LESSON_DETAIL values(9, '서울 송파구', '기타', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '일렉기타 수업', 15000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(10, '서울 송파구', '개인 연습실', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 20000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(11, '서울 강남구', '연습실 대관', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '하프 수업', 25000, '화요일', 0);
+insert into OE_LESSON_DETAIL values(12, '서울 강남구', '개인 연습실', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '작곡 수업', 20000, '월요일, 목요일', 0);
+insert into OE_LESSON_DETAIL values(13, '서울 성북구', '연습실 대관', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '바이올린 수업', 18000, '토요일', 0);
+insert into OE_LESSON_DETAIL values(14, '서울 용산구', '기타', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '일렉기타 수업', 15000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(15, '서울 송파구', '개인 연습실', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 20000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(16, '서울 송파구', '개인 연습실', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 25000, '조율 가능', 0);
+insert into OE_LESSON_DETAIL values(17, '서울 송파구', '개인 연습실', 'common.jpg', 'ㅍㅍ고등학교', 'ㄱㄱ대학교', '실용음악과', 'ㅊㅊ학원 강사', null, null, '피아노 수업', 65000, '조율 가능', 0);
 
 insert into OE_APPLICATION_LIST values(61, 'user1', 0, sysdate);
 insert into OE_APPLICATION_LIST values(61, 'user10', 0, sysdate);

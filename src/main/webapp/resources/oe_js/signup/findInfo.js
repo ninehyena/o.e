@@ -6,7 +6,7 @@ function idFind() {
 	Swal.fire({
         title: '<h2 class="primary-color"><b>아이디 찾기</b></h2>',
         html: '<label for="m_email" class="primary-color"><b>가입 시 사용한 이메일을 입력하세요</b></label>' +
-					'<input name="m_email" id="m_email" autofocus="autofocus" class="form-control"' + 
+					'<input type="email" name="m_email" id="m_email" autofocus="autofocus" class="form-control"' + 
 		 				'autocomplete="off" placeholder="가입 시 사용한 이메일을 입력하세요">',
         showCancelButton: true,
         confirmButtonColor: '#FBB448',
@@ -82,7 +82,7 @@ function pwFind() {
 				'<input name="f_id" id="f_id" autofocus="autofocus" class="form-control"' + 
 		 			'autocomplete="off">' +
 		 			'<div style="text-align:left;"><label class="primary-color"><b>이메일을 입력하세요</b></label></div>' +
-					'<input name="m_email" id="m_email" autofocus="autofocus" class="form-control"' + 
+					'<input type="email" name="m_email" id="m_email" autofocus="autofocus" class="form-control"' + 
 			 		'autocomplete="off">',
         showCancelButton: true,
         confirmButtonColor: '#FBB448',
