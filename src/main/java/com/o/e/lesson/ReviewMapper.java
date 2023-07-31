@@ -29,4 +29,10 @@ public interface ReviewMapper {
 	// 전체 리뷰 갯수
 	public abstract int countAll();
 	public abstract int getRec();
+	
+	// 리뷰 수정
+	public abstract int updateReview(Review r);
+	
+	// 리뷰 삭제
+	public abstract int deleteReview(int r_num);
 }

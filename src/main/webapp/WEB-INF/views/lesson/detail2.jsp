@@ -143,49 +143,40 @@
 					</div>
 					<div class="tab-pane fade" id="review">
 						<h2 class="oe_font2 primary-color">수강평</h2>
-						<p><a class="oe_float_right" href="review?l_num=${lesson.l_num }">→ 더보기</a></p>
+						<p><a class="oe_float_right" href="review?l_num=${lesson.l_num }"  style="display: block;">→ 더보기</a></p>
 						<c:if test="${empty reviews}">
 							<h2 class="oe_font primary-color oe_center">등록된 리뷰가 없습니다.</h2>
 						</c:if>
-						<c:forEach var="r" items="${reviews }">
-							<div class="col-lg-4 col-md-4 col-sm-6">
-								<a href="javascript:reviewDetail(${r.r_num})" class="fh5co-card-item-r">
-									<figure>
-										<div class="overlay">
-											<i class="ti-plus"></i>
+						<div style="clear: both;">
+							<c:forEach var="r" items="${reviews }">
+								<div class="col-lg-4 col-md-4 col-sm-6">
+									<a href="javascript:reviewDetail(${r.r_num})" class="fh5co-card-item-r">
+										<figure>
+											<div class="overlay">
+												<i class="ti-plus"></i>
+											</div>
+										</figure>
+										<div class="fh5co-text-v">
+											<div class="form-group oe_center">
+												<div class="star-ratings" style="text-align: center;">
+													<div class="star-ratings-fill space-x-2 text-lg"
+														style="width: ${r.r_star*20}%;">
+														<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+													</div>
+													<div class="star-ratings-base space-x-2 text-lg">
+														<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+													</div>
+												</div>
+											</div>
+											<c:set var="t" value="
+											"/>
+											<h2 class="oe_font">${fn:split(r.r_content, t)[0] }</h2>
+											<p><fmt:formatDate value="${r.r_regdate }" pattern="yyyy-MM-dd" /></p>
 										</div>
-										
-									</figure>
-									<div class="fh5co-text-v">
-										<div class="form-group oe_center" id="review" >
-											<fieldset>
-												<input type="radio" name="r_star" value="5" id="rate1"
-													<c:if test="${r.r_star == 5 }">checked</c:if>>
-												<label for="rate1">★</label>
-												<input type="radio" name="r_star" value="4" id="rate2"
-													<c:if test="${r.r_star == 4 }">checked</c:if>>
-												<label for="rate2">★</label>
-												<input type="radio" name="r_star" value="3" id="rate3"
-													<c:if test="${r.r_star == 3 }">checked</c:if>>
-												<label for="rate3">★</label>
-												<input type="radio" name="r_star" value="2" id="rate4"
-													<c:if test="${r.r_star == 2 }">checked</c:if>>
-												<label for="rate4">★</label>
-												<input type="radio" name="r_star" value="1" id="rate5"
-													<c:if test="${r.r_star == 1 }">checked</c:if>>
-												<label for="rate5">★</label>
-											</fieldset>
-										</div>
-										
-										<c:set var="t" value="
-										"/>
-										<h2 class="oe_font">${fn:split(r.r_content, t)[0] }</h2>
-										<p><fmt:formatDate value="${r.r_regdate }" pattern="yyyy-MM-dd" /></p>
-									</div>
-								</a>
-							</div>
-						</c:forEach>
-						
+									</a>
+								</div>
+							</c:forEach>
+						</div>
 					</div>
 					
 					<!-- fade 클래스는 선택적인 사항으로 트랜지션(transition)효과가 있다.
@@ -215,11 +206,12 @@
 						</c:if>
 						<c:if test="${list.a_status == 2 }">
 							<p>회원님께서 수강을 완료하신 수업이에요.</p>
-							<c:if test="${check == 0 }">
+							<c:if test="${check == null }">
 								<button type="button" class="btn btn-primary oe_font_bold_18" onclick="writeReview(${lesson.l_num});">리뷰 작성</button>
 							</c:if>
-							<c:if test="${check == 1 }">
-								<button type="button" class="btn btn-secondary oe_font_bold_18">리뷰 작성 완료</button>
+							<c:if test="${check != null }">
+								<!-- <button type="button" class="btn btn-secondary oe_font_bold_18">리뷰 작성 완료</button>-->
+								<button type="button" class="btn btn-primary oe_font_bold_18" onclick="updateReview(${lesson.l_num}, ${check});">리뷰 수정하기</button>
 							</c:if>
 						</c:if>
 					</div>

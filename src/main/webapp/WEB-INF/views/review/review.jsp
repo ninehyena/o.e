@@ -45,26 +45,18 @@
 							
 						</figure>
 						<div class="fh5co-text-v">
-							<div class="form-group oe_center" id="review" >
-								<fieldset>
-									<input type="radio" name="r_star" value="5" id="rate1"
-										<c:if test="${r.r_star == 5 }">checked</c:if>>
-									<label for="rate1">★</label>
-									<input type="radio" name="r_star" value="4" id="rate2"
-										<c:if test="${r.r_star == 4 }">checked</c:if>>
-									<label for="rate2">★</label>
-									<input type="radio" name="r_star" value="3" id="rate3"
-										<c:if test="${r.r_star == 3 }">checked</c:if>>
-									<label for="rate3">★</label>
-									<input type="radio" name="r_star" value="2" id="rate4"
-										<c:if test="${r.r_star == 2 }">checked</c:if>>
-									<label for="rate4">★</label>
-									<input type="radio" name="r_star" value="1" id="rate5"
-										<c:if test="${r.r_star == 1 }">checked</c:if>>
-									<label for="rate5">★</label>
-								</fieldset>
+							<div class="form-group oe_center">
+								<div class="star-ratings" style="text-align: center;">
+									<div class="star-ratings-fill space-x-2 text-lg"
+										style="width: ${r.r_star*20}%;">
+										<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+									</div>
+									<div class="star-ratings-base space-x-2 text-lg">
+										<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+									</div>
+								</div>
 							</div>
-							
+								
 							<c:set var="t" value="
 							"/>
 							<h2 class="oe_font">${fn:split(r.r_content, t)[0] }</h2>

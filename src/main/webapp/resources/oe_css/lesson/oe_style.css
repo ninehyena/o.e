@@ -330,14 +330,11 @@ and
 	margin-bottom: 10px;
 }
 
+/* 리뷰 */
 #review fieldset {
 	display: inline-block;
 	direction: rtl;
 	border: 0;
-}
-
-#review fieldset legend {
-	text-align: right;
 }
 
 #review input[type=radio] {
@@ -353,6 +350,44 @@ and
 #review input[type=radio]:checked ~ label {
 	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
+
+.star-ratings {
+	margin: 0 auto;
+	color: #aaa9a9;
+	position: relative;
+	unicode-bidi: bidi-override;
+	width: max-content;
+	-webkit-text-fill-color: transparent;
+	/* Will override color (regardless of order) */
+	-webkit-text-stroke-width: 1.3px;
+	-webkit-text-stroke-color: #2b2a29;
+}
+
+.star-ratings-fill {
+	color: #fff58c;
+	padding: 0;
+	position: absolute;
+	z-index: 1;
+	display: flex;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	-webkit-text-fill-color: gold;
+}
+
+.star-ratings-base {
+	z-index: 0;
+	padding: 0;
+}
+
+.fh5co-card-item-r .fh5co-text-v .star-ratings span {
+	font-size: 30px;
+	color: #b3b3b3;
+	font-weight: 400;
+}
+
+
+/* 리뷰 끝 */
 
 /* */
 @font-face {
