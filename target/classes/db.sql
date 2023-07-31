@@ -239,6 +239,8 @@ insert into OE_APPLICATION_LIST values(67, 'user1', 0, sysdate);
 insert into OE_APPLICATION_LIST values(67, 'user2', 0, sysdate);
 insert into OE_APPLICATION_LIST values(67, 'user3', 0, sysdate);
 
+select * from OE_APPLICATION_LIST;
+
 -------------------------------------------------------------------------------
 -- 쿼리문
 select *
@@ -615,7 +617,21 @@ select rownum as rn, d.*
 from ( select rownum, a.*, b.l_pay, c.cnt 
 		from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
 		from OE_APPLICATION_LIST
-		where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date < to_date(to_char(sysdate + 1, 'DD'), 'DD')
+		where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date <= to_date(to_char(sysdate, 'DD'), 'DD')
+			group by l_num
+			order by count(*) desc) c
+			where a.l_num = b.l_num
+			and a.l_num = c.l_num
+			order by c.cnt desc
+	) d
+) where rn >= 1 and rn <= 6
+
+select * from ( 
+	select rownum as rn, d.*
+	from ( select rownum, a.*, b.l_pay, b.l_student, c.cnt 
+			from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
+			from OE_APPLICATION_LIST
+			where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date < to_date(to_char(sysdate, 'DD'), 'DD')
 			group by l_num
 			order by count(*) desc) c
 			where a.l_num = b.l_num
@@ -738,3 +754,4 @@ select * from (
 							and a.l_num = c.l_num
 					) d
 				) where rn >= 1 and rn <= 6
+				
