@@ -530,6 +530,7 @@ public class LessonDAO {
 			LessonMapper lm = ss.getMapper(LessonMapper.class);
 			ReviewMapper rm = ss.getMapper(ReviewMapper.class);
 			req.setAttribute("popular", lm.popularLesson());
+			System.out.println("인기 레슨 " + lm.popularLesson().size());
 			req.setAttribute("countA", lm.countAll());
 			req.setAttribute("countR", rm.countAll());
 			req.setAttribute("countRec", rm.getRec());
