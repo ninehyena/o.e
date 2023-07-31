@@ -600,13 +600,13 @@ order by SUM(b.l_student) desc
 
 -- 레슨 인기순
 select to_date(to_char(sysdate - 6, 'DD'), 'DD') from dual;
-select to_date(to_char(sysdate + 1, 'DD'), 'DD') from dual;
+select to_date(to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS') from dual;
 
 -- 레슨별 신청자 주간 통계
 select a.*, b.l_pay, c.cnt 
 from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
 from OE_APPLICATION_LIST
-where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date < to_date(to_char(sysdate + 1, 'DD'), 'DD')
+where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date <= to_date(to_char(sysdate, 'DD'), 'DD')
 group by l_num
 order by count(*) desc) c
 where a.l_num = b.l_num
@@ -626,18 +626,52 @@ from ( select rownum, a.*, b.l_pay, c.cnt
 	) d
 ) where rn >= 1 and rn <= 6
 
+select * from oe_lesson
+select * from OE_LESSON_DETAIL
+select * from OE_APPLICATION_LIST
+
+select l_num, count(l_num)
+from OE_APPLICATION_LIST
+where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date <= to_date(to_char(sysdate, 'DD'), 'DD')
+group by l_num
+order by count(l_num) desc
+
 select * from ( 
 	select rownum as rn, d.*
-	from ( select rownum, a.*, b.l_pay, b.l_student, c.cnt 
+	from ( select rownum, a.l_num, a.l_type, a.l_category, a.l_teacher_id, a.l_level, b.l_pay, b.l_student, c.cnt 
 			from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
 			from OE_APPLICATION_LIST
-			where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date < to_date(to_char(sysdate, 'DD'), 'DD')
+			where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date <= to_date(to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS')
 			group by l_num
 			order by count(*) desc) c
 			where a.l_num = b.l_num
 			and a.l_num = c.l_num
 	) d
 ) where rn >= 1 and rn <= 6
+
+select * from ( 
+	select d.*
+	from ( select a.l_num, a.l_type, a.l_category, a.l_teacher_id, a.l_level, b.l_pay, b.l_student, c.cnt 
+			from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
+			from OE_APPLICATION_LIST
+			where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date <= to_date(to_char(sysdate, 'DD'), 'DD')
+			group by l_num
+			order by count(*) desc) c
+			where a.l_num = b.l_num
+			and a.l_num = c.l_num
+	) d
+
+select rownum, d.*
+from ( select a.l_num, a.l_type, a.l_category, a.l_teacher_id, a.l_level, b.l_pay, b.l_student, c.cnt 
+		from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
+												from OE_APPLICATION_LIST
+												where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date <= to_date(to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS')
+												group by l_num
+												order by count(*) desc) c
+		where a.l_num = b.l_num
+		and a.l_num = c.l_num
+		order by c.cnt desc) d
+		where rownum >= 1 and rownum <= 6
 
 -- 회원 중 수강 중인 수업이 없는 회원
 select a.*, b.*
@@ -743,15 +777,29 @@ where b.l_location like '%서울%'
 and a.l_num = b.l_num
 
 select * from ( 
-					select rownum as rn, d.*
-					from ( select rownum, a.*, b.l_pay, b.l_student, c.cnt 
-							from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
-							from OE_APPLICATION_LIST
-							where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date < to_date(to_char(sysdate + 1, 'DD'), 'DD')
-							group by l_num
-							order by count(*) desc) c
-							where a.l_num = b.l_num
-							and a.l_num = c.l_num
-					) d
-				) where rn >= 1 and rn <= 6
-				
+					select rownum as rn, z.*
+					from (select rownum, nvl(x.cnt, 0) cnt, y.*
+					from (select b.l_num l_num, b.a_status a_status, count(b.a_status) cnt 
+					from oe_lesson a, OE_APPLICATION_LIST b 
+					where a.l_teacher_id = 'test8' and a.l_num = b.l_num  and b.a_status = 0
+					group by b.l_num, b.a_status 
+					order by b.l_num desc) x right outer join (select a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*
+							from oe_lesson a, oe_lesson_detail b
+							where a.l_teacher_id = 'test8'
+							and a.l_num = b.l_num
+							order by a.l_num desc
+					) y on x.l_num = y.l_num order by y.l_num desc) z
+			) where rn >= 1 and rn <= 5
+			
+select * from oe_member where m_id = 'test8' and m_pw = '1234'
+SELECT sum(oe_lesson_detail.l_student)
+		FROM oe_lesson 
+		JOIN oe_lesson_detail 
+			ON oe_lesson.l_num = oe_lesson_detail.l_num
+		WHERE oe_lesson.l_teacher_id = 'test8'
+		
+		SELECT oe_lesson_detail.l_student
+		FROM oe_lesson 
+		JOIN oe_lesson_detail 
+			ON oe_lesson.l_num = oe_lesson_detail.l_num
+		WHERE oe_lesson.l_teacher_id = 'test8'

@@ -20,7 +20,7 @@
 	
 	<!-- 강사의 인증 뱃지 확인을 위한 수강생 카운트 -->
 	<select id="cumulativeStudent" resultType="int">
-		SELECT oe_lesson_detail.l_student
+		SELECT sum(oe_lesson_detail.l_student)
 		FROM oe_lesson 
 		JOIN oe_lesson_detail 
 			ON oe_lesson.l_num = oe_lesson_detail.l_num

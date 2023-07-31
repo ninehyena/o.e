@@ -201,7 +201,7 @@
 						where a.l_num = b.l_num
 						and a.l_num = c.l_num
 						and c.a_id = #{m_id}
-						order by b.l_num desc
+						order by c.a_date desc
 						) y
 						where x.m_id = y.l_teacher_id
 				) d
@@ -222,7 +222,7 @@
 							where a.l_teacher_id = #{m_id}
 							and a.l_num = b.l_num
 							order by a.l_num desc
-					) y on x.l_num = y.l_num) z
+					) y on x.l_num = y.l_num order by y.l_num desc) z
 			) where rn >= #{start} and rn <= #{end}]]>
 	</select>
 	
@@ -329,19 +329,17 @@
 	
 	<!-- 레슨별 신청자 주간 통계 top6 -->
 	<select id="popularLesson" resultMap="LessonMap">
-		<![CDATA[select * from ( 
-					select rownum as rn, d.*
-					from ( select rownum, a.*, b.l_pay, b.l_student, c.cnt 
-							from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
-							from OE_APPLICATION_LIST
-							where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date <= to_date(to_char(sysdate, 'DD'), 'DD')
-							group by l_num
-							order by count(*) desc) c
-							where a.l_num = b.l_num
-							and a.l_num = c.l_num
-							order by c.cnt desc
-					) d
-				) where rn >= 1 and rn <= 6]]>
+		<![CDATA[select rownum, d.*
+				from ( select a.l_num, a.l_type, a.l_category, a.l_teacher_id, a.l_level, b.l_pay, b.l_student, c.cnt 
+						from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
+																from OE_APPLICATION_LIST
+																where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date <= to_date(to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS')
+																group by l_num
+																order by count(*) desc) c
+						where a.l_num = b.l_num
+						and a.l_num = c.l_num
+						order by c.cnt desc) d
+						where rownum >= 1 and rownum <= 6]]>
 	</select>
 	
 	<!-- 누적 레슨 진행 횟수 -->

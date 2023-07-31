@@ -21,11 +21,11 @@ public class MemberController {
 	private SqlSession ss;
 	
 	//회원가입 약관 동의 페이지
-		@RequestMapping(value = "/registerAgree", method = RequestMethod.GET)
-		public String register(Member m, HttpServletRequest req) {
-			
-			return "user/registerAgree";
-		}
+	@RequestMapping(value = "/registerAgree", method = RequestMethod.GET)
+	public String register(Member m, HttpServletRequest req) {
+		
+		return "user/registerAgree";
+	}
 	
 	//회원가입페이지
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -125,6 +125,9 @@ public class MemberController {
 	//내정보 페이지
 	@RequestMapping(value = "/mypage", method = RequestMethod.POST)
 	public String mypage(String m_id, HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return "redirect:/";
+		}
 		return "user/mypage2";
 	}
 	
