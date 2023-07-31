@@ -803,3 +803,12 @@ SELECT sum(oe_lesson_detail.l_student)
 		JOIN oe_lesson_detail 
 			ON oe_lesson.l_num = oe_lesson_detail.l_num
 		WHERE oe_lesson.l_teacher_id = 'test8'
+		
+select * from oe_review;
+
+select l_student from oe_lesson_detail where l_num = 22
+
+select round(avg(r_star),1)
+				from oe_review
+				where l_num = 22
+				group by l_num

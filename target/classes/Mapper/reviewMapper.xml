@@ -10,7 +10,7 @@
 	
 	<!-- 리뷰 작성 확인 -->
 	<select id="check" parameterType="map" resultType="int">
-		select count(*) from oe_review where l_num = #{l_num} and a_id = #{a_id}
+		select r_num from oe_review where l_num = #{l_num} and a_id = #{a_id}
 	</select>
 	
 	<!-- 리뷰 갯수 -->
@@ -32,7 +32,7 @@
 	
 	<!-- 리뷰 평점 가져오기 -->
 	<select id="getAvg" parameterType="int" resultType="double">
-		<![CDATA[select avg(r_star)
+		<![CDATA[select round(avg(r_star), 1)
 				from oe_review
 				where l_num = #{l_num}
 				group by l_num]]>
@@ -40,7 +40,7 @@
 	
 	<!-- 추천한 수강생 수 카운트 -->
 	<select id="getStuCnt" parameterType="int" resultType="int">
-		select count(*) from oe_lesson_detail where l_num = #{l_num}
+		select l_student from oe_lesson_detail where l_num = #{l_num}
 	</select>
 	<select id="getRecCnt" parameterType="int" resultType="int">
 		select count(r_recommend)
@@ -72,4 +72,16 @@
 		from oe_review
 		where r_recommend = 1
 	</select>
+	
+	<!-- 리뷰 수정 -->
+	<update id="updateReview" parameterType="com.o.e.lesson.Review">
+		update oe_review set r_star = #{r_star}, r_level = #{r_level}
+		, r_recommend = #{r_recommend}, r_content = #{r_content}
+		where l_num = #{l_num} and r_num = #{r_num}
+	</update>
+	
+	<!-- 리뷰 삭제 -->
+	<delete id="deleteReview" parameterType="int">
+		delete from oe_review where r_num = #{r_num}
+	</delete>
 </mapper>

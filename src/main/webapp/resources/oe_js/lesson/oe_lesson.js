@@ -412,6 +412,10 @@ function reviewDetail(r_num) {
 	});
 }
 
+function updateReview(l_num, r_num) {
+	location.href = "updateReview?l_num=" + l_num + "&r_num=" + r_num;
+}
+
 // 댓글
 $(function() {
 	 $('tr[id^=cmtCmt]').each(function(){
@@ -534,6 +538,30 @@ function deleteC(l_num, c_num) {
 			}, 2000);
         } else {
         	return false;
+        }
+    });
+}
+
+//레슨 삭제
+function deleteReview(l_num, r_num) {
+	Swal.fire({
+        title: '리뷰를 삭제하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '삭제하기',
+        cancelButtonText: '돌아가기'
+    }).then((result) => {
+    	if (result.isConfirmed) {
+        	Swal.fire({
+                icon: 'success',                         
+                title: '삭제가 완료되었습니다.',
+                showConfirmButton: false
+            });
+            setTimeout(function() {
+            	location.href = "deleteReview?l_num=" + l_num + "&r_num=" + r_num;
+			}, 2000);
         }
     });
 }

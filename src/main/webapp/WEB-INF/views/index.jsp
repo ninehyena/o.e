@@ -158,7 +158,7 @@
 						</figure>
 						<div class="fh5co-text-i">
 							<c:if test="${p.lessonDetail.l_student >= 3}">
-									<img alt="officialMark" src="resources/images/officialMark.png" style="position: absolute; left: 5px;">
+									<img alt="officialMark" src="resources/images/officialMark.png" style="position: absolute; left: 5px;" id="officialMark">
 								</c:if>
 								<h2>${p.l_teacher_id }님의<br>${p.l_category }수업</h2>
 							
@@ -295,6 +295,18 @@
 </div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
+	$("#officialMark").hover(function() {
+		Swal.fire({
+            icon: 'success',                         
+            title: '해당 마크는 o.e에서 부여한 인증 뱃지예요!',
+            html: '<b>o.e의 기준에 맞는 강사에게만 부여한 인증 뱃지예요.<br>레슨을 신청하는데 참고해 보세요.</b>',
+            showConFirmButton: true,
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: '확인',
+        });
+	});
+
 	window.onload = function () {
 		
 		var chart = new CanvasJS.Chart("chartContainer", {

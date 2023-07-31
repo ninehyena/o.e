@@ -16,13 +16,13 @@ public class ReviewController {
 
 	@Autowired
 	private LessonDAO lDAO;
-	
+
 	@Autowired
 	private ReviewDAO rDAO;
-	
+
 	@Autowired
 	private MemberDAO mDAO;
-	
+
 	// 리뷰 작성 페이지
 	@RequestMapping(value = "/writeReview", method = RequestMethod.GET)
 	public String review(int l_num, HttpServletRequest req) {
@@ -44,7 +44,7 @@ public class ReviewController {
 
 		return "redirect:/lessonDetail?l_num=" + l_num;
 	}
-	
+
 	// 리뷰 리스트
 	@RequestMapping(value = "/review", method = RequestMethod.GET)
 	public String getReview(int l_num, HttpServletRequest req) {
@@ -57,7 +57,7 @@ public class ReviewController {
 
 		return "review/review";
 	}
-	
+
 	@RequestMapping(value = "/review_paging", method = RequestMethod.GET)
 	public String paging(int l_num, HttpServletRequest req) {
 		if (req.getParameter("p") != null) {
@@ -69,10 +69,44 @@ public class ReviewController {
 
 		return "review/review";
 	}
-	
+
 	@RequestMapping(value = "/reviewDetail", method = RequestMethod.GET)
-	public @ResponseBody Review reviewDetail(@RequestParam("r_num") int r_num) {
-		
-		return rDAO.reviewDetail(r_num);
+	public @ResponseBody Review reviewDetail(@RequestParam("r_num") int r_num, HttpServletRequest req) {
+
+		return rDAO.reviewDetail(r_num, req);
+	}
+
+	// 리뷰 수정
+	@RequestMapping(value = "/updateReview", method = RequestMethod.GET)
+	public String update(int l_num, int r_num, HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return "redirect:/";
+		}
+		lDAO.getDetail(l_num, req);
+		rDAO.reviewDetail(r_num, req);
+
+		return "review/updateReview";
+	}
+
+	// 리뷰 수정
+	@RequestMapping(value = "/updateReview", method = RequestMethod.POST)
+	public String updateReview(Review r, HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return "redirect:/";
+		}
+		rDAO.updateReview(r, req);
+
+		return "redirect:/lessonDetail?l_num=" + r.getL_num();
+	}
+
+	// 리뷰 삭제
+	@RequestMapping(value = "/deleteReview", method = RequestMethod.GET)
+	public String delete(int l_num, int r_num, HttpServletRequest req) {
+		if (!mDAO.loginCheck(req)) {
+			return "redirect:/";
+		}
+		rDAO.deleteReview(r_num, req);
+
+		return "redirect:/lessonDetail?l_num=" + l_num;
 	}
 }

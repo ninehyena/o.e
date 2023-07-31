@@ -47,6 +47,8 @@ public class ReviewDAO {
 			req.setAttribute("check", ss.getMapper(ReviewMapper.class).check(l_num, m.getM_id()));
 		} catch (NullPointerException npe) {
 			System.out.println("비회원이 레슨 상세보기 조회");
+		} catch (BindingException be) {
+			System.out.println("아직 리뷰 작성 안함");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -92,15 +94,50 @@ public class ReviewDAO {
 	}
 
 	// 리뷰 상세보기
-	public Review reviewDetail(int r_num) {
+	public Review reviewDetail(int r_num, HttpServletRequest req) {
 		try {
 			Review r = ss.getMapper(ReviewMapper.class).reviewDetail(r_num);
 			System.out.println("리뷰 상세보기 성공");
+			req.setAttribute("review", r);
 			return r;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("리뷰 상세보기 실패");
 			return null;
+		}
+	}
+
+	// 리뷰 수정
+	public void updateReview(Review r, HttpServletRequest req) {
+		try {
+			// textarea 줄바꿈 처리
+			r.getR_content().replace("\r\n", "<br>");
+			System.out.println(r.getR_content());
+			
+			System.out.println(r.getL_num());
+			System.out.println(r.getR_num());
+
+			ReviewMapper rm = ss.getMapper(ReviewMapper.class);
+			if (rm.updateReview(r) == 1) {
+				System.out.println("리뷰 수정 성공");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("리뷰 수정 실패");
+		}
+	}
+	
+	// 리뷰 삭제
+	public void deleteReview(int r_num, HttpServletRequest req) {
+		try {
+			ReviewMapper rm = ss.getMapper(ReviewMapper.class);
+			if (rm.deleteReview(r_num) == 1) {
+				System.out.println("리뷰 삭제 성공");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("리뷰 삭제 실패");
 		}
 	}
 }
