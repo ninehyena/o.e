@@ -3,7 +3,7 @@
 <%@ include file="../header.jsp"%>
 
 <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner"
-	style="background-image: url(resources/images/img_bg_1.jpg); height:80px;"
+	style="height:80px;"
 	data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 </header>

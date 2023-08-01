@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o.e.schedule.ScheduleMapper">
+
+	<insert id="insert" parameterType="com.o.e.schedule.Schedule">
+		insert into oe_schedule values(#{m_id}, #{a_id}, #{s_title}, #{s_start}, #{s_end})
+	</insert>
+	
+	<select id="select" parameterType="String" resultType="com.o.e.schedule.Schedule">
+		select * from oe_schedule where m_id = #{m_id}
+	</select>
+	
+	<select id="select2" parameterType="String" resultType="com.o.e.schedule.Schedule">
+		select * from oe_schedule where a_id = #{m_id}
+	</select>
+	
+	<delete id="delete" parameterType="com.o.e.schedule.Schedule">
+		delete from oe_schedule where s_title = #{s_title} and s_start = #{s_start}
+	</delete>
+	
+	<resultMap type="com.o.e.lesson.ApplicationList" id="ApplicationMap">
+		<result property="l_num" column="l_num"/>
+		<result property="a_id" column="a_id"/>
+		<result property="a_status" column="a_status"/>
+		<result property="a_date" column="a_date"/>
+
+		<association javaType="com.o.e.lesson.Lesson" property="lesson">
+			<result property="l_type" column="l_type"/>
+			<result property="l_category" column="l_category"/>
+			<result property="l_level" column="l_level"/>
+		</association>	
+	</resultMap>
+	
+	<select id="list" parameterType="com.o.e.member.Member" resultMap="ApplicationMap">
+		select c.a_id, b.l_category
+		from OE_LESSON b, OE_APPLICATION_LIST c
+		where b.l_teacher_id = #{m_id}
+		and b.l_num = c.l_num
+		and c.a_status = 1
+	</select>
+</mapper>

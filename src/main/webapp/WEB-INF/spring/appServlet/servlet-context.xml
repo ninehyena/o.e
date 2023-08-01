@@ -51,6 +51,7 @@
 				<beans:value>classpath*:Mapper/commentMapper.xml</beans:value>
 				<beans:value>classpath*:Mapper/boardMapper.xml</beans:value>
 				<beans:value>classpath*:Mapper/noticeMapper.xml</beans:value>
+				<beans:value>classpath*:Mapper/scheduleMapper.xml</beans:value>
 				<!-- <beans:value>classpath:lessonMapper.xml</beans:value> -->
 			</beans:list>
 		</beans:property>

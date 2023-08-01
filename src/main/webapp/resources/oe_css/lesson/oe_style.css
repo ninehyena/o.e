@@ -88,6 +88,12 @@
 	display: inline-block;
 }
 
+.w50 {
+	width: 50%;
+	display: inline-block;
+	margin-top: 10px;
+}
+
 /* 가로 80% 가운데 정렬 */
 .w80 {
 	width: 80%;
@@ -774,3 +780,8 @@ and
 	text-decoration: underline;
 }
 
+
+#fc-dom-1 {
+	font-weight: bold;
+	color: #FBB448;
+}

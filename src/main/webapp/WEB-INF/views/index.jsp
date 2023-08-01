@@ -76,7 +76,7 @@
 										<div class="tab-content-inner active" data-content="memberInfo">
 											<h2 class="primary-color">
 												<b>
-													<c:if test="${sessionScope.memberBadgeCheck >= 3}">
+													<c:if test="${sessionScope.memberBadgeCheck >= 5}">
 														<img alt="bronze_badge" src="resources/images/officialMark.png">
 													</c:if>
 													${sessionScope.loginMember.m_nickname }님!
@@ -157,7 +157,7 @@
 							<img src="images/${p.l_category }.png" alt="Image" class="img-responsive">
 						</figure>
 						<div class="fh5co-text-i">
-							<c:if test="${p.lessonDetail.l_student >= 3}">
+							<c:if test="${p.l_teacher_id == sessionScope.loginMember.m_id && sessionScope.memberBadgeCheck >= 5}">
 									<img alt="officialMark" src="resources/images/officialMark.png" style="position: absolute; left: 5px;" id="officialMark">
 								</c:if>
 								<h2>${p.l_teacher_id }님의<br>${p.l_category }수업</h2>
