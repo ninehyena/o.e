@@ -16,7 +16,10 @@ $(function gosignup() {
 // 카카오 로그아웃 버튼
 $(function kakaoLogout() {
 	$("#kakaoLogoutBtn").click(function() {
-		location.href = "kakaoLogout";
+		let logoutCheck = confirm("로그아웃 하시겠습니까?");
+    	if(logoutCheck == true){
+    		location.href = "kakaoLogout";
+    	}
 
 	});
 });
