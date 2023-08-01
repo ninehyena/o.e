@@ -1,5 +1,8 @@
 package com.o.e.lesson;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,9 +58,8 @@ public class LessonContoroller {
 		} else {
 			lDAO.getAllList(1, req);
 		}
-		 System.out.println("세션에 있는 검색어 : " +
-		 req.getSession().getAttribute("type") +
-		 req.getSession().getAttribute("search"));
+		System.out.println(
+				"세션에 있는 검색어 : " + req.getSession().getAttribute("type") + req.getSession().getAttribute("search"));
 
 		return "lesson/lesson";
 	}
@@ -183,7 +185,7 @@ public class LessonContoroller {
 		if (!mDAO.loginCheck(req)) {
 			return "redirect:/lessonDetail?l_num=" + l_num;
 		}
-		
+
 		lDAO.delete(l_num, req);
 
 		return "redirect:/lesson";
@@ -358,7 +360,7 @@ public class LessonContoroller {
 
 		return "lesson/recommendLesson";
 	}
-	
+
 //	@RequestMapping(value = "/recommend", method = RequestMethod.POST)
 //	public String recommend(Lesson l, LessonDetail ld, HttpServletRequest req) {
 //		if (!mDAO.loginCheck(req)) {
@@ -368,7 +370,7 @@ public class LessonContoroller {
 //
 //		return "lesson/recommendLesson";
 //	}
-	
+
 	@RequestMapping(value = "/recommend", method = RequestMethod.POST)
 	public @ResponseBody List<Lesson> recommend(String m_id, String l_location, String l_type, String l_category,
 			String l_level, int l_pay_min, int l_pay_max, String l_day, HttpServletRequest req) {
@@ -377,14 +379,14 @@ public class LessonContoroller {
 		}
 		System.out.println(l_location);
 		System.out.println(l_pay_min);
-		
 
 		return lDAO.recommendLesson(m_id, l_location, l_type, l_category, l_level, l_pay_min, l_pay_max, l_day, req);
 	}
-	
+
 	@RequestMapping(value = "/popularLesson", method = RequestMethod.GET)
 	public @ResponseBody List<Lesson> popularLesson(HttpServletRequest req) {
-		
+
 		return lDAO.jsonData();
 	}
+
 }

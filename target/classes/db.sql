@@ -806,9 +806,70 @@ SELECT sum(oe_lesson_detail.l_student)
 		
 select * from oe_review;
 
-select l_student from oe_lesson_detail where l_num = 22
+select l_student from oe_lesson_detail where l_num = 22;
 
 select round(avg(r_star),1)
-				from oe_review
-				where l_num = 22
-				group by l_num
+from oe_review
+where l_num = 22
+group by l_num;
+
+create table oe_schedule(
+	m_id varchar2(12 char) not null,
+	a_id varchar2(12 char) not null,
+	s_title varchar2(50 char) not null,
+	s_start date not null,
+	s_end date not null,
+	constraint fk_s_id foreign key(m_id)
+		references oe_member(m_id)
+		on delete cascade,
+	constraint fk_s_id2 foreign key(a_id)
+		references oe_member(m_id)
+		on delete cascade
+);
+
+select * from oe_schedule;
+delete from oe_schedule;
+drop table oe_schedule;
+
+
+select to_date(to_char(sysdate - 6, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS') from dual;
+select to_date(to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS') from dual;
+
+
+select rownum, d.*
+from ( select a.l_num, a.l_type, a.l_category, a.l_teacher_id, a.l_level, b.l_pay, b.l_student, c.cnt 
+		from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
+												from OE_APPLICATION_LIST
+												where a_date > to_date(to_char(sysdate - 6, 'DD'), 'DD') and a_date <= to_date(to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS')
+												group by l_num
+												order by count(*) desc) c
+		where a.l_num = b.l_num
+		and a.l_num = c.l_num
+		order by c.cnt desc) d
+		where rownum >= 1 and rownum <= 6;
+
+select * from OE_APPLICATION_LIST;		
+select * from OE_LESSON where l_teacher_id = 'test8';	
+
+select c.a_id, b.l_num, b.l_category
+from oe_member a, OE_LESSON b, OE_APPLICATION_LIST c
+where b.l_teacher_id = 'test8'
+and a.m_id = c.a_id
+and b.l_num = c.l_num
+and c.a_status = 1;
+
+select c.a_id, b.l_category
+from OE_LESSON b, OE_APPLICATION_LIST c
+where b.l_teacher_id = 'test8'
+and b.l_num = c.l_num
+and c.a_status = 1;
+
+SELECT sum(oe_lesson_detail.l_student)
+		FROM oe_lesson 
+		JOIN oe_lesson_detail 
+			ON oe_lesson.l_num = oe_lesson_detail.l_num
+		WHERE oe_lesson.l_teacher_id = 'test8';
+		
+select * from OE_SCHEDULE;
+select * from OE_SCHEDULE where a_id = 'user9';
+				
