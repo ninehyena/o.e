@@ -283,7 +283,7 @@
 				data-animate-effect="fadeInUp">
 				<div class="feature-center">
 					<span class="counter-label">총</span>
-					<span class="counter js-counter" data-from="0" data-to="${countR }"
+					<span class="counter js-counter" data-from="0" data-to="${countRec }"
 						data-speed="2000" data-refresh-interval="50">1</span> 
 						<span class="counter-label">번의 추천</span>
 				</div>
