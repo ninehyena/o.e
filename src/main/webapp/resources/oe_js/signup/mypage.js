@@ -98,16 +98,55 @@ $(function(){
 	});//nameCheck end
 });//function end
 
-$(function(){
-	//회원 탈퇴 버튼
-    $("#memberSecessionBtn").click(function(){
-    	let secessionCheck = prompt("정말 탈퇴하시겠습니까? Y/N");
-    	if(secessionCheck == "Y"){
-    		location.href = "deleteMember";
-    		alert("지금까지 이용해주셔서 감사합니다.");
-    	}
+//회원 탈퇴 버튼
+function memberSecession(){
+//	let secessionCheck = prompt("정말 탈퇴하시겠습니까? Y/N");
+//	if(secessionCheck == "Y"){
+//		location.href = "deleteMember";
+//		alert("지금까지 이용해주셔서 감사합니다.");
+//	}
+	Swal.fire({
+        title: '<h2 class="primary-color"><b>정말 탈퇴하시겠습니까?</b></h2>',
+        html: '<label for="m_email" class="primary-color"><b>탈퇴 시 서비스 이용이 불가합니다.</b></label>',
+        showCancelButton: true,
+        confirmButtonColor: '#FBB448',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '회원탈퇴',
+        cancelButtonText: '돌아가기'
+    }).then((result) => {
+        if (result.isConfirmed) {
+        	let timerInterval
+        	Swal.fire({
+        	  title: '회원 정보를 삭제하는 중입니다...',
+        	  timer: 2000,
+        	  timerProgressBar: true,
+        	  didOpen: () => {
+        	    Swal.showLoading()
+        	  },
+        	  willClose: () => {
+        	    clearInterval(timerInterval)
+        	  }
+        	}).then((result) => {
+        		Swal.fire({
+	                icon: 'warning',                         
+	                title: '삭제되었습니다.',
+	                timer: 2000,
+	          	  	timerProgressBar: true,
+					  didOpen: () => {
+					    Swal.showLoading()
+					  },
+					  willClose: () => {
+					    clearInterval(timerInterval)
+					  }
+	            }).then((result) => {
+                	location.href = "deleteMember";
+	            });
+        		
+        	});
+        }	
     });
-});
+	
+};
 
 // 유효성 검사 메서드
 function Validation2() {

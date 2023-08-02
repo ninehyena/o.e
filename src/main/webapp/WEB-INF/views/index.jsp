@@ -76,7 +76,7 @@
 										<div class="tab-content-inner active" data-content="memberInfo">
 											<h2 class="primary-color">
 												<b>
-													<c:if test="${sessionScope.memberBadgeCheck >= 5}">
+													<c:if test="${sessionScope.memberBadgeCheck >= 4}">
 														<img alt="bronze_badge" src="resources/images/officialMark.png">
 													</c:if>
 													${sessionScope.loginMember.m_nickname }님!
@@ -118,7 +118,7 @@
 														<c:if test="${sessionScope.loginMember.m_id != 'admin'}">
 															<input type="submit" class="btn btn-primary btn-block" value="마이페이지"> 
 														</c:if>
-														<input type="button" class="btn btn-primary btn-block" id="kakaoLogoutBtn" value="로그아웃">
+														<input type="button" class="btn btn-primary btn-block" id="kakaoLogoutBtn" value="로그아웃" onclick="kakaoLogout();">
 													</div>
 												</div>
 											</form>

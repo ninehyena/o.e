@@ -14,15 +14,20 @@ $(function gosignup() {
 	});
 });
 // 카카오 로그아웃 버튼
-$(function kakaoLogout() {
-	$("#kakaoLogoutBtn").click(function() {
-		let logoutCheck = confirm("로그아웃 하시겠습니까?");
-    	if(logoutCheck == true){
-    		location.href = "kakaoLogout";
-    	}
-
-	});
-});
+function kakaoLogout() {
+	Swal.fire({
+        title: '<h2 class="primary-color"><b>로그아웃 하시겠습니까?</b></h2>',
+        showCancelButton: true,
+        confirmButtonColor: '#FBB448',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '로그아웃',
+        cancelButtonText: '돌아가기'
+    }).then((result) => {
+        if (result.isConfirmed) {
+        	location.href = "kakaoLogout";
+        }
+    });
+};
 //비밀번호 찾기
 $(function goPwFind() {
 	$("#findPw").click(function() {
