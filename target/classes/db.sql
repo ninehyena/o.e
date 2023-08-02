@@ -1,6 +1,7 @@
 select * from tab;
 drop table oe_cmt;
 drop table oe_review;
+drop table oe_schedule;
 drop table oe_application_list;
 drop table oe_lesson_detail;
 drop table oe_lesson;
@@ -147,15 +148,28 @@ CREATE TABLE oe_board (
     b_category   VARCHAR2(50 char) NOT NULL,
     b_title      VARCHAR2(200 char) NOT NULL,
     b_content    VARCHAR2(4000 char),
-    b_poster VARCHAR2(500 char) NOT NULL,
+    b_poster 	 VARCHAR2(500 char) NOT NULL,
     b_regdate    DATE DEFAULT sysdate NOT NULL,
     b_updatedate DATE DEFAULT sysdate
 );
 
 create sequence oe_board_seq;
 select * from oe_board;
-alter table oe_board modify b_poster varchar2(500 char);
 
+-- 레슨 일정 
+create table oe_schedule(
+	m_id varchar2(12 char) not null,
+	a_id varchar2(12 char) not null,
+	s_title varchar2(50 char) not null,
+	s_start date not null,
+	s_end date not null,
+	constraint fk_s_id foreign key(m_id)
+		references oe_member(m_id)
+		on delete cascade,
+	constraint fk_s_id2 foreign key(a_id)
+		references oe_member(m_id)
+		on delete cascade
+);
 ------------------------------------------------------------------------------------------
 -- 샘플 데이터
 insert into oe_member values('user1', '1234', 'not_lesson', '유저1', '01011111111', '1@naver.com', '우편번호', '1', '2');
@@ -813,19 +827,7 @@ from oe_review
 where l_num = 22
 group by l_num;
 
-create table oe_schedule(
-	m_id varchar2(12 char) not null,
-	a_id varchar2(12 char) not null,
-	s_title varchar2(50 char) not null,
-	s_start date not null,
-	s_end date not null,
-	constraint fk_s_id foreign key(m_id)
-		references oe_member(m_id)
-		on delete cascade,
-	constraint fk_s_id2 foreign key(a_id)
-		references oe_member(m_id)
-		on delete cascade
-);
+
 
 select * from oe_schedule;
 delete from oe_schedule;
