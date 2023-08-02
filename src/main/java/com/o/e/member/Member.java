@@ -13,12 +13,14 @@ public class Member {
 	private String m_addr2;
 	private String m_addr3;
 	
+	private int cnt; // 인증 뱃지를 위해 추가
+	
 	public Member() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Member(String m_id, String m_pw, String m_lesson, String m_nickname, String m_phone, String m_email,
-			String m_addr1, String m_addr2, String m_addr3) {
+			String m_addr1, String m_addr2, String m_addr3, int cnt) {
 		super();
 		this.m_id = m_id;
 		this.m_pw = m_pw;
@@ -29,6 +31,7 @@ public class Member {
 		this.m_addr1 = m_addr1;
 		this.m_addr2 = m_addr2;
 		this.m_addr3 = m_addr3;
+		this.cnt = cnt;
 	}
 
 	public String getM_id() {
@@ -101,6 +104,14 @@ public class Member {
 
 	public void setM_addr3(String m_addr3) {
 		this.m_addr3 = m_addr3;
+	}
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 
 }

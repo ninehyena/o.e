@@ -55,6 +55,7 @@ public class MemberDAO {
 		System.out.println("mm.cumulativeStudent(m_id) 값 : "+mm.cumulativeStudent(m_id));
 		return mm.cumulativeStudent(m_id);
 	}
+
 	
 	//로그인
 	public void login(Member m, HttpServletRequest req) {
