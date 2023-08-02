@@ -158,7 +158,7 @@
 						</figure>
 						<div class="fh5co-text-i">
 							<c:if test="${p.lessonDetail.l_student >= 4}">
-									<img alt="officialMark" src="resources/images/officialMark.png" style="position: absolute; left: 5px;" id="officialMark">
+									<img alt="officialMark" src="resources/images/officialMark.png" style="position: absolute; left: 5px;" class="officialMark">
 								</c:if>
 								<h2>${p.l_teacher_id }님의<br>${p.l_category }수업</h2>
 							
@@ -295,7 +295,7 @@
 </div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
-	$("#officialMark").hover(function() {
+	$(".officialMark").hover(function() {
 		Swal.fire({
             icon: 'success',                         
             title: '해당 마크는 o.e에서 부여한 인증 뱃지예요!',

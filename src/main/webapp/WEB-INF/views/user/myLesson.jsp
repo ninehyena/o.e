@@ -56,7 +56,7 @@
 									<button class="btn btn-primary oe_font_bold_18">대기</button>
 								</c:if>
 								<c:if test="${l.applicationList.a_status == 1}">
-									<button class="btn btn-success oe_font_bold_18">진행</button>
+									<button class="btn btn-success oe_font_bold_18 ing">진행</button>
 								</c:if>
 								<c:if test="${l.applicationList.a_status == 2}">
 									<button class="btn btn-secondary oe_font_bold_18">완료</button>
