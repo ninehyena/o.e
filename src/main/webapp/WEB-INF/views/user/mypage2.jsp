@@ -98,7 +98,7 @@
 				</div>
 				<div class="oe_center">
 					<button type="submit" class="btn btn-primary mt10 oe_font_bold_18">수정하기</button>
-					<button type="button" id="memberSecessionBtn" class="btn btn-danger mt10 oe_font_bold_18">탈퇴하기</button>
+					<button type="button" id="memberSecessionBtn" class="btn btn-danger mt10 oe_font_bold_18" onclick="memberSecession();">탈퇴하기</button>
 				</div>
 			</form>
 
