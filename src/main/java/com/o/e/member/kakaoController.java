@@ -86,6 +86,8 @@ public class kakaoController {
 				}
 			}
 			System.out.println("카카오 로그아웃");
+		} catch (NullPointerException ne) {
+			System.out.println("일반 회원 로그아웃");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
