@@ -63,7 +63,7 @@
 						</figure>
 						<div class="fh5co-text-v">
 							<h2>${l.l_category }
-								<c:if test="${l.lessonDetail.l_student >= 3}">
+								<c:if test="${l.lessonDetail.l_student >= 4}">
 									<img alt="officialMark" src="resources/images/officialMark.png">
 								</c:if>
 							</h2>

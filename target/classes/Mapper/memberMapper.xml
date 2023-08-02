@@ -26,6 +26,7 @@
 			ON oe_lesson.l_num = oe_lesson_detail.l_num
 		WHERE oe_lesson.l_teacher_id = #{m_id}
 	</select>
+
 	
 	<!-- 회원탈퇴 -->
 	<delete id="deleteMember" >
