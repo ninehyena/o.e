@@ -188,25 +188,25 @@ $(function() {
     	  didOpen: () => {
     	    Swal.showLoading()
     	    $.ajax({
-				type : "GET",
-				url : "/e/mailCheck?email=" + email,
-				success : function(data) {
-					console.log("data : " + data);
-					code = data;
+			type : "GET",
+			url : "/e/mailCheck?email=" + email,
+			success : function(data) {
+				console.log("data : " + data);
+				code = data;
 
-					Swal.fire({
-  	                icon: 'info',                         
-  	                title: '메일로 인증번호가 발송되었어요.',
-  	                showConfirmButton: true,
-  	                confirmButtonText: '확인'
-  	            });
+				Swal.fire({
+				icon: 'info',                         
+				title: '메일로 인증번호가 발송되었어요.',
+				showConfirmButton: true,
+				confirmButtonText: '확인'
+			    });
 				},
 				error : function(data) {
 					Swal.fire({
-  	                icon: 'error',                         
-  	                title: '메일 발송에 실패했어요.',
-  	                showConfirmButton: false
-  	            });
+			  	                icon: 'error',                         
+			  	                title: '메일 발송에 실패했어요.',
+			  	                showConfirmButton: false
+			  	            });
 				}
 			}); // end ajax
     	  },
