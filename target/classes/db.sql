@@ -31,6 +31,7 @@ create table oe_member(
 
 select * from oe_member;
 
+
 -- 관리자 계정
 insert into oe_member values('admin', '1234', '관리자', '관리자', '00', 'projectoe72@gmail.com', '00', '00', '00');
 

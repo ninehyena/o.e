@@ -52,10 +52,10 @@
 				<div class="form-group">
 					<label for="m_lesson"><b>가입 목적</b></label><br> 
 					<div class="w49_2 oe_center">
-						<input type="radio" name="m_lesson" class="mr3" value="not_lesson" <c:if test="${fn:contains(sessionScope.loginMember.m_lesson, 'not_lesson')}">checked</c:if>>레슨을 받고 싶어요
+						<input type="radio" name="m_lesson" class="mr3" value="not_lesson" <c:if test="${sessionScope.loginMember.m_lesson == 'not_lesson'}">checked</c:if>>레슨을 받고 싶어요
 					</div>
 					<div class="w49_2 oe_center">
-						<input type="radio" name="m_lesson" class="mr3" value="lesson" <c:if test="${fn:contains(sessionScope.loginMember.m_lesson, 'lesson')}">checked</c:if>>레슨을 하고 싶어요
+						<input type="radio" name="m_lesson" class="mr3" value="lesson" <c:if test="${sessionScope.loginMember.m_lesson == 'lesson'}">checked</c:if>>레슨을 하고 싶어요
 					</div>					
 				</div>
 				<div class="form-group">
