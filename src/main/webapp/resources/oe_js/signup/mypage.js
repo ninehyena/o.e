@@ -1,7 +1,7 @@
 	
 var isPwChecked = false; // pw 확인
 var isPwChecked2 = false; // pwChk 확인
-var isNameChecked = true; // 이름 중복체크 확인
+var isNameChecked2 = true; // 이름 중복체크 확인
 var isPhoneChecked = false; //전화번호 양식 확인
 $(function(){
 	$('#signupEmailChkBtn').attr('disabled',true); //인증번호 발송 버튼 비활성화
@@ -63,7 +63,7 @@ $(function(){
 	var regName = /^[가-힣a-zA-Z0-9]{3,15}$/;
 	
 	$("#signupNickname2").change(function(){
-		isNameChecked = false; // 변경되면 확인 풀리게
+		isNameChecked2 = false; // 변경되면 확인 풀리게
 		var m_nickname = $("#signupNickname2").val();
 		var data = {
 			m_nickname : m_nickname
@@ -197,7 +197,7 @@ function Validation2() {
 		return false;
 	}
 	// 이름 중복확인
-	if(isNameChecked == false){
+	if(isNameChecked2 == false){
 		alert("이미 등록된 이름입니다.")
 		nickname.focus();
 		return false;
