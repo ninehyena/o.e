@@ -218,6 +218,7 @@ public class BoardDAO {
 			if (poster != null) {
 				new File(path + "/" + URLDecoder.decode(poster, "UTF-8")).delete();
 			}
+			
 			if (bm.deleteBoard(b_no) == 1) {
 				System.out.println("정보글 삭제 성공");
 				count--;
