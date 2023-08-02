@@ -180,19 +180,41 @@ $(function() {
 	$("#signupEmailChkBtn").click(function() { // 인증번호 발송 버튼 클릭시
 		var email = $('#signupEmail').val(); // 입력한 이메일 저장
 		console.log('완성된 이메일 : ' + email); // 이메일 잘 가져오는지 확인
+		let timerInterval
+    	Swal.fire({
+    	  title: '인증번호를 발송중이에요',
+    	  timer: 3000,
+    	  timerProgressBar: true,
+    	  didOpen: () => {
+    	    Swal.showLoading()
+    	    $.ajax({
+				type : "GET",
+				url : "/e/mailCheck?email=" + email,
+				success : function(data) {
+					console.log("data : " + data);
+					code = data;
 
-		$.ajax({
-			type : "GET",
-			url : "/e/mailCheck?email=" + email,
-			success : function(data) {
-				console.log("data : " + data);
-				code = data;
-				alert('인증번호가 전송되었습니다.')
-			},
-			error : function(data) {
-				alert("메일 발송에 실패했습니다.");
-			}
-		}); // end ajax
+					Swal.fire({
+  	                icon: 'info',                         
+  	                title: '메일로 인증번호가 발송되었어요.',
+  	                showConfirmButton: true,
+  	                confirmButtonText: '확인'
+  	            });
+				},
+				error : function(data) {
+					Swal.fire({
+  	                icon: 'error',                         
+  	                title: '메일 발송에 실패했어요.',
+  	                showConfirmButton: false
+  	            });
+				}
+			}); // end ajax
+    	  },
+    	  willClose: () => {
+    	    clearInterval(timerInterval)
+    	  }
+    	})// end Swal.fire
+    	
 	});// end send eamil
 
 	// 인증번호 비교

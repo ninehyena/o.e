@@ -37,7 +37,7 @@
 				</div>
 				<div class="form-group">
 					<label for="signupPw"><b>비밀번호</b></label> 
-					<input type="password" id="signupPw" name="m_pw" class="form-control" placeholder="비밀번호를 입력하세요" required />
+					<input type="password" id="signupPw" name="m_pw" class="form-control" autofocus="autofocus" placeholder="비밀번호를 입력하세요" required />
 					<span id="pwImpo" style="display: none;">비밀번호는 4글자 이상 12글자 이하</span>
 		 			<span id="pwAva" style="display: none;">사용 가능</span>
 		 			<span id="pwOver" style="display: none;">아이디와 동일한 비밀번호는 사용할 수 없습니다.</span>
@@ -60,7 +60,7 @@
 				</div>
 				<div class="form-group">
 					<label for="signupNickname"><b>이름</b></label> 
-					<input name="m_nickname" id="signupNickname2" autofocus="autofocus" class="form-control"
+					<input name="m_nickname" id="signupNickname2" class="form-control"
 		 				autocomplete="off" placeholder="닉네임을 입력하세요"
 		 				value="${sessionScope.loginMember.m_nickname }">
 		 			<span id="nameImpo" style="display: none;">이름은 최소 3글자 15글자 이하</span>
@@ -69,21 +69,21 @@
 				</div>
 				<div class="form-group">
 					<label for="l_content"><b>연락처</b></label> 
-					<input name="m_phone" id="signupPhone2" autofocus="autofocus" class="form-control"
+					<input name="m_phone" id="signupPhone2" class="form-control"
 		 				autocomplete="off" placeholder="숫자만 입력해주세요" 
 		 				value="${sessionScope.loginMember.m_phone }" maxlength="11"
 		 				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
 				</div>
 				<div class="form-group">
 					<label for="signupEmail"><b>이메일</b></label><br> 
-					<input name="m_email" id="signupEmail" autofocus="autofocus" class="form-control w65"
+					<input name="m_email" id="signupEmail" class="form-control w65"
 		 				autocomplete="off" placeholder="이메일을 입력하세요"
 		 				value="${sessionScope.loginMember.m_email }" readonly="readonly">
 		 			<button id="signupEmailChkBtn" type="button" class="btn btn-primary oe_font_bold_18 w32">인증번호 발송</button>
 	 				<span id="emailImpo" style="display: none;">잘못된 이메일 형식입니다.</span>
 		 			<span id="emailAva" style="display: none;">사용 가능한 이메일</span>
 				
-					<input id="emailChk"autofocus="autofocus" class="form-control"
+					<input id="emailChk" class="form-control"
 			 				autocomplete="off" placeholder="인증번호 6자리를 입력하세요.">
 					<span id="mail-check-warn"></span>
 				</div>
@@ -92,7 +92,7 @@
 					<input name="m_addr1" id="addr1" readonly="readonly" class="form-control w65 mb4" value="${sessionScope.loginMember.m_addr1 }">
 					<input type="button" id="addrBtn" value="우편번호" class="form-control w32 mb4">
 					<input name="m_addr2" id="addr2" readonly="readonly" class="form-control mb4"  value="${sessionScope.loginMember.m_addr2 }">
-					<input name="m_addr3" id="addr3" autofocus="autofocus" class="form-control mb4"
+					<input name="m_addr3" id="addr3" class="form-control mb4"
 			 				autocomplete="off" placeholder="나머지 주소를 입력하세요"
 			 				 value="${sessionScope.loginMember.m_addr3 }" required>
 				</div>
