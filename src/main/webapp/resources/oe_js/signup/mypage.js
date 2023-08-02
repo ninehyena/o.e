@@ -62,7 +62,9 @@ $(function(){
 	// 이름(닉네임) 확인
 	var regName = /^[가-힣a-zA-Z0-9]{3,15}$/;
 	
+
 	$("#signupNickname2").blur(function(){
+
 		isNameChecked2 = false; // 변경되면 확인 풀리게
 		var m_nickname = $("#signupNickname2").val();
 		var data = {
