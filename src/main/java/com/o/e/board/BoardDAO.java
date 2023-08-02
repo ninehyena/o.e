@@ -97,8 +97,10 @@ public class BoardDAO {
 			String title = mr.getParameter("b_title");
 			String content = mr.getParameter("b_content");
 			String poster = mr.getFilesystemName("b_poster");
-			poster = URLEncoder.encode(poster, "UTF-8").replace("+", " ");
-			System.out.println(poster);
+			if (poster != null) {
+				poster = URLEncoder.encode(poster, "UTF-8").replace("+", " ");
+				System.out.println(poster);
+			}
 
 			b.setB_category(category);
 			b.setB_title(title);
@@ -107,9 +109,10 @@ public class BoardDAO {
 			// textarea 줄바꿈 처리
 			b.getB_content().replace("\r\n", "<br>");
 
-			if (poster != null) {
-				b.setB_poster(poster);
-			}
+//			if (poster != null) {
+//				b.setB_poster(poster);
+//			}
+			b.setB_poster(poster);
 
 			if (bm.regBoard(b) == 1) {
 				System.out.println("정보글 등록 성공");
@@ -177,16 +180,20 @@ public class BoardDAO {
 
 			if (bm.updateBoard(b) == 1) {
 				System.out.println("정보글 수정 성공");
-				if (!new_poster.equals(old_poster)) { // 사진을 수정했으면
-					// 기존 사진 파일 지우기
-					new File(path + "/" + URLDecoder.decode(old_poster, "UTF-8")).delete();
-				} 
+				if (old_poster != null) {
+					if (!new_poster.equals(old_poster)) { // 사진을 수정했으면
+						// 기존 사진 파일 지우기
+						new File(path + "/" + URLDecoder.decode(old_poster, "UTF-8")).delete();
+					}
+				}
 			} else {
 				System.out.println("레슨 수정 실패");
-				if (!new_poster.equals(old_poster)) { // 사진을 수정했으면
-					// 기존 사진 파일 지우기
-					new File(path + "/" + URLDecoder.decode(old_poster, "UTF-8")).delete();
-				} 
+				if (old_poster != null) {
+					if (!new_poster.equals(old_poster)) { // 사진을 수정했으면
+						// 기존 사진 파일 지우기
+						new File(path + "/" + URLDecoder.decode(old_poster, "UTF-8")).delete();
+					} 
+				}
 			}
 			return b.getB_no();
 		} catch (Exception e) {
@@ -204,6 +211,13 @@ public class BoardDAO {
 	public void deleteBoard(int b_no, HttpServletRequest req) {
 		try {
 			BoardMapper bm = ss.getMapper(BoardMapper.class);
+			
+			String path = req.getRealPath("storage");
+			String poster = bm.readBoard(b_no).getB_poster();
+			
+			if (poster != null) {
+				new File(path + "/" + URLDecoder.decode(poster, "UTF-8")).delete();
+			}
 			if (bm.deleteBoard(b_no) == 1) {
 				System.out.println("정보글 삭제 성공");
 				count--;

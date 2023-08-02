@@ -38,7 +38,7 @@
 	<![CDATA[
 		INSERT INTO 
 		oe_board(b_no, b_category, b_title, b_content, b_poster, b_regdate)
-		VALUES(oe_board_seq.NEXTVAL, #{b_category}, #{b_title}, #{b_content}, #{b_poster}, sysdate)
+		VALUES(oe_board_seq.NEXTVAL, #{b_category}, #{b_title}, #{b_content}, #{b_poster, jdbcType=VARCHAR}, sysdate)
 	]]>
 	</insert>
 

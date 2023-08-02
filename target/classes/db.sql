@@ -148,7 +148,7 @@ CREATE TABLE oe_board (
     b_category   VARCHAR2(50 char) NOT NULL,
     b_title      VARCHAR2(200 char) NOT NULL,
     b_content    VARCHAR2(4000 char),
-    b_poster 	 VARCHAR2(500 char) NOT NULL,
+    b_poster 	 VARCHAR2(500 char),
     b_regdate    DATE DEFAULT sysdate NOT NULL,
     b_updatedate DATE DEFAULT sysdate
 );

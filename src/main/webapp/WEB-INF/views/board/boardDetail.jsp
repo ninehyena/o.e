@@ -45,9 +45,11 @@
 					</tr>
 					<tr>
 						<td class="oe_vcenter">
+							<c:if test="${board.b_poster != null}">
 							<div class="w100 oe_center">
 								<img src="storage/${board.b_poster }" class="photo">
 							</div>
+							</c:if>
 							<pre class="mt10 fs18 oe_b_white w100">${board.b_content }</pre>
 						</td>
 					</tr>
