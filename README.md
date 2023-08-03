@@ -30,5 +30,6 @@ o.e의 기준(누적 수강생 수가 30명이 넘을 때)을 만족하는 강�
 <img width="948" alt="스크린샷 2023-08-03 123449" src="https://github.com/ninehyena/o.e/assets/75665063/f2d4e632-2d05-4751-8b04-9f06bf0fd48a">
 <img width="1270" alt="스크린샷 2023-08-01 174228" src="https://github.com/ninehyena/o.e/assets/75665063/341caa9c-3081-4e89-8ff6-2e0e77ad1c52">
 <img width="1267" alt="스크린샷 2023-08-01 174151" src="https://github.com/ninehyena/o.e/assets/75665063/e125abdd-eafa-47aa-82c1-1e64c0bb4373">
-<img width="1268" alt="스크린샷 2023-08-01 174450" src="https://github.com/ninehyena/o.e/assets/75665063/e909a33a-02c8-46ed-a497-d537426f7746">
 <img width="1267" alt="스크린샷 2023-08-01 174302" src="https://github.com/ninehyena/o.e/assets/75665063/287678c4-8a6c-495b-9d83-1f253d97baa8">
+<img width="1268" alt="스크린샷 2023-08-01 174450" src="https://github.com/ninehyena/o.e/assets/75665063/e909a33a-02c8-46ed-a497-d537426f7746">
+
