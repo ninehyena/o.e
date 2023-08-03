@@ -50,10 +50,10 @@
 								<img src="storage/${board.b_poster }" class="photo">
 							</div>
 							</c:if>
-							<pre class="mt10 fs18 oe_b_white w100">${board.b_content }</pre>
+							<pre class="mt10 fs18 oe_b_white w100 preWidth">${board.b_content }</pre>
 						</td>
 					</tr>
-				</table>
+			</table>
 		</div>
 	</div>
 </div>

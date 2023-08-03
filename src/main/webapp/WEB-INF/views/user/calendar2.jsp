@@ -16,39 +16,39 @@
 	</div>
 </div>
 <script>
-<% Member m = (Member) request.getSession().getAttribute("loginMember");%>
-var m_id = $("#m_id").val();
-let ar = [];
-var select = '';
-
-for(i = 0; i < 24; i++) {
-	if (i < 10) {
-		select += '<option>0' + i + ':00</option>';
-	} else {
-		select += '<option>' + i + ':00</option>';
-	}
-}
-
-var list = '';
-$.ajax({
-	url: "getStuList",
-	type: "GET",
-	dataType:"JSON",
-	success: function(data) {
-		if (data.length != 0) {
-			list += '<select id="title" class="form-control">';
-			for (var key in data) {
-				list += '<option>' + data[key].a_id + '님 ' + data[key].lesson.l_category + ' 레슨' + '</option>';
-			}
-			list += '</select>';
+	<% Member m = (Member) request.getSession().getAttribute("loginMember");%>
+	var m_id = $("#m_id").val();
+	let ar = [];
+	var select = '';
+	
+	for(i = 0; i < 24; i++) {
+		if (i < 10) {
+			select += '<option>0' + i + ':00</option>';
 		} else {
-			list += '<input type="text" id="title" class="form-control">';
+			select += '<option>' + i + ':00</option>';
 		}
 	}
-});
+	
+	var list = '';
+	$.ajax({
+		url: "getStuList",
+		type: "GET",
+		dataType:"JSON",
+		success: function(data) {
+			if (data.length != 0) {
+				list += '<select id="title" class="form-control">';
+				for (var key in data) {
+					list += '<option>' + data[key].member.m_nickname + '님 ' + data[key].lesson.l_category + ' 레슨' + '</option>';
+				}
+				list += '</select>';
+			} else {
+				list += '<input type="text" id="title" class="form-control">';
+			}
+		}
+	});
 
 
- $.ajax({
+ 	$.ajax({
 		url: "mySchedule",
 		type: "GET",
 		data: {m_id:m_id},
@@ -153,7 +153,7 @@ $.ajax({
                     	var title = $("#title").val();
                     	var sTime = $("#sTime").val();
                     	var eTime = $("#eTime").val();
-                    	var a_id = title.split("님")[0];
+                    	var a_nickname = title.split("님")[0];
                     	var start = dateFormat(arg.start, sTime);
                     	var end = dateFormat2(arg.end, eTime);
                         // title 값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가
@@ -170,7 +170,7 @@ $.ajax({
                       		url: "myCalendar",
                       		type: "POST",
                       		data: {
-                      			a_id:a_id,
+                      			a_nickname:a_nickname,
                       			title:title,
                       			start:start,
                       			end:end,
@@ -272,4 +272,4 @@ $.ajax({
    
 	});
 
-    </script>
+</script>

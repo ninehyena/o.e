@@ -155,7 +155,7 @@ function recommend(m_nickname, m_id) {
 						+		'<img src="storage/' + data[key].lessonDetail.l_photo +'" alt="Image" class="w30">'
 						
 						+	'<div class="fh5co-text-r">'
-						+		'<h2>' + data[key].l_teacher_id + '님</h2>'
+						+		'<h2>' + data[key].member.m_nickname + '님</h2>'
 						+	'</div>'
 						+'</a>'
 						+'</div>'

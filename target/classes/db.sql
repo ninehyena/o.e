@@ -883,3 +883,62 @@ JOIN oe_lesson_detail
 group by l_teacher_id;
 
 select * from OE_LESSON_DETAIL;
+
+select *
+from OE_LESSON a
+inner join OE_LESSON_DETAIL b on a.l_num = b.l_num
+inner join oe_member c on a.l_teacher_id = c.m_id;
+
+select a.*, b.m_nickname
+from oe_lesson a
+inner join oe_member b on a.l_teacher_id = b.m_id
+where a.l_num = '17'
+
+-- top6 레슨 강사 닉네임 추가
+select rownum, d.*, e.m_nickname
+from ( select a.l_num, a.l_type, a.l_category, a.l_teacher_id, a.l_level, b.l_pay, b.l_student, c.cnt 
+		from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
+												from OE_APPLICATION_LIST
+												where a_date > to_date(to_char(sysdate - 6, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS') and a_date <= to_date(to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS')
+												group by l_num
+												order by count(*) desc) c
+		where a.l_num = b.l_num
+		and a.l_num = c.l_num
+		order by c.cnt desc) d inner join oe_member e on d.l_teacher_id = e.m_id
+		where rownum >= 1 and rownum <= 6;
+		
+select rownum as rn, c.*
+from ( select a.*, b.m_nickname
+		from oe_cmt a left outer join oe_member b on a.c_id = b.m_id
+		where l_num = '2'
+		order by c_ansnum
+	)c ; 
+	
+	select * from oe_cmt;
+	
+select c.a_id, b.l_category, a.m_nickname
+		from oe_member a, OE_LESSON b, OE_APPLICATION_LIST c
+		where b.l_teacher_id = 'test8'
+		and b.l_num = c.l_num
+		and a.m_id = c.a_id
+		and c.a_status = 1
+		
+select rownum, d.*, e.m_nickname
+				from ( select a.l_num, a.l_type, a.l_category, a.l_teacher_id, a.l_level, b.l_pay, b.l_student, c.cnt 
+						from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
+																from OE_APPLICATION_LIST
+																where a_date > to_date(to_char(sysdate - 6, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS') and a_date <= to_date(to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS')
+																group by l_num
+																order by count(*) desc) c
+						where a.l_num = b.l_num
+						and a.l_num = c.l_num
+						order by c.cnt desc) d inner join oe_member e on d.l_teacher_id = e.m_id
+						where rownum >= 1 and rownum <= 6;
+select * from oe_member;	
+select * from oe_lesson a, oe_lesson_detail b where a.l_num = b.l_num;
+select * from oe_review;
+select * from OE_SCHEDULE;
+select * from oe_application_list where l_num = 7;
+
+select * from oe_cmt;
+delete from oe_cmt where c_id = 'test14'

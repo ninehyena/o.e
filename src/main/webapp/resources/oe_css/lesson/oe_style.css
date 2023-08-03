@@ -589,7 +589,7 @@ and
 
 .writeArea2 {
 	resize: none;
-	width: 185%;
+	width: 150%;
 	border: silver solid 3px;
 	border-radius: 10px;
 	margin-left: 20px;
@@ -784,4 +784,8 @@ and
 #fc-dom-1 {
 	font-weight: bold;
 	color: #FBB448;
+}
+
+.preWidth {
+	white-space: pre-wrap;
 }

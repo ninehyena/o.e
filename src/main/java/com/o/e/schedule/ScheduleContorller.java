@@ -45,7 +45,7 @@ public class ScheduleContorller {
 
 	// 캘린더
 	@RequestMapping(value = "/myCalendar", method = RequestMethod.POST)
-	public @ResponseBody String calendarPost(String a_id, String title, String start, String end, HttpServletRequest req) {
+	public @ResponseBody String calendarPost(String a_nickname, String title, String start, String end, HttpServletRequest req) {
 		if (!mDAO.loginCheck(req)) {
 			return "redirect:/";
 		}
@@ -61,15 +61,14 @@ public class ScheduleContorller {
 
 			Schedule s = new Schedule();
 			Member m = (Member) req.getSession().getAttribute("loginMember");
-			
+			 
 			s.setM_id(m.getM_id());
-			s.setA_id(a_id);
 			s.setS_title(title);
 			s.setS_start(s_start);
 			s.setS_end(s_end);
 			
 			
-			sDAO.insert(s, req);
+			sDAO.insert(s, a_nickname, req);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
