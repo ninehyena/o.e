@@ -67,14 +67,16 @@ public class MemberDAO {
 			System.out.println("pw값:"+pw);//입력 확인용
 			
 			MemberMapper mm = ss.getMapper(MemberMapper.class);
+			LessonMapper lm = ss.getMapper(LessonMapper.class);
 			// 로그인 회원의 정보가 있다면
 			if(mm.login(m) != null) {
 				//입력한 pw와 회원가입한 pw가 같다면
 				if((mm.login(m).getM_pw()).equals(pw)) {
 					req.getSession().setAttribute("loginMember", mm.login(m));
 					if((mm.login(m).getM_lesson()).equals("lesson")) {
-						System.out.println("수강생 수"+mm.cumulativeStudent(id));
-						req.getSession().setAttribute("memberBadgeCheck", mm.cumulativeStudent(id));
+						if(lm.notRegLesson(id) != 0) {
+							req.getSession().setAttribute("memberBadgeCheck", mm.cumulativeStudent(id));
+						}
 					}
 					req.getSession().setMaxInactiveInterval(600); //10분
 					System.out.println("로그인 성공");
@@ -96,13 +98,15 @@ public class MemberDAO {
 			System.out.println("m_email값:"+m_email);//입력 확인용
 			
 			MemberMapper mm = ss.getMapper(MemberMapper.class);
+			LessonMapper lm = ss.getMapper(LessonMapper.class);
 			// 로그인 회원의 정보가 있다면
 			if(mm.kakaoLogin(m_email) != null) {
 				String id = mm.kakaoLogin(m_email).getM_id();
 				req.getSession().setAttribute("loginMember", mm.kakaoLogin(m_email));
 				if((mm.kakaoLogin(m_email).getM_lesson()).equals("lesson")) {
-					System.out.println("수강생 수"+mm.cumulativeStudent(id));
-					req.getSession().setAttribute("memberBadgeCheck", mm.cumulativeStudent(id));
+					if(lm.notRegLesson(id) != 0) {
+						req.getSession().setAttribute("memberBadgeCheck", mm.cumulativeStudent(id));
+					}
 				}
 				req.getSession().setMaxInactiveInterval(600); //10분
 				System.out.println("카카오 로그인 성공");
