@@ -36,7 +36,7 @@
 				<h2 class="oe_font primary-color oe_center">등록된 리뷰가 없습니다.</h2>
 			</c:if>
 			<c:forEach var="r" items="${reviews }">
-				<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="col-lg-4 col-md-4 col-sm-6" style="height: 200px; margin-bottom: 60px;">
 					<a href="javascript:reviewDetail(${r.r_num})" class="fh5co-card-item-r">
 						<figure>
 							<div class="overlay">

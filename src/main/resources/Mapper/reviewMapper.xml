@@ -30,6 +30,17 @@
 				) where rn >= #{start} and rn <= #{end}]]>
 	</select>
 	
+	<select id="get3Reviews" parameterType="int" resultType="com.o.e.lesson.Review">
+		<![CDATA[select * from ( 
+					select rownum as rn, b.*
+					from ( select rownum, a.*
+					from oe_review a
+					where a.l_num = #{l_num}
+					order by r_regdate desc
+					) b
+				) where rn >= 1 and rn <= 3]]>
+	</select>
+	
 	<!-- 리뷰 평점 가져오기 -->
 	<select id="getAvg" parameterType="int" resultType="double">
 		<![CDATA[select round(avg(r_star), 1)

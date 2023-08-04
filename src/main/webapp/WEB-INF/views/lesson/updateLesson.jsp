@@ -49,7 +49,7 @@
 					<span class="notnull">*</span><label for="l_level">레슨 레벨</label><br> 
 					<select class="form-control" id="l_level" name="l_level">
 						<option <c:if test="${lesson.l_level eq '초급' }">selected</c:if>>초급</option>
-						<option <c:if test="${lesson.l_level eq '충급' }">selected</c:if>>중급</option>
+						<option <c:if test="${lesson.l_level eq '중급' }">selected</c:if>>중급</option>
 						<option <c:if test="${lesson.l_level eq '고급' }">selected</c:if>>고급</option>
 				 	</select>
 				</div>

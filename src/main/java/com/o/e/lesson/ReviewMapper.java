@@ -14,6 +14,7 @@ public interface ReviewMapper {
 	
 	// 리뷰 리스트 가져오기
 	public abstract List<Review> getReviews(@Param("l_num") int l_num, @Param("start") int start, @Param("end") int end);
+	public abstract List<Review> get3Reviews(@Param("l_num") int l_num);
 
 	// 리뷰 평점 가져오기
 	public abstract double getAvg(@Param("l_num") int l_num);

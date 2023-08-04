@@ -385,7 +385,7 @@
 							and a.l_type like '%' || #{l.l_type} || '%'
 							and a.l_category like '%' || #{l.l_category} || '%'
 							and a.l_level like '%' || #{l.l_level} || '%'
-							and b.l_pay > #{l_pay_min} and b.l_pay < #{l_pay_max}
+							and b.l_pay >= #{l_pay_min} and b.l_pay <= #{l_pay_max}
 							and b.l_day like '%' || #{ld.l_day} || '%'
 							)c
 							where c.l_num in (select l_num 

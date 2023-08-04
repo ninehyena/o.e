@@ -118,10 +118,10 @@ public class LessonContoroller {
 
 		if (req.getParameter("p") != null) {
 			int p = Integer.parseInt(req.getParameter("p"));
-			rDAO.getReivews(p, l_num, req);
+			rDAO.get3Reivews(l_num, req);
 			cDAO.getAllCmt(p, l_num, req);
 		} else {
-			rDAO.getReivews(1, l_num, req);
+			rDAO.get3Reivews(l_num, req);
 			cDAO.getAllCmt(1, l_num, req);
 		}
 

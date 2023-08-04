@@ -23,13 +23,7 @@ function idFind() {
         	  timerProgressBar: true,
         	  didOpen: () => {
         	    Swal.showLoading()
-        	    
-        	  },
-        	  willClose: () => {
-        	    clearInterval(timerInterval)
-        	  }
-        	}).then((result) => {
-            	$.ajax({
+        	    $.ajax({
             		url: "idFind.do",
             		type: "GET",
             		data: {m_email:m_email},
@@ -66,10 +60,11 @@ function idFind() {
         				}, 2000);
             		}
             	});
-        		
-        	});
-        	
-        	
+        	  },
+        	  willClose: () => {
+        	    clearInterval(timerInterval)
+        	  }
+        	})
         	
         }
     });
@@ -96,17 +91,11 @@ function pwFind() {
         	let timerInterval
         	Swal.fire({
         	  title: '가입 정보를 찾고 있어요.',
-        	  timer: 2000,
+        	  timer: 3000,
         	  timerProgressBar: true,
         	  didOpen: () => {
         	    Swal.showLoading()
-        	    
-        	  },
-        	  willClose: () => {
-        	    clearInterval(timerInterval)
-        	  }
-        	}).then((result) => {
-            	$.ajax({
+        	    $.ajax({
             		url: "pwFind.do",
             		type: "POST",
             		data : {
@@ -163,6 +152,12 @@ function pwFind() {
         				}, 2000);
             		}
             	});
+        	  },
+        	  willClose: () => {
+        	    clearInterval(timerInterval)
+        	  }
+        	}).then((result) => {
+            	
         		
         	});
         	

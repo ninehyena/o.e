@@ -19,7 +19,6 @@ function kakaoLogout() {
         title: '<h2 class="primary-color"><b>로그아웃 하시겠습니까?</b></h2>',
         showCancelButton: true,
         confirmButtonColor: '#FBB448',
-        cancelButtonColor: '#d33',
         confirmButtonText: '로그아웃',
         cancelButtonText: '돌아가기'
     }).then((result) => {

@@ -147,7 +147,7 @@
 						<c:if test="${empty reviews}">
 							<h2 class="oe_font primary-color oe_center">등록된 리뷰가 없습니다.</h2>
 						</c:if>
-						<div style="clear: both;">
+						<div style="clear: both; height: 80%;">
 							<c:forEach var="r" items="${reviews }">
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<a href="javascript:reviewDetail(${r.r_num})" class="fh5co-card-item-r">
@@ -185,7 +185,7 @@
 			</div>
 			<form class="mt30">
 				<input type="hidden" name="l_num" value="${lesson.l_num }">
-				<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_id eq lesson.l_teacher_id}">
+				<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_id eq lesson.l_teacher_id || sessionScope.loginMember.m_id == 'admin'}">
 					<div class="row">
 						<button type="button" class="btn btn-success oe_font_bold_18 oe_float_left" onclick="applicationDetail(${lesson.l_num });">수업 현황</button>
 						<button type="button" class="btn btn-danger oe_font_bold_18 oe_float_right" onclick="deleteL(${lesson.l_num });">삭제</button>
@@ -239,7 +239,7 @@
 						</table>
 					</form>
 				</c:if>
-				<c:if test="${!empty cmts && (sessionScope.loginMember.m_id == lesson.l_teacher_id || list != null)}">
+				<c:if test="${!empty cmts && (sessionScope.loginMember.m_id == lesson.l_teacher_id || list != null|| sessionScope.loginMember.m_id == 'admin') }">
 					<table class="table">
 						<c:forEach var="cmt" items="${cmts }">
 							<tr class="table-secondary">
@@ -250,7 +250,7 @@
 								</th>
 								<td align="right">작성일 : <fmt:formatDate
 										value="${cmt.c_regdate }" pattern="yyyy-MM-dd hh:mm:ss" /> <c:if
-										test="${sessionScope.loginMember.m_id == cmt.c_id}">
+										test="${sessionScope.loginMember.m_id == cmt.c_id || sessionScope.loginMember.m_id == 'admin'}">
 										<input type="hidden" name="c_num" value="${cmt.c_num }">
 										<button type="button" class="myCmtBtnRight" id="update">수정</button>
 										<button type="button" class="myCmtBtn-DelRight"

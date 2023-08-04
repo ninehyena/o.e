@@ -938,7 +938,10 @@ select * from oe_member;
 select * from oe_lesson a, oe_lesson_detail b where a.l_num = b.l_num;
 select * from oe_review;
 select * from OE_SCHEDULE;
-select * from oe_application_list where l_num = 7;
+delete from OE_SCHEDULE where a_id = 'user2'
+select * from oe_application_list where l_num = 15;
 
 select * from oe_cmt;
-delete from oe_cmt where c_id = 'test14'
+delete from oe_cmt where l_num = 15;
+
+update oe_lesson_detail set l_pay = 30000 where l_num = 17

@@ -76,6 +76,20 @@ public class ReviewDAO {
 			System.out.println("리뷰 리스트 가져오기 실패");
 		}
 	}
+	
+	// 리뷰 3개만
+	public void get3Reivews(int l_num, HttpServletRequest req) {
+		try {
+
+			req.setAttribute("l_num", l_num);
+			req.setAttribute("reviews", ss.getMapper(ReviewMapper.class).get3Reviews(l_num));
+			req.setAttribute("lesson", ss.getMapper(LessonMapper.class).getDetail1(l_num));
+			System.out.println("리뷰 리스트 가져오기 성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("리뷰 리스트 가져오기 실패");
+		}
+	}
 
 	// 리뷰 평점 가져오기
 	public void getAvg(int l_num, HttpServletRequest req) {

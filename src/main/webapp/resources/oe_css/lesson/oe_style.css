@@ -589,7 +589,7 @@ and
 
 .writeArea2 {
 	resize: none;
-	width: 150%;
+	width: 120%;
 	border: silver solid 3px;
 	border-radius: 10px;
 	margin-left: 20px;
