@@ -45,13 +45,15 @@
 					</tr>
 					<tr>
 						<td class="oe_vcenter">
+							<c:if test="${board.b_poster != null}">
 							<div class="w100 oe_center">
 								<img src="storage/${board.b_poster }" class="photo">
 							</div>
-							<pre class="mt10 fs18 oe_b_white w100">${board.b_content }</pre>
+							</c:if>
+							<pre class="mt10 fs18 oe_b_white w100 preWidth">${board.b_content }</pre>
 						</td>
 					</tr>
-				</table>
+			</table>
 		</div>
 	</div>
 </div>

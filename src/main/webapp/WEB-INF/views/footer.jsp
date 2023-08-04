@@ -13,7 +13,8 @@
 						<h3>Get In Touch</h3>
 						<ul class="gtco-quick-contact">
 							<li><a href="tel://0212345678"><i class="icon-phone"></i> +82 02 - 1234 - 5678</a></li>
-							<li><a href="mailto:o.e@sobakee.com"><i class="icon-mail2"></i> projectoe72@gmail.com</a></li>
+							<li><a href="mailto:projectoe72@gmail.com"><i class="icon-mail2"></i> projectoe72@gmail.com</a></li>
+							<br><li><a href=""><i class="icon-location"></i> 서울 강남구 강남대로98길 16, 2층</a></li>
 						</ul>
 						<div id="map" style="width:500px;height:400px; margin: 0 auto;"></div>
 					</div>

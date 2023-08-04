@@ -102,17 +102,12 @@ $(function(){
 
 //회원 탈퇴 버튼
 function memberSecession(){
-//	let secessionCheck = prompt("정말 탈퇴하시겠습니까? Y/N");
-//	if(secessionCheck == "Y"){
-//		location.href = "deleteMember";
-//		alert("지금까지 이용해주셔서 감사합니다.");
-//	}
 	Swal.fire({
         title: '<h2 class="primary-color"><b>정말 탈퇴하시겠습니까?</b></h2>',
         html: '<label for="m_email" class="primary-color"><b>탈퇴 시 서비스 이용이 불가합니다.</b></label>',
         showCancelButton: true,
-        confirmButtonColor: '#FBB448',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#FBB448',
         confirmButtonText: '회원탈퇴',
         cancelButtonText: '돌아가기'
     }).then((result) => {

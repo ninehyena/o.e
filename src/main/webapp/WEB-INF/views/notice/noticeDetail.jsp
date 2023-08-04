@@ -43,7 +43,7 @@
 						</th>
 					</tr>
 					<tr>
-						<td colspan="3" class="oe_vcenter"><pre class="mt10 fs18 oe_b_white">${notice.n_content }</pre></td>
+						<td colspan="3" class="oe_vcenter"><pre class="mt10 fs18 oe_b_white preWidth">${notice.n_content }</pre></td>
 					</tr>
 				</table>
 		</div>

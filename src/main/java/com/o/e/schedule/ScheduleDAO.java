@@ -30,9 +30,10 @@ public class ScheduleDAO {
 		}
 	}
 	
-	public void insert(Schedule s, HttpServletRequest req) {
+	public void insert(Schedule s, String a_nickname, HttpServletRequest req) {
 		try {
 			ScheduleMapper sm = ss.getMapper(ScheduleMapper.class);
+			s.setA_id(sm.getID(a_nickname));
 			
 			if (sm.insert(s) == 1) {
 				System.out.println("일정 등록 성공");

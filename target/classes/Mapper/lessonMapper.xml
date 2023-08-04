@@ -89,10 +89,11 @@
 		</association>	
 		
 		<association javaType="com.o.e.member.Member" property="member">
+			<result property="m_nickname" column="m_nickname"/>
 			<result property="m_phone" column="m_phone"/>
 		</association>	
 	</resultMap>
-	
+
 	<select id="getAllList" parameterType="map" resultMap="LessonMap">
 		<![CDATA[select * from ( 
 				select rownum as rn, c.*
@@ -106,11 +107,18 @@
 				) c
 			) where rn >= #{start} and rn <= #{end}]]>
 	</select>
-	
 
 	<!-- 레슨 상세보기 -->
+	<!-- 
 	<select id="getDetail1" parameterType="int" resultType="com.o.e.lesson.Lesson">
 		select * from oe_lesson where l_num = #{l_num}
+	</select>
+	 -->
+	<select id="getDetail1" parameterType="int" resultMap="LessonMap">
+		select a.*, b.m_nickname
+		from oe_lesson a
+		inner join oe_member b on a.l_teacher_id = b.m_id
+		where a.l_num = #{l_num}
 	</select>
 	<select id="getDetail2" parameterType="int" resultType="com.o.e.lesson.LessonDetail">
 		select * from oe_lesson_detail where l_num = #{l_num}
@@ -194,7 +202,7 @@
 	 <select id="getMyList" parameterType="map" resultMap="LessonMap">
 		<![CDATA[select * from ( 
 				select rownum as rn, d.*
-				from ( select rownum, x.m_phone, y.*
+				from ( select rownum, x.m_phone, x.m_nickname, y.*
 						from oe_member x, (
 						select a.l_type, a.l_category, a.l_teacher_id, a.l_level, a.l_regdate, b.*, c.a_id, c.a_status, c.a_date
 						from oe_lesson a, oe_lesson_detail b, oe_application_list c
@@ -240,6 +248,7 @@
 		</association>	
 		
 		<association javaType="com.o.e.member.Member" property="member">
+			<result property="m_nickname" column="m_nickname"/>
 			<result property="m_phone" column="m_phone"/>
 		</association>	
 	</resultMap>
@@ -259,7 +268,7 @@
 	 <select id="getStudent" parameterType="map" resultMap="ApplicationMap">
 		<![CDATA[select * from ( 
 					select rownum as rn, d.*
-					from ( select rownum, a.l_type, a.l_category, a.l_level, b.*, c.m_phone
+					from ( select rownum, a.l_type, a.l_category, a.l_level, b.*, c.m_phone, c.m_nickname
 							from oe_lesson a, oe_application_list b, oe_member c
 							where a.l_num = b.l_num and a.l_num = #{l_num} and b.a_id is not null and b.a_id = c.m_id
 							order by b.a_date desc
@@ -329,6 +338,20 @@
 	
 	<!-- 레슨별 신청자 주간 통계 top6 -->
 	<select id="popularLesson" resultMap="LessonMap">
+		<![CDATA[select rownum, d.*, e.m_nickname
+				from ( select a.l_num, a.l_type, a.l_category, a.l_teacher_id, a.l_level, b.l_pay, b.l_student, c.cnt 
+						from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
+																from OE_APPLICATION_LIST
+																where a_date > to_date(to_char(sysdate - 6, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS') and a_date <= to_date(to_char(sysdate, 'YYYYMMDDHH24MISS'), 'YYYYMMDDHH24MISS')
+																group by l_num
+																order by count(*) desc) c
+						where a.l_num = b.l_num
+						and a.l_num = c.l_num
+						order by c.cnt desc) d inner join oe_member e on d.l_teacher_id = e.m_id
+						where rownum >= 1 and rownum <= 6]]>
+	</select>
+	<!-- 
+	<select id="popularLesson" resultMap="LessonMap">
 		<![CDATA[select rownum, d.*
 				from ( select a.l_num, a.l_type, a.l_category, a.l_teacher_id, a.l_level, b.l_pay, b.l_student, c.cnt 
 						from oe_lesson a, oe_lesson_detail b, (select l_num, count(*) as cnt
@@ -341,7 +364,8 @@
 						order by c.cnt desc) d
 						where rownum >= 1 and rownum <= 6]]>
 	</select>
-	
+	 -->
+	 
 	<!-- 누적 레슨 진행 횟수 -->
 	<select id="countAll" resultType="int">
 		select sum(l_student)
@@ -350,6 +374,29 @@
 	
 	
 	<!-- 레슨 추천 -->
+	<select id="recommendLesson" parameterType="map" resultMap="LessonMap">
+		<![CDATA[select * from ( 
+					select rownum as rn, c.*
+					from ( select rownum, a.l_teacher_id, a.l_category, b.*, d.m_nickname
+							from oe_lesson a, oe_lesson_detail b, oe_member d
+							where a.l_num = b.l_num
+							and a.l_teacher_id = d.m_id
+							and b.l_location like '%' ||  #{ld.l_location} || '%'
+							and a.l_type like '%' || #{l.l_type} || '%'
+							and a.l_category like '%' || #{l.l_category} || '%'
+							and a.l_level like '%' || #{l.l_level} || '%'
+							and b.l_pay > #{l_pay_min} and b.l_pay < #{l_pay_max}
+							and b.l_day like '%' || #{ld.l_day} || '%'
+							)c
+							where c.l_num in (select l_num 
+							from oe_lesson
+							where l_num not in (
+								select l_num
+								from oe_application_list
+								where a_id = #{m_id}))
+							) where rn >= 1 and rn <=3]]>
+	</select>
+	<!-- 
 	<select id="recommendLesson" parameterType="map" resultMap="LessonMap">
 		<![CDATA[select * from ( 
 					select rownum as rn, c.*
@@ -371,7 +418,8 @@
 								where a_id = #{m_id}))
 							) where rn >= 1 and rn <=3]]>
 	</select>
-	
+	 -->
+	 
 	<!-- 음악 카테고리별 수강생 수 -->
 	<select id="popularCategory" resultMap="LessonMap">
 		<![CDATA[select a.l_category, SUM(b.l_student) AS cnt

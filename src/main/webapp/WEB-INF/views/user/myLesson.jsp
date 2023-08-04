@@ -35,7 +35,7 @@
 						<th class="oe_center">레슨 타입</th>
 						<th class="oe_center">음악 카테고리</th>
 						<th class="oe_center">레슨 레벨</th>
-						<th class="oe_center">강사 아이디</th>
+						<th class="oe_center">강사 닉네임</th>
 						<th class="oe_center">상태</th>
 						<th class="oe_center">신청일</th>
 					</tr>
@@ -50,7 +50,7 @@
 							<td class="oe_center oe_vcenter">${l.l_type }</td>
 							<td class="oe_center oe_vcenter">${l.l_category }</td>
 							<td class="oe_center oe_vcenter">${l.l_level }</td>
-							<td class="oe_center oe_vcenter">${l.l_teacher_id }</td>
+							<td class="oe_center oe_vcenter">${l.member.m_nickname }</td>
 							<td class="oe_center oe_vcenter">
 								<c:if test="${l.applicationList.a_status == 0}">
 									<button class="btn btn-primary oe_font_bold_18">대기</button>

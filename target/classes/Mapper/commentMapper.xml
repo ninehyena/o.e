@@ -17,6 +17,31 @@
 	</insert>
 	
 	<!-- 댓글 페이징 -->
+	<resultMap type="com.o.e.comment.Comment" id="CommentMap">
+		<result property="c_num" column="c_num"/>
+		<result property="l_num" column="l_num"/>
+		<result property="c_id" column="c_id"/>
+		<result property="c_content" column="c_content"/>
+		<result property="c_regdate" column="c_regdate"/>
+		<result property="c_indent" column="c_indent"/>
+		<result property="c_ansnum" column="c_ansnum"/>	
+		
+		<association javaType="com.o.e.member.Member" property="member">
+			<result property="m_nickname" column="m_nickname"/>
+		</association>	
+	</resultMap>
+	<select id="getAllCmt" parameterType="int"
+		resultMap="CommentMap">
+		<![CDATA[select * from ( 
+					select rownum as rn, c.*
+					from ( select a.*, b.m_nickname
+							from oe_cmt a left outer join oe_member b on a.c_id = b.m_id
+							where l_num = #{l_num}
+							order by c_ansnum
+						)c
+				) where rn >= #{start} and rn <= #{end}]]>
+	</select>
+	<!-- 
 	<select id="getAllCmt" parameterType="int"
 		resultType="com.o.e.comment.Comment">
 		<![CDATA[select * from ( 
@@ -28,6 +53,7 @@
 					) 
 				) where rn >= #{start} and rn <= #{end}]]>
 	</select>
+	 -->
 	<select id="countCmt" parameterType="int" resultType="int">
 		select count(*) from oe_cmt where l_num = #{l_num}
 	</select>

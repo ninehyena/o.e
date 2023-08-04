@@ -278,9 +278,9 @@ function applicationDetail(l_num) {
 }
 
 /* 레슨 신청 확인 */
-function applicationConfirm(l_num, a_id) {
+function applicationConfirm(l_num, a_id, nickname) {
 	Swal.fire({
-        title: a_id + '님의 레슨 신청을 수락하시겠습니까?',
+        title: nickname + '님의 레슨 신청을 수락하시겠습니까?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -330,9 +330,9 @@ function applicationConfirm(l_num, a_id) {
 }
 
 /* 레슨 진행 -> 완료 */
-function finishLesson(l_num, a_id) {
+function finishLesson(l_num, a_id, nickname) {
 	Swal.fire({
-        title: a_id + '님의 레슨을 완료하시겠습니까?',
+        title: nickname + '님의 레슨을 완료하시겠습니까?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -350,7 +350,7 @@ function finishLesson(l_num, a_id) {
         			if (cnt == 1) {
         				Swal.fire({
         	                icon: 'success',                         
-        	                title: a_id + '님의 레슨이 완료 되었습니다.',
+        	                title: nickname + '님의 레슨이 완료 되었습니다.',
         	                showConfirmButton: false
         	            });
 					} else {

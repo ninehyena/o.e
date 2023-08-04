@@ -2,6 +2,8 @@ package com.o.e.comment;
 
 import java.util.Date;
 
+import com.o.e.member.Member;
+
 public class Comment {
 	private int c_num;
 	private int l_num;
@@ -10,6 +12,8 @@ public class Comment {
 	private Date c_regdate;
 	private int c_indent;
 	private int c_ansnum;
+	
+	private Member member;
 	
 	public Comment() {
 		// TODO Auto-generated constructor stub
@@ -82,5 +86,14 @@ public class Comment {
 		this.c_ansnum = c_ansnum;
 	}
 
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	
 
 }

@@ -28,7 +28,7 @@
 	<div class="gtco-container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-				<h2 class="oe_font primary-color">${lesson.l_teacher_id }님의 ${lesson.l_category }레슨을 소개할게요 !</h2>
+				<h2 class="oe_font primary-color">${lesson.member.m_nickname }님의 ${lesson.l_category }레슨을 소개할게요 !</h2>
 			</div>
 		</div>
 		<div class="row">
@@ -51,7 +51,7 @@
 					<!-- 수업 소개 탭 -->
 					<div class="tab-pane fade in active" id="info">
 						<img src="images/checkbox.png" class="checkbox">
-						<span class="checkbox_text">${lesson.l_teacher_id }님이 수업을 진행해요!</span>
+						<span class="checkbox_text">${lesson.member.m_nickname }님이 수업을 진행해요!</span>
 						<br>
 						<img src="images/checkbox.png" class="checkbox">
 						<span class="checkbox_text">제 수업은 ${detail.l_location }에서 진행할 예정이에요!</span>
@@ -243,9 +243,10 @@
 					<table class="table">
 						<c:forEach var="cmt" items="${cmts }">
 							<tr class="table-secondary">
-								<th class="primary-color"><c:forEach begin="1" end="${cmt.c_indent }">
+								<th class="primary-color">
+									<c:forEach begin="1" end="${cmt.c_indent }">
 										<img src="resources/images/reply.gif">
-									</c:forEach> <c:if test="${cmt.c_id == null}">알 수 없음</c:if>${cmt.c_id }
+									</c:forEach> <c:if test="${cmt.c_id == null}">알 수 없음</c:if>${cmt.member.m_nickname }
 								</th>
 								<td align="right">작성일 : <fmt:formatDate
 										value="${cmt.c_regdate }" pattern="yyyy-MM-dd hh:mm:ss" /> <c:if
@@ -260,13 +261,13 @@
 							<tr>
 								<td id="content">${cmt.c_content }</td>
 								<td align="right"><c:if
-										test="${sessionScope.loginMember != null }">
+										test="${sessionScope.loginMember != null && cmt.c_id != null}">
 										<button type="button" id="regC" class="cmtBtn">답글 작성</button>
 									</c:if></td>
 							</tr>
 	
 							<!-- 클릭 시 보여줄 부분 -->
-							<tr id="cmtCmt">
+							<tr id="cmtCmt" class="w100">
 								<form action="cmtCmtWrite" method="post">
 									<td>			
 										<input type="hidden" name="l_num" value="${lesson.l_num }">
@@ -278,7 +279,7 @@
 											class="writeArea2"></textarea>
 									</td>
 									<td align="right">
-										<button class="writeBtn2">작성</button>
+										<button class="writeBtn2" style="margin-right: 10px;">작성</button>
 									</td>
 								</form>
 							</tr>

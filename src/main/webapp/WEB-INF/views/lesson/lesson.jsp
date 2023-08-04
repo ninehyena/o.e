@@ -64,7 +64,7 @@
 						<div class="fh5co-text-v">
 							<h2>${l.l_category }
 								<c:if test="${l.lessonDetail.l_student >= 4}">
-									<img alt="officialMark" src="resources/images/officialMark.png">
+									<img alt="officialMark" src="resources/images/officialMark.png"  class="officialMark">
 								</c:if>
 							</h2>
 							<p>레슨 타입 : ${l.l_type } / 레슨 레벨 : ${l.l_level }
@@ -101,4 +101,17 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+	$(".officialMark").hover(function() {
+		Swal.fire({
+	        icon: 'success',                         
+	        title: '해당 마크는 o.e에서 부여한 인증 뱃지예요!',
+	        html: '<b>o.e의 기준에 맞는 강사에게만 부여한 인증 뱃지예요.<br>레슨을 신청하는데 참고해 보세요.</b>',
+	        showConFirmButton: true,
+	        showCancelButton: false,
+	        confirmButtonColor: '#3085d6',
+	        confirmButtonText: '확인',
+	    });
+	});
+</script>
 <%@ include file="../footer.jsp"%>

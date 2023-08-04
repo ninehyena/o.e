@@ -160,7 +160,7 @@
 							<c:if test="${p.lessonDetail.l_student >= 4}">
 									<img alt="officialMark" src="resources/images/officialMark.png" style="position: absolute; left: 5px;" class="officialMark">
 								</c:if>
-								<h2>${p.l_teacher_id }님의<br>${p.l_category }수업</h2>
+								<h2>${p.member.m_nickname }님의<br>${p.l_category }수업</h2>
 							
 							<p>레슨 타입 : ${p.l_type } / 레슨 레벨 : ${p.l_level }
 							<br>레슨 비용 : ${p.lessonDetail.l_pay }원 / 시간당

@@ -35,7 +35,7 @@
 				<table class="table table-hover oe_font_bold_18">
 					<tr>
 						<th class="oe_center">번호</th>
-						<th class="oe_center">신청자 아이디</th>
+						<th class="oe_center">신청자 닉네임</th>
 						<th class="oe_center">신청일</th>
 						<th class="oe_center">레슨 상태</th>
 					</tr>
@@ -47,14 +47,14 @@
 					<c:forEach var="l" items="${studentList }" varStatus="status">
 						<tr>
 							<td class="oe_center oe_vcenter"><c:out value="${status.count}" /></td>
-							<td class="oe_center oe_vcenter">${l.a_id }</td>
+							<td class="oe_center oe_vcenter">${l.member.m_nickname }</td>
 							<td class="oe_center oe_vcenter"><fmt:formatDate value="${l.a_date}" pattern="yyyy-MM-dd" /></td>
 							<td class="oe_center oe_vcenter">
 								<c:if test="${l.a_status == 0}">
-									<button type="button" class="btn btn-primary oe_font_bold_18" onclick="applicationConfirm(${l.l_num }, '${l.a_id }');">대기</button>
+									<button type="button" class="btn btn-primary oe_font_bold_18" onclick="applicationConfirm(${l.l_num }, '${l.a_id }', '${l.member.m_nickname }');">대기</button>
 								</c:if>
 								<c:if test="${l.a_status == 1}">
-									<button type="button" class="btn btn-success oe_font_bold_18" onclick="finishLesson(${l.l_num }, '${l.a_id }');">진행</button>
+									<button type="button" class="btn btn-success oe_font_bold_18" onclick="finishLesson(${l.l_num }, '${l.a_id }', '${l.member.m_nickname }');">진행</button>
 								</c:if>
 								<c:if test="${l.a_status == 2}">
 									<button type="button" class="btn btn-secondary oe_font_bold_18" onclick="">완료</button>
