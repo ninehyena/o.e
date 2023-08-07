@@ -63,7 +63,7 @@
 						<c:if test="${detail.l_room == '연습실 대관'}">
 							<span class="checkbox_text">연습실을 대관해야 해요!</span>
 						</c:if>
-						<c:if test="${detail.l_room == '기타'}">
+						<c:if test="${detail.l_room == '기타' || detail.l_room == '협의'}">
 							<span class="checkbox_text">레슨 장소는 편한 곳으로 서로 협의해요!</span>
 						</c:if>
 						<br>
@@ -185,6 +185,22 @@
 			</div>
 			<form class="mt30">
 				<input type="hidden" name="l_num" value="${lesson.l_num }">
+				<c:if test="${sessionScope.loginMember.m_id != null }">
+					<c:if test="${sessionScope.loginMember.m_id == 'admin'}">
+						<div class="row">
+						   	<button type="button" class="btn btn-danger oe_font_bold_18 oe_float_right" onclick="deleteL(${lesson.l_num });">삭제</button>
+							<button type="button" class="btn btn-secondary oe_font_bold_18 oe_float_right" onclick="updateL(${lesson.l_num });">수정</button>
+						</div>
+					</c:if>
+					<c:if test="${sessionScope.loginMember.m_id eq lesson.l_teacher_id }"> 
+						<div class="row">
+						   	<button type="button" class="btn btn-success oe_font_bold_18 oe_float_left" onclick="applicationDetail(${lesson.l_num });">수업 현황</button>
+							<button type="button" class="btn btn-danger oe_font_bold_18 oe_float_right" onclick="deleteL(${lesson.l_num });">삭제</button>
+							<button type="button" class="btn btn-secondary oe_font_bold_18 oe_float_right" onclick="updateL(${lesson.l_num });">수정</button>
+						</div>
+					</c:if>
+				</c:if>
+				<!-- 
 				<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_id eq lesson.l_teacher_id || sessionScope.loginMember.m_id == 'admin'}">
 					<div class="row">
 						<button type="button" class="btn btn-success oe_font_bold_18 oe_float_left" onclick="applicationDetail(${lesson.l_num });">수업 현황</button>
@@ -192,6 +208,7 @@
 						<button type="button" class="btn btn-secondary oe_font_bold_18 oe_float_right" onclick="updateL(${lesson.l_num });">수정</button>
 					</div>
 				</c:if>
+				 -->
 				<c:if test="${sessionScope.loginMember.m_id != null && sessionScope.loginMember.m_lesson eq 'not_lesson'}">
 					<div class="row oe_center">
 						<c:if test="${list == null }">

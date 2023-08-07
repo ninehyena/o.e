@@ -222,8 +222,8 @@ function cancel(l_num) {
         title: '신청을 취소하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
         confirmButtonText: '취소하기',
         cancelButtonText: '돌아가기'
     }).then((result) => {
@@ -251,8 +251,8 @@ function deleteL(l_num) {
         title: '레슨을 삭제하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
         confirmButtonText: '삭제하기',
         cancelButtonText: '돌아가기'
     }).then((result) => {
@@ -522,8 +522,8 @@ function deleteC(l_num, c_num) {
         title: '댓글을 삭제하시겠습니까?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
         confirmButtonText: '삭제하기',
         cancelButtonText: '돌아가기'
     }).then((result) => {
