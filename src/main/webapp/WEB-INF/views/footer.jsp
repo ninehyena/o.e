@@ -4,9 +4,6 @@
 		<div class="overlay"></div>
 		<div class="gtco-container">
 			<div class="row row-pb-md">
-
-				
-
 				
 				<div class="col-md-12 text-center">
 					<div class="gtco-widget">
@@ -25,8 +22,6 @@
 				</div>
 
 			</div>
-
-			
 
 		</div>
 	</footer>

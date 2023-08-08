@@ -151,11 +151,9 @@ function recommend(m_nickname, m_id) {
 					
 					ar[key] = [
 						'<div class="w30"> <a href="lessonDetail?l_num=' + data[key].l_num + '" class="fh5co-card-item ">'
-						
-						+		'<img src="storage/' + data[key].lessonDetail.l_photo +'" alt="Image" class="w30">'
-						
+						+		'<img src="storage/' + data[key].lessonDetail.l_photo +'" alt="Image">'
 						+	'<div class="fh5co-text-r">'
-						+		'<h2>' + data[key].member.m_nickname + '님</h2>'
+						+		'<h2 class="ft25">' + data[key].member.m_nickname + '님</h2>'
 						+	'</div>'
 						+'</a>'
 						+'</div>'

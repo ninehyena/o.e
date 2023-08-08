@@ -236,6 +236,7 @@
 			</form>
 		</div>
 		
+		<!-- 댓글 시작 -->
 		<div class="row">
 			<div class="cmt">
 				<c:if test="${sessionScope.loginMember.m_id == lesson.l_teacher_id || list != null }">
@@ -263,15 +264,16 @@
 								<th class="primary-color">
 									<c:forEach begin="1" end="${cmt.c_indent }">
 										<img src="resources/images/reply.gif">
-									</c:forEach> <c:if test="${cmt.c_id == null}">알 수 없음</c:if>${cmt.member.m_nickname }
+									</c:forEach> 
+									<c:if test="${cmt.c_id == null}">알 수 없음</c:if>
+									${cmt.member.m_nickname }
 								</th>
-								<td align="right">작성일 : <fmt:formatDate
-										value="${cmt.c_regdate }" pattern="yyyy-MM-dd hh:mm:ss" /> <c:if
-										test="${sessionScope.loginMember.m_id == cmt.c_id || sessionScope.loginMember.m_id == 'admin'}">
+								<td align="right">작성일 : 
+									<fmt:formatDate value="${cmt.c_regdate }" pattern="yyyy-MM-dd hh:mm:ss" /> 
+									<c:if test="${sessionScope.loginMember.m_id == cmt.c_id || sessionScope.loginMember.m_id == 'admin'}">
 										<input type="hidden" name="c_num" value="${cmt.c_num }">
 										<button type="button" class="myCmtBtnRight" id="update">수정</button>
-										<button type="button" class="myCmtBtn-DelRight"
-											onclick="deleteC(${lesson.l_num}, ${cmt.c_num});">삭제</button>
+										<button type="button" class="myCmtBtn-DelRight" onclick="deleteC(${lesson.l_num}, ${cmt.c_num});">삭제</button>
 									</c:if>
 								</td>
 							</tr>
@@ -312,6 +314,8 @@
 				</c:if>
 			</div>
 		</div>
+		<!-- 댓글 끝 -->
+		
 	</div>
 </div>
 

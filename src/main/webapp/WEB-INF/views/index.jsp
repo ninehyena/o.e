@@ -352,7 +352,7 @@
     				d[key] = data[key].applicationList.cnt
     			}
     			
-    			CanvasJS.addColorSet("customColors1", ["#ff6384", "#36a2eb", "#ffce56", "#37ED54", "#DB51ED", "#09E1F0"]);
+    			CanvasJS.addColorSet("customColors1", ["#ff6384", "#36a2eb", "#ffce56", "#37ED54", "#DB51ED", "#09E1F0", "#F58653"]);
     			var chart2 = new CanvasJS.Chart("chartContainer2", {
     				colorSet: "customColors1",
     				animationEnabled: true,

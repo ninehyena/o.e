@@ -106,6 +106,7 @@
 }
 
 .w30 {
+	width: 32%;
 	margin: 0 auto;
 	display: inline-block;
 }
@@ -788,4 +789,21 @@ and
 
 .preWidth {
 	white-space: pre-wrap;
+}
+
+.fh5co-card-item .fh5co-text-r .ft25 {
+	font-size: 25px;
+	font-weight: bold;
+	margin: 0 0 10px 0;
+	color: #FBB448;
+}
+
+.mainLogo {
+	width: 50%;
+}
+
+@media ( max-width : 800px) {
+	.mainLogo {
+	 width: 20%;
+	}
 }

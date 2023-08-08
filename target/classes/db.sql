@@ -30,7 +30,8 @@ create table oe_member(
 );
 
 select * from oe_member;
-
+delete from OE_MEMBER where m_id='qwe12'
+select * from OE_APPLICATION_LIST where a_status = 1 or a_status = 0
 
 -- 관리자 계정
 insert into oe_member values('admin', '1234', '관리자', '관리자', '00', 'projectoe72@gmail.com', '00', '00', '00');
@@ -50,6 +51,8 @@ create table oe_lesson(
 
 create sequence oe_lesson_seq;
 select * from oe_lesson;
+select * from OE_SCHEDULE;
+select * from OE_LESSON_DETAIL;
 
 -- 레슨 상세 테이블
 create table oe_lesson_detail(
@@ -944,4 +947,4 @@ select * from oe_application_list where l_num = 15;
 select * from oe_cmt;
 delete from oe_cmt where l_num = 15;
 
-update oe_lesson_detail set l_pay = 30000 where l_num = 17
+update oe_lesson_detail set l_pay = 30000 where l_num = 17;

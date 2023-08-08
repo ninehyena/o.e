@@ -516,6 +516,7 @@ function updateCmt(l_num, c_num, c_content) {
     });
 }
 
+// 댓글 삭제
 function deleteC(l_num, c_num) {
 
 	Swal.fire({
@@ -542,7 +543,7 @@ function deleteC(l_num, c_num) {
     });
 }
 
-//레슨 삭제
+// 리뷰 삭제
 function deleteReview(l_num, r_num) {
 	Swal.fire({
         title: '리뷰를 삭제하시겠습니까?',

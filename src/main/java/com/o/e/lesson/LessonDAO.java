@@ -529,16 +529,21 @@ public class LessonDAO {
 		try {
 			LessonMapper lm = ss.getMapper(LessonMapper.class);
 			ReviewMapper rm = ss.getMapper(ReviewMapper.class);
+			// 주간 인기 레슨 TOP6
 			req.setAttribute("popular", lm.popularLesson());
 			System.out.println("인기 레슨 " + lm.popularLesson().size());
+			// 총 레슨 수
 			req.setAttribute("countA", lm.countAll());
+			// 총 리뷰 수
 			req.setAttribute("countR", rm.countAll());
+			// 총 추천 수
 			req.setAttribute("countRec", rm.getRec());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	// 음악 카테고리별 수강생 수
 	public List<Lesson> jsonData() {
 		try {
 			LessonMapper lm = ss.getMapper(LessonMapper.class);

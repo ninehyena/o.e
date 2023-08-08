@@ -28,7 +28,7 @@
 	<div class="gtco-container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-				<h2 class="oe_font primary-color">${lesson.l_teacher_id }님 수업의 리뷰를 확인하세요!</h2>
+				<h2 class="oe_font primary-color">${lesson.member.m_nickname }님 ${lesson.l_category } 수업의 리뷰를 확인하세요!</h2>
 			</div>
 		</div>
 		<div class="row">
